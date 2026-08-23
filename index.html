@@ -201,7 +201,7 @@
     <!-- BẢNG ĐIỀU KHIỂN ADMIN -->
     <div class="controls-panel" id="adminControls">
         <div class="control-group">
-            <label for="workDate">Chọn ngày tùy chỉnh (Admin):</label>
+            <label for="workDate">Chọn ngày xếp lịch (Admin):</label>
             <input type="date" id="workDate">
         </div>
         
@@ -218,7 +218,7 @@
             </select>
         </div>
 
-        <button class="btn-generate" onclick="applyAdminChanges()">Cập Nhật Lịch Bằng Tay</button>
+        <button class="btn-generate" onclick="applyAdminChanges()">Lưu & Cập Nhật Lịch</button>
     </div>
 
     <div id="noticeBox" class="flag-notice" style="display: none;"></div>
@@ -269,6 +269,7 @@
         "p52":   { name: "Phòng 52",    members: ["Thái Thị Diệu Hiền", "Tạ Thị Diễm My", "Nguyễn Hà My", "Nguyễn Thị Tường Lam", "Trần Ngọc Trâm", "Hồ Thị Khánh Băng"] }
     };
 
+    // Đã xóa bạn Phạm Đường Lâm khỏi danh sách
     const allStudents = [
         { name: "Nguyễn Trung Anh", room: "Phòng 30" },
         { name: "Lê Phạm Hoàng Anh", room: "Phòng 15" },
@@ -286,7 +287,6 @@
         { name: "Trịnh Gia Huy", room: "Phòng 27" },
         { name: "Trần Văn Huy", room: "Phòng 34" },
         { name: "Trương Anh Kiệt", room: "Phòng 13-33" },
-        { name: "Phạm Đường Lâm", room: "Ngoại trú" },
         { name: "Nguyễn Thị Tường Lam", room: "Phòng 52" },
         { name: "Tạ Thị Diễm My", room: "Phòng 52" },
         { name: "Nguyễn Hà My", room: "Phòng 52" },
@@ -366,7 +366,7 @@
                 available = available.filter(s => !roomMembers.includes(s.name));
                 noticeText = `📌 <b>Thứ 2:</b> <b>${rooms[selectedRoomKey].name}</b> đi xếp ghế chào cờ. Bạn <b>Bùi Đức Thịnh</b> nghỉ việc riêng. Số học sinh còn lại (${available.length} bạn) chia đều vào 3 phân khu.`;
             } else {
-                noticeText = `📌 <b>Thứ 2:</b> Bạn <b>Bùi Đức Thịnh</b> nghỉ việc riêng. (${available.length} bạn chia vào 3 khu).`;
+                noticeText = `📌 <b>Thứ 2:</b> Chưa chọn phòng đi xếp ghế. Bạn <b>Bùi Đức Thịnh</b> nghỉ việc riêng. (${available.length} bạn chia vào 3 khu).`;
             }
         }
 
@@ -463,7 +463,12 @@
             return;
         }
 
+        // Cập nhật URL để đồng bộ dữ liệu xếp ghế cho tất cả mọi người
+        const newUrl = window.location.protocol + "//" + window.location.host + window.location.pathname + `?date=${dateInput}&room=${selectedRoomKey}`;
+        window.history.pushState({path:newUrl}, '', newUrl);
+
         renderScheduleForDate(dateInput, selectedRoomKey);
+        alert("Đã cập nhật lịch thành công! Bạn có thể copy đường link hiện tại gửi cho lớp để mọi người thấy cùng kết quả.");
     }
 
     function searchHistory() {
@@ -480,11 +485,16 @@
     }
 
     window.onload = function() {
-        const todayStr = getTodayString();
+        const urlParams = new URLSearchParams(window.location.search);
+        const paramDate = urlParams.get('date');
+        const paramRoom = urlParams.get('room') || 'none';
+
+        const todayStr = paramDate || getTodayString();
         document.getElementById('workDate').value = todayStr;
         document.getElementById('historyDate').value = todayStr;
+        document.getElementById('chairRoom').value = paramRoom;
         
-        renderScheduleForDate(todayStr);
+        renderScheduleForDate(todayStr, paramRoom);
     };
 </script>
 
