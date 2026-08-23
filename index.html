@@ -171,18 +171,6 @@
             font-size: 0.95em;
         }
 
-        .pending-notice {
-            background-color: #ebedef;
-            border: 2px dashed #7f8c8d;
-            color: #2c3e50;
-            padding: 25px;
-            text-align: center;
-            border-radius: 8px;
-            font-size: 1.2em;
-            font-weight: bold;
-            margin: 20px 0;
-        }
-
         .history-section {
             margin-top: 40px;
             padding-top: 20px;
@@ -210,10 +198,10 @@
 
     <h1>Lịch Lao Động Phân Khu Lớp Chuyên Tin</h1>
 
-    <!-- QUẢN LÝ CỦA ADMIN -->
+    <!-- BẢNG ĐIỀU KHIỂN ADMIN -->
     <div class="controls-panel" id="adminControls">
         <div class="control-group">
-            <label for="workDate">Chọn ngày xếp lịch (Admin):</label>
+            <label for="workDate">Chọn ngày tùy chỉnh (Admin):</label>
             <input type="date" id="workDate">
         </div>
         
@@ -230,7 +218,7 @@
             </select>
         </div>
 
-        <button class="btn-generate" onclick="saveAndPublishSchedule()">Lưu & Xuất Lịch</button>
+        <button class="btn-generate" onclick="applyAdminChanges()">Cập Nhật Lịch Bằng Tay</button>
     </div>
 
     <div id="noticeBox" class="flag-notice" style="display: none;"></div>
@@ -254,16 +242,13 @@
     </div>
 
     <h2 id="scheduleTitle">Lịch Lao Động Hôm Nay</h2>
-    <div id="pendingBox" class="pending-notice" style="display: none;">
-        📢 Admin: Bodeptrai chưa xếp lịch, vui lòng đợi nha!
-    </div>
     <div class="schedule-grid" id="scheduleDisplay"></div>
 
-    <!-- MỤC TRA CỨU LỊCH SỬ -->
+    <!-- TRA CỨU LỊCH SỬ -->
     <div class="history-section">
-        <h2>🔍 Tra Cứu Lịch Sử Lao Động</h2>
+        <h2>🔍 Tra Cứu Lịch Theo Ngày</h2>
         <div class="history-controls">
-            <label for="historyDate">Chọn ngày muốn xem lại:</label>
+            <label for="historyDate">Chọn ngày muốn tra cứu:</label>
             <input type="date" id="historyDate">
             <button class="btn-admin" style="background-color: #2980b9;" onclick="searchHistory()">Xem Lịch</button>
         </div>
@@ -322,7 +307,10 @@
 
     function getTodayString() {
         const today = new Date();
-        return today.toISOString().split('T')[0];
+        const year = today.getFullYear();
+        const month = String(today.getMonth() + 1).padStart(2, '0');
+        const day = String(today.getDate()).padStart(2, '0');
+        return `${year}-${month}-${day}`;
     }
 
     function toggleAdmin() {
@@ -348,13 +336,15 @@
     }
 
     function getDayIndex(dateStr) {
-        const date = new Date(dateStr);
+        const parts = dateStr.split('-');
+        const date = new Date(parts[0], parts[1] - 1, parts[2]);
         const startOfYear = new Date(date.getFullYear(), 0, 1);
         return Math.floor((date - startOfYear) / (1000 * 60 * 60 * 24));
     }
 
-    function calculateDataForDate(dateInput, selectedRoomKey) {
-        const date = new Date(dateInput);
+    function calculateDataForDate(dateInput, selectedRoomKey = 'none') {
+        const parts = dateInput.split('-');
+        const date = new Date(parts[0], parts[1] - 1, parts[2]);
         const isMonday = date.getDay() === 1;
         const dayIndex = getDayIndex(dateInput);
 
@@ -404,25 +394,6 @@
         };
     }
 
-    function saveAndPublishSchedule() {
-        const dateInput = document.getElementById('workDate').value;
-        const selectedRoomKey = document.getElementById('chairRoom').value;
-
-        if (!dateInput) {
-            alert("Vui lòng chọn ngày!");
-            return;
-        }
-
-        const scheduleData = calculateDataForDate(dateInput, selectedRoomKey);
-        
-        // Lưu dữ liệu vào LocalStorage
-        const storageKey = `schedule_${dateInput}`;
-        localStorage.setItem(storageKey, JSON.stringify(scheduleData));
-
-        alert(`Đã lưu và xuất lịch thành công cho ngày ${dateInput}!`);
-        loadTodaySchedule();
-    }
-
     function buildCardsHTML(data) {
         let html = '';
         const renderCard = (titleText, list, cssClass, colorStyle) => {
@@ -460,37 +431,39 @@
         return html;
     }
 
-    function loadTodaySchedule() {
-        const todayStr = getTodayString();
+    function renderScheduleForDate(dateStr, selectedRoom = 'none') {
         const display = document.getElementById('scheduleDisplay');
-        const pendingBox = document.getElementById('pendingBox');
         const noticeBox = document.getElementById('noticeBox');
         const title = document.getElementById('scheduleTitle');
 
-        const dateObj = new Date(todayStr);
+        const parts = dateStr.split('-');
+        const dateObj = new Date(parts[0], parts[1] - 1, parts[2]);
         const formattedDate = dateObj.toLocaleDateString('vi-VN', { weekday: 'long', year: 'numeric', month: 'numeric', day: 'numeric' });
-        title.innerText = `Lịch Lao Động Hôm Nay - ${formattedDate}`;
+        
+        title.innerText = `Lịch Lao Động - ${formattedDate}`;
 
-        const savedData = localStorage.getItem(`schedule_${todayStr}`);
+        const data = calculateDataForDate(dateStr, selectedRoom);
 
-        if (savedData) {
-            pendingBox.style.display = 'none';
-            display.style.display = 'grid';
-            const data = JSON.parse(savedData);
-
-            if (data.notice) {
-                noticeBox.style.display = 'block';
-                noticeBox.innerHTML = data.notice;
-            } else {
-                noticeBox.style.display = 'none';
-            }
-
-            display.innerHTML = buildCardsHTML(data);
+        if (data.notice) {
+            noticeBox.style.display = 'block';
+            noticeBox.innerHTML = data.notice;
         } else {
-            display.style.display = 'none';
             noticeBox.style.display = 'none';
-            pendingBox.style.display = 'block';
         }
+
+        display.innerHTML = buildCardsHTML(data);
+    }
+
+    function applyAdminChanges() {
+        const dateInput = document.getElementById('workDate').value;
+        const selectedRoomKey = document.getElementById('chairRoom').value;
+
+        if (!dateInput) {
+            alert("Vui lòng chọn ngày!");
+            return;
+        }
+
+        renderScheduleForDate(dateInput, selectedRoomKey);
     }
 
     function searchHistory() {
@@ -502,20 +475,16 @@
             return;
         }
 
-        const savedData = localStorage.getItem(`schedule_${historyDateInput}`);
-
-        if (savedData) {
-            const data = JSON.parse(savedData);
-            historyDisplay.innerHTML = buildCardsHTML(data);
-        } else {
-            historyDisplay.innerHTML = `<div style="grid-column: 1/-1; text-align: center; color: #e74c3c; font-weight: bold; padding: 20px;">Không tìm thấy dữ liệu phân công cho ngày ${historyDateInput}!</div>`;
-        }
+        const data = calculateDataForDate(historyDateInput);
+        historyDisplay.innerHTML = buildCardsHTML(data);
     }
 
     window.onload = function() {
-        document.getElementById('workDate').value = getTodayString();
-        document.getElementById('historyDate').value = getTodayString();
-        loadTodaySchedule();
+        const todayStr = getTodayString();
+        document.getElementById('workDate').value = todayStr;
+        document.getElementById('historyDate').value = todayStr;
+        
+        renderScheduleForDate(todayStr);
     };
 </script>
 
