@@ -182,7 +182,8 @@
 
         .history-controls {
             display: flex;
-            gap: 10px;
+            flex-wrap: wrap;
+            gap: 12px;
             justify-content: center;
             align-items: center;
             margin-bottom: 15px;
@@ -205,10 +206,10 @@
             <input type="date" id="workDate">
         </div>
         
-        <div class="control-group" id="chairDutyGroup">
+        <div class="control-group">
             <label for="chairRoom">Phòng đi xếp ghế (Chỉ Thứ 2):</label>
             <select id="chairRoom">
-                <option value="none">-- Chọn phòng xếp ghế --</option>
+                <option value="none">-- Chưa chọn phòng xếp ghế --</option>
                 <option value="p1333">Phòng 13-33 (Thịnh, Kiệt, Hoàng, Dũng)</option>
                 <option value="p15">Phòng 15 (Thành, Công, Hoàng Anh, Hùng, Túc, Hưng)</option>
                 <option value="p27">Phòng 27 (Hòa, Bảo, Gia Huy, Phúc, Trí)</option>
@@ -218,7 +219,7 @@
             </select>
         </div>
 
-        <button class="btn-generate" onclick="applyAdminChanges()">Lưu & Cập Nhật Lịch</button>
+        <button class="btn-generate" onclick="applyAdminChanges()">Lưu & Cập Nhật Lịch Toàn Hệ Thống</button>
     </div>
 
     <div id="noticeBox" class="flag-notice" style="display: none;"></div>
@@ -248,9 +249,23 @@
     <div class="history-section">
         <h2>🔍 Tra Cứu Lịch Theo Ngày</h2>
         <div class="history-controls">
-            <label for="historyDate">Chọn ngày muốn tra cứu:</label>
-            <input type="date" id="historyDate">
-            <button class="btn-admin" style="background-color: #2980b9;" onclick="searchHistory()">Xem Lịch</button>
+            <div>
+                <label for="historyDate">Ngày tra cứu:</label>
+                <input type="date" id="historyDate" onchange="checkHistoryMonday()">
+            </div>
+            <div id="historyChairGroup" style="display: none;">
+                <label for="historyChairRoom">Phòng xếp ghế (Thứ 2):</label>
+                <select id="historyChairRoom">
+                    <option value="none">-- Chưa chọn phòng --</option>
+                    <option value="p1333">Phòng 13-33</option>
+                    <option value="p15">Phòng 15</option>
+                    <option value="p27">Phòng 27</option>
+                    <option value="p30">Phòng 30</option>
+                    <option value="p34">Phòng 34</option>
+                    <option value="p52">Phòng 52</option>
+                </select>
+            </div>
+            <button class="btn-admin" style="background-color: #2980b9; margin-top: 20px;" onclick="searchHistory()">Xem Lịch Tra Cứu</button>
         </div>
         <div class="schedule-grid" id="historyDisplay"></div>
     </div>
@@ -269,7 +284,7 @@
         "p52":   { name: "Phòng 52",    members: ["Thái Thị Diệu Hiền", "Tạ Thị Diễm My", "Nguyễn Hà My", "Nguyễn Thị Tường Lam", "Trần Ngọc Trâm", "Hồ Thị Khánh Băng"] }
     };
 
-    // Đã xóa bạn Phạm Đường Lâm khỏi danh sách
+    // Đã xóa bạn Phạm Đường Lâm
     const allStudents = [
         { name: "Nguyễn Trung Anh", room: "Phòng 30" },
         { name: "Lê Phạm Hoàng Anh", room: "Phòng 15" },
@@ -364,9 +379,9 @@
                 const roomMembers = rooms[selectedRoomKey].members;
                 exemptList = available.filter(s => roomMembers.includes(s.name));
                 available = available.filter(s => !roomMembers.includes(s.name));
-                noticeText = `📌 <b>Thứ 2:</b> <b>${rooms[selectedRoomKey].name}</b> đi xếp ghế chào cờ. Bạn <b>Bùi Đức Thịnh</b> nghỉ việc riêng. Số học sinh còn lại (${available.length} bạn) chia đều vào 3 phân khu.`;
+                noticeText = `📌 <b>Thứ 2:</b> <b>${rooms[selectedRoomKey].name}</b> đi xếp ghế chào cờ (Miễn lao động). Bạn <b>Bùi Đức Thịnh</b> nghỉ việc riêng. Số học sinh còn lại (${available.length} bạn) chia đều vào 3 phân khu.`;
             } else {
-                noticeText = `📌 <b>Thứ 2:</b> Chưa chọn phòng đi xếp ghế. Bạn <b>Bùi Đức Thịnh</b> nghỉ việc riêng. (${available.length} bạn chia vào 3 khu).`;
+                noticeText = `📌 <b>Thứ 2:</b> Chưa chọn/không có phòng xếp ghế. Bạn <b>Bùi Đức Thịnh</b> nghỉ việc riêng. (${available.length} bạn chia vào 3 khu).`;
             }
         }
 
@@ -463,12 +478,30 @@
             return;
         }
 
-        // Cập nhật URL để đồng bộ dữ liệu xếp ghế cho tất cả mọi người
+        // Lưu thiết lập phòng xếp ghế
+        localStorage.setItem(`chairRoom_${dateInput}`, selectedRoomKey);
+
         const newUrl = window.location.protocol + "//" + window.location.host + window.location.pathname + `?date=${dateInput}&room=${selectedRoomKey}`;
         window.history.pushState({path:newUrl}, '', newUrl);
 
         renderScheduleForDate(dateInput, selectedRoomKey);
-        alert("Đã cập nhật lịch thành công! Bạn có thể copy đường link hiện tại gửi cho lớp để mọi người thấy cùng kết quả.");
+        alert("Đã cập nhật lịch thành công!");
+    }
+
+    function checkHistoryMonday() {
+        const hDate = document.getElementById('historyDate').value;
+        const group = document.getElementById('historyChairGroup');
+        if (hDate) {
+            const parts = hDate.split('-');
+            const d = new Date(parts[0], parts[1] - 1, parts[2]);
+            if (d.getDay() === 1) {
+                group.style.display = 'block';
+                const savedRoom = localStorage.getItem(`chairRoom_${hDate}`) || 'none';
+                document.getElementById('historyChairRoom').value = savedRoom;
+                return;
+            }
+        }
+        group.style.display = 'none';
     }
 
     function searchHistory() {
@@ -480,21 +513,31 @@
             return;
         }
 
-        const data = calculateDataForDate(historyDateInput);
+        let roomKey = 'none';
+        const parts = historyDateInput.split('-');
+        const d = new Date(parts[0], parts[1] - 1, parts[2]);
+        if (d.getDay() === 1) {
+            roomKey = document.getElementById('historyChairRoom').value;
+        }
+
+        const data = calculateDataForDate(historyDateInput, roomKey);
         historyDisplay.innerHTML = buildCardsHTML(data);
     }
 
     window.onload = function() {
         const urlParams = new URLSearchParams(window.location.search);
         const paramDate = urlParams.get('date');
-        const paramRoom = urlParams.get('room') || 'none';
+        const paramRoom = urlParams.get('room');
 
         const todayStr = paramDate || getTodayString();
+        const savedRoom = paramRoom || localStorage.getItem(`chairRoom_${todayStr}`) || 'none';
+
         document.getElementById('workDate').value = todayStr;
         document.getElementById('historyDate').value = todayStr;
-        document.getElementById('chairRoom').value = paramRoom;
+        document.getElementById('chairRoom').value = savedRoom;
         
-        renderScheduleForDate(todayStr, paramRoom);
+        checkHistoryMonday();
+        renderScheduleForDate(todayStr, savedRoom);
     };
 </script>
 
