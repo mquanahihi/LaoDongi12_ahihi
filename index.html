@@ -1,545 +1,231 @@
 <!DOCTYPE html>
 <html lang="vi">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Hệ Thống Phân Công Lao Động Phân Khu</title>
-    <style>
-        :root {
-            --khu1-color: #8B0000;
-            --khu2-color: #2E8B57;
-            --khu3-color: #3152A5;
-            --bg-color: #f4f7f6;
-        }
-
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: var(--bg-color);
-            margin: 0;
-            padding: 20px;
-            color: #333;
-        }
-
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            background: #fff;
-            padding: 25px;
-            border-radius: 12px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-            position: relative;
-        }
-
-        .admin-nav {
-            position: absolute;
-            top: 20px;
-            right: 20px;
-        }
-
-        .btn-admin {
-            background-color: #34495e;
-            color: white;
-            border: none;
-            padding: 8px 16px;
-            border-radius: 6px;
-            cursor: pointer;
-            font-weight: bold;
-            font-size: 0.9em;
-            transition: 0.2s;
-        }
-
-        .btn-admin:hover {
-            background-color: #2c3e50;
-        }
-
-        h1, h2 {
-            text-align: center;
-            color: #1a252f;
-        }
-
-        .controls-panel {
-            display: none;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 15px;
-            background: #eef2f5;
-            padding: 20px;
-            border-radius: 8px;
-            margin-bottom: 25px;
-            border: 2px dashed #27ae60;
-        }
-
-        .control-group {
-            display: flex;
-            flex-direction: column;
-        }
-
-        label {
-            font-weight: bold;
-            margin-bottom: 6px;
-            font-size: 0.9em;
-        }
-
-        input, select {
-            padding: 10px;
-            border: 1px solid #ccc;
-            border-radius: 6px;
-            font-size: 14px;
-        }
-
-        .btn-generate {
-            grid-column: 1 / -1;
-            padding: 12px;
-            background-color: #27ae60;
-            color: white;
-            font-weight: bold;
-            border: none;
-            border-radius: 6px;
-            cursor: pointer;
-            font-size: 16px;
-            transition: 0.2s;
-        }
-
-        .btn-generate:hover {
-            background-color: #219150;
-        }
-
-        .schedule-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 15px;
-        }
-
-        .card {
-            border-radius: 8px;
-            border-top: 6px solid #ccc;
-            background: #fff;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
-            padding: 15px;
-        }
-
-        .card.k1 { border-color: var(--khu1-color); }
-        .card.k2 { border-color: var(--khu2-color); }
-        .card.k3 { border-color: var(--khu3-color); }
-        .card.exempt { border-color: #f39c12; }
-        .card.absent { border-color: #e74c3c; }
-
-        .card-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            border-bottom: 1px solid #eee;
-            padding-bottom: 8px;
-            margin-bottom: 12px;
-        }
-
-        .card-title {
-            font-size: 1.05em;
-            font-weight: bold;
-        }
-
-        .member-list {
-            list-style: none;
-            padding: 0;
-            margin: 0;
-        }
-
-        .member-item {
-            padding: 6px 10px;
-            margin-bottom: 4px;
-            background: #f8f9fa;
-            border-radius: 4px;
-            display: flex;
-            justify-content: space-between;
-            font-size: 0.9em;
-        }
-
-        .room-tag {
-            font-size: 0.8em;
-            color: #666;
-            background: #e2e8f0;
-            padding: 2px 6px;
-            border-radius: 4px;
-        }
-
-        .flag-notice {
-            background-color: #fff3cd;
-            border: 1px solid #ffeeba;
-            color: #856404;
-            padding: 10px 15px;
-            border-radius: 6px;
-            margin-bottom: 20px;
-            font-size: 0.95em;
-        }
-
-        .history-section {
-            margin-top: 40px;
-            padding-top: 20px;
-            border-top: 2px stroke #ddd;
-            background: #fdfdfd;
-            padding: 20px;
-            border-radius: 8px;
-        }
-
-        .history-controls {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 12px;
-            justify-content: center;
-            align-items: center;
-            margin-bottom: 15px;
-        }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lịch Lao Động - Đồng bộ Firebase</title>
+<style>
+:root{--bg:#f4f7f6;--card:#fff;--text:#1f2937;--muted:#64748b;--primary:#2563eb;--danger:#dc2626;--green:#16a34a;--k1:#8b0000;--k2:#2e8b57;--k3:#3152a5;--orange:#d97706}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);font-family:Segoe UI,Tahoma,sans-serif;color:var(--text)}
+.container{max-width:1200px;margin:25px auto;padding:24px;background:white;border-radius:16px;box-shadow:0 5px 25px #00000012}
+.top{display:flex;justify-content:space-between;gap:15px;align-items:center}.top h1{margin:0;text-align:center;flex:1}.admin-btn,.primary,.secondary{border:0;border-radius:9px;padding:11px 16px;font-weight:700;cursor:pointer}.admin-btn{background:#34495e;color:white}.primary{background:var(--green);color:#fff;width:100%}.secondary{background:#2563eb;color:#fff}
+.status{padding:10px 14px;border-radius:9px;margin:18px 0;font-size:14px;background:#eef2ff}.status.ok{background:#ecfdf5;color:#166534}.status.err{background:#fef2f2;color:#991b1b}
+.panel{display:none;background:#f1f5f9;padding:20px;border:2px dashed #22c55e;border-radius:12px;margin-bottom:22px}.panel.show{display:block}
+.form{display:grid;grid-template-columns:1fr 1fr;gap:15px}.group{display:flex;flex-direction:column;gap:7px}label{font-weight:700;font-size:14px}input,select{padding:11px;border:1px solid #cbd5e1;border-radius:8px;font-size:15px;background:white}.full{grid-column:1/-1}
+h2{text-align:center}.notice{padding:12px 15px;border:1px solid #fde68a;background:#fffbeb;border-radius:9px;margin:15px 0}.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:15px}.card{background:white;border-radius:12px;box-shadow:0 2px 10px #00000010;padding:15px;border-top:6px solid #ccc}.card.k1{border-color:var(--k1)}.card.k2{border-color:var(--k2)}.card.k3{border-color:var(--k3)}.card.exempt{border-color:var(--orange)}.card.absent{border-color:var(--danger)}.head{display:flex;justify-content:space-between;border-bottom:1px solid #e5e7eb;padding-bottom:9px;margin-bottom:10px;font-weight:700}.member{display:flex;justify-content:space-between;gap:8px;padding:8px 10px;background:#f8fafc;border-radius:7px;margin:5px 0;font-size:14px}.room{color:#64748b;font-size:12px}.history{margin-top:35px;border-top:2px solid #e5e7eb;padding-top:20px}.history-form{display:flex;justify-content:center;gap:10px;flex-wrap:wrap;align-items:end}.small{font-size:12px;color:var(--muted)}.danger{color:#b91c1c}.loading{opacity:.6;pointer-events:none}
+@media(max-width:700px){.container{margin:8px;padding:15px}.form{grid-template-columns:1fr}.top{align-items:flex-start}.top h1{font-size:20px}.admin-btn{font-size:12px;padding:8px}}
+</style>
 </head>
 <body>
-
 <div class="container">
-    <div class="admin-nav">
-        <button id="adminBtn" class="btn-admin" onclick="toggleAdmin()">🔑 Admin</button>
+  <div class="top">
+    <div style="width:80px"></div>
+    <h1>📋 Lịch Lao Động Phân Khu Lớp Chuyên Tin</h1>
+    <button id="adminBtn" class="admin-btn">🔑 Admin</button>
+  </div>
+
+  <div id="status" class="status">Đang kết nối dữ liệu...</div>
+  <div class="small" style="text-align:center;margin:-8px 0 16px">
+    Firebase đã được kết nối với project <b>laodongi12ahihihi</b>. Sau khi kiểm tra xong, hãy khóa Firebase Rules để chỉ Admin được ghi dữ liệu.
+  </div>
+
+  <section id="adminPanel" class="panel">
+    <h2>⚙️ Bảng điều khiển Admin</h2>
+    <div class="form">
+      <div class="group">
+        <label for="workDate">Ngày xếp lịch</label>
+        <input type="date" id="workDate">
+      </div>
+      <div class="group">
+        <label for="chairRoom">Phòng xếp ghế (chỉ Thứ 2)</label>
+        <select id="chairRoom">
+          <option value="none">-- Không chọn --</option>
+          <option value="p1333">Phòng 13-33</option><option value="p15">Phòng 15</option>
+          <option value="p27">Phòng 27</option><option value="p30">Phòng 30</option>
+          <option value="p34">Phòng 34</option><option value="p52">Phòng 52</option>
+        </select>
+      </div>
+      <div class="full">
+        <button id="saveBtn" class="primary">💾 Lưu & Cập Nhật Lịch Toàn Hệ Thống</button>
+        <div class="small" style="margin-top:8px">Dữ liệu được lưu trên Firebase, không phụ thuộc trình duyệt của Admin.</div>
+      </div>
     </div>
+  </section>
 
-    <h1>Lịch Lao Động Phân Khu Lớp Chuyên Tin</h1>
+  <h2 id="scheduleTitle">Lịch Lao Động</h2>
+  <div id="noticeBox" class="notice" style="display:none"></div>
+  <div id="scheduleDisplay" class="grid"></div>
 
-    <!-- BẢNG ĐIỀU KHIỂN ADMIN -->
-    <div class="controls-panel" id="adminControls">
-        <div class="control-group">
-            <label for="workDate">Chọn ngày xếp lịch (Admin):</label>
-            <input type="date" id="workDate">
-        </div>
-        
-        <div class="control-group">
-            <label for="chairRoom">Phòng đi xếp ghế (Chỉ Thứ 2):</label>
-            <select id="chairRoom">
-                <option value="none">-- Chưa chọn phòng xếp ghế --</option>
-                <option value="p1333">Phòng 13-33 (Thịnh, Kiệt, Hoàng, Dũng)</option>
-                <option value="p15">Phòng 15 (Thành, Công, Hoàng Anh, Hùng, Túc, Hưng)</option>
-                <option value="p27">Phòng 27 (Hòa, Bảo, Gia Huy, Phúc, Trí)</option>
-                <option value="p30">Phòng 30 (Triệu, Trung Anh, Phú, Anh Quân, Hiếu)</option>
-                <option value="p34">Phòng 34 (Trung, Nhân, Văn Huy, Minh Quân, Nghĩa, Đạt)</option>
-                <option value="p52">Phòng 52 (Hiền, Diễm My, Hà My, Lam, Trâm, Băng)</option>
-            </select>
-        </div>
-
-        <button class="btn-generate" onclick="applyAdminChanges()">Lưu & Cập Nhật Lịch Toàn Hệ Thống</button>
+  <section class="history">
+    <h2>🔍 Tra Cứu Lịch Theo Ngày</h2>
+    <div class="history-form">
+      <div class="group"><label>Ngày</label><input type="date" id="historyDate"></div>
+      <div class="group" id="historyChairWrap" style="display:none">
+        <label>Phòng xếp ghế</label>
+        <select id="historyChairRoom">
+          <option value="none">-- Không chọn --</option>
+          <option value="p1333">Phòng 13-33</option><option value="p15">Phòng 15</option>
+          <option value="p27">Phòng 27</option><option value="p30">Phòng 30</option>
+          <option value="p34">Phòng 34</option><option value="p52">Phòng 52</option>
+        </select>
+      </div>
+      <button id="historyBtn" class="secondary">Xem Lịch</button>
     </div>
-
-    <div id="noticeBox" class="flag-notice" style="display: none;"></div>
-
-    <h2>Sơ Đồ Phân Khu Lao Động</h2>
-    <div style="text-align: center; margin-bottom: 25px; background: #fff; padding: 10px; border-radius: 8px;">
-        <svg viewBox="0 0 1000 550" style="width: 100%; max-width: 850px; height: auto;">
-            <rect x="530" y="20" width="150" height="500" fill="#800014" stroke="#000" stroke-width="6"/>
-            <text x="605" y="320" font-family="Arial" font-size="28" font-weight="bold" fill="#000" text-anchor="middle" transform="rotate(-90 605 320)">KHU 1</text>
-
-            <rect x="10" y="20" width="575" height="130" fill="#22b14c" stroke="#000" stroke-width="6"/>
-            
-            <rect x="140" y="20" width="300" height="80" fill="#800014" stroke="#000" stroke-width="6"/>
-            <text x="290" y="70" font-family="Arial" font-size="28" font-weight="bold" fill="#000" text-anchor="middle">KHU 1</text>
-            <text x="290" y="130" font-family="Arial" font-size="28" font-weight="bold" fill="#000" text-anchor="middle">KHU 2</text>
-
-            <rect x="680" y="20" width="310" height="130" fill="#3f48cc" stroke="#000" stroke-width="6"/>
-            <rect x="680" y="20" width="240" height="70" fill="none" stroke="#000" stroke-width="5"/>
-            <text x="835" y="120" font-family="Arial" font-size="28" font-weight="bold" fill="#000" text-anchor="middle">KHU 3</text>
-        </svg>
-    </div>
-
-    <h2 id="scheduleTitle">Lịch Lao Động Hôm Nay</h2>
-    <div class="schedule-grid" id="scheduleDisplay"></div>
-
-    <!-- TRA CỨU LỊCH SỬ -->
-    <div class="history-section">
-        <h2>🔍 Tra Cứu Lịch Theo Ngày</h2>
-        <div class="history-controls">
-            <div>
-                <label for="historyDate">Ngày tra cứu:</label>
-                <input type="date" id="historyDate" onchange="checkHistoryMonday()">
-            </div>
-            <div id="historyChairGroup" style="display: none;">
-                <label for="historyChairRoom">Phòng xếp ghế (Thứ 2):</label>
-                <select id="historyChairRoom">
-                    <option value="none">-- Chưa chọn phòng --</option>
-                    <option value="p1333">Phòng 13-33</option>
-                    <option value="p15">Phòng 15</option>
-                    <option value="p27">Phòng 27</option>
-                    <option value="p30">Phòng 30</option>
-                    <option value="p34">Phòng 34</option>
-                    <option value="p52">Phòng 52</option>
-                </select>
-            </div>
-            <button class="btn-admin" style="background-color: #2980b9; margin-top: 20px;" onclick="searchHistory()">Xem Lịch Tra Cứu</button>
-        </div>
-        <div class="schedule-grid" id="historyDisplay"></div>
-    </div>
+    <div id="historyStatus" class="small" style="text-align:center;margin:12px"></div>
+    <div id="historyDisplay" class="grid"></div>
+  </section>
 </div>
 
-<script>
-    const ADMIN_PASSWORD = "123456";
-    let isAdmin = false;
+<script type="module">
+/*
+  ============================================================
+  CẤU HÌNH FIREBASE
+  ============================================================
+  1. Tạo Firebase project.
+  2. Tạo Realtime Database.
+  3. Tạo Web App.
+  4. Dán firebaseConfig của bạn vào bên dưới.
+*/
+const firebaseConfig = {
+  apiKey: "AIzaSyDsIVvtf6rIceBshi0jTIaZ9QwpMHn2_yI",
+  authDomain: "laodongi12ahihihi.firebaseapp.com",
+  databaseURL: "https://laodongi12ahihihi-default-rtdb.firebaseio.com",
+  projectId: "laodongi12ahihihi",
+  storageBucket: "laodongi12ahihihi.firebasestorage.app",
+  messagingSenderId: "849833785450",
+  appId: "1:849833785450:web:79ff4bc0f7ee219c633213",
+  measurementId: "G-PHE85VE3MM"
+};
 
-    const rooms = {
-        "p1333": { name: "Phòng 13-33", members: ["Bùi Đức Thịnh", "Trương Anh Kiệt", "Đậu Lê Minh Hoàng", "Nguyễn Tấn Dũng"] },
-        "p15":   { name: "Phòng 15",    members: ["Trương Bách Thành", "Lê Tuấn Công", "Lê Phạm Hoàng Anh", "Nguyễn Tấn Hùng", "Hoàng Hữu Túc", "Nguyễn Phúc Tiến Hưng"] },
-        "p27":   { name: "Phòng 27",    members: ["Nguyễn Xuân Hoà", "Nguyễn Thiện Bảo", "Trịnh Gia Huy", "Nguyễn Minh Phúc", "Trần Đình Trí"] },
-        "p30":   { name: "Phòng 30",    members: ["Phan Đình Triệu", "Nguyễn Trung Anh", "Vũ Đình Phú", "Ngô Nguyễn Anh Quân", "Đỗ Vũ Gia Hiếu"] },
-        "p34":   { name: "Phòng 34",    members: ["Nguyễn Thế Trung", "Phạm Hữu Nhân", "Trần Văn Huy", "Bùi Minh Quân", "Bùi Hiếu Nghĩa", "Nguyễn Tiến Đạt"] },
-        "p52":   { name: "Phòng 52",    members: ["Thái Thị Diệu Hiền", "Tạ Thị Diễm My", "Nguyễn Hà My", "Nguyễn Thị Tường Lam", "Trần Ngọc Trâm", "Hồ Thị Khánh Băng"] }
-    };
+import { initializeApp } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-app.js";
+import { getDatabase, ref, get, set, onValue } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-database.js";
 
-    // Đã xóa bạn Phạm Đường Lâm
-    const allStudents = [
-        { name: "Nguyễn Trung Anh", room: "Phòng 30" },
-        { name: "Lê Phạm Hoàng Anh", room: "Phòng 15" },
-        { name: "Hồ Thị Khánh Băng", room: "Phòng 52" },
-        { name: "Nguyễn Thiện Bảo", room: "Phòng 27" },
-        { name: "Lê Tuấn Công", room: "Phòng 15" },
-        { name: "Nguyễn Tấn Dũng", room: "Phòng 13-33" },
-        { name: "Nguyễn Tiến Đạt", room: "Phòng 34" },
-        { name: "Đỗ Vũ Gia Hiếu", room: "Phòng 30" },
-        { name: "Thái Thị Diệu Hiền", room: "Phòng 52" },
-        { name: "Nguyễn Xuân Hoà", room: "Phòng 27" },
-        { name: "Đậu Lê Minh Hoàng", room: "Phòng 13-33" },
-        { name: "Nguyễn Tấn Hùng", room: "Phòng 15" },
-        { name: "Nguyễn Phúc Tiến Hưng", room: "Phòng 15" },
-        { name: "Trịnh Gia Huy", room: "Phòng 27" },
-        { name: "Trần Văn Huy", room: "Phòng 34" },
-        { name: "Trương Anh Kiệt", room: "Phòng 13-33" },
-        { name: "Nguyễn Thị Tường Lam", room: "Phòng 52" },
-        { name: "Tạ Thị Diễm My", room: "Phòng 52" },
-        { name: "Nguyễn Hà My", room: "Phòng 52" },
-        { name: "Bùi Hiếu Nghĩa", room: "Phòng 34" },
-        { name: "Phạm Hữu Nhân", room: "Phòng 34" },
-        { name: "Nguyễn Minh Phúc", room: "Phòng 27" },
-        { name: "Vũ Đình Phú", room: "Phòng 30" },
-        { name: "Ngô Nguyễn Anh Quân", room: "Phòng 30" },
-        { name: "Bùi Minh Quân", room: "Phòng 34" },
-        { name: "Bùi Đức Thịnh", room: "Phòng 13-33" },
-        { name: "Trương Bách Thành", room: "Phòng 15" },
-        { name: "Trần Ngọc Trâm", room: "Phòng 52" },
-        { name: "Phan Đình Triệu", room: "Phòng 30" },
-        { name: "Trần Đình Trí", room: "Phòng 27" },
-        { name: "Nguyễn Thế Trung", room: "Phòng 34" },
-        { name: "Hoàng Hữu Túc", room: "Phòng 15" }
-    ];
+const app = initializeApp(firebaseConfig);
+const db = getDatabase(app);
 
-    function getTodayString() {
-        const today = new Date();
-        const year = today.getFullYear();
-        const month = String(today.getMonth() + 1).padStart(2, '0');
-        const day = String(today.getDate()).padStart(2, '0');
-        return `${year}-${month}-${day}`;
-    }
+const ADMIN_PASSWORD = "123456"; // Nên đổi trước khi sử dụng.
+let isAdmin = false;
 
-    function toggleAdmin() {
-        const controls = document.getElementById('adminControls');
-        const btn = document.getElementById('adminBtn');
+const rooms = {
+ p1333:{name:"Phòng 13-33",members:["Bùi Đức Thịnh","Trương Anh Kiệt","Đậu Lê Minh Hoàng","Nguyễn Tấn Dũng"]},
+ p15:{name:"Phòng 15",members:["Trương Bách Thành","Lê Tuấn Công","Lê Phạm Hoàng Anh","Nguyễn Tấn Hùng","Hoàng Hữu Túc","Nguyễn Phúc Tiến Hưng"]},
+ p27:{name:"Phòng 27",members:["Nguyễn Xuân Hoà","Nguyễn Thiện Bảo","Trịnh Gia Huy","Nguyễn Minh Phúc","Trần Đình Trí"]},
+ p30:{name:"Phòng 30",members:["Phan Đình Triệu","Nguyễn Trung Anh","Vũ Đình Phú","Ngô Nguyễn Anh Quân","Đỗ Vũ Gia Hiếu"]},
+ p34:{name:"Phòng 34",members:["Nguyễn Thế Trung","Phạm Hữu Nhân","Trần Văn Huy","Bùi Minh Quân","Bùi Hiếu Nghĩa","Nguyễn Tiến Đạt"]},
+ p52:{name:"Phòng 52",members:["Thái Thị Diệu Hiền","Tạ Thị Diễm My","Nguyễn Hà My","Nguyễn Thị Tường Lam","Trần Ngọc Trâm","Hồ Thị Khánh Băng"]}
+};
 
-        if (!isAdmin) {
-            const pwd = prompt("Nhập mật khẩu Admin:");
-            if (pwd === ADMIN_PASSWORD) {
-                isAdmin = true;
-                controls.style.display = 'grid';
-                btn.innerText = "🔒 Đăng xuất Admin";
-                btn.style.backgroundColor = "#e74c3c";
-            } else if (pwd !== null) {
-                alert("Mật khẩu không đúng!");
-            }
-        } else {
-            isAdmin = false;
-            controls.style.display = 'none';
-            btn.innerText = "🔑 Admin";
-            btn.style.backgroundColor = "#34495e";
-        }
-    }
+const allStudents = [
+["Nguyễn Trung Anh","Phòng 30"],["Lê Phạm Hoàng Anh","Phòng 15"],["Hồ Thị Khánh Băng","Phòng 52"],
+["Nguyễn Thiện Bảo","Phòng 27"],["Lê Tuấn Công","Phòng 15"],["Nguyễn Tấn Dũng","Phòng 13-33"],
+["Nguyễn Tiến Đạt","Phòng 34"],["Đỗ Vũ Gia Hiếu","Phòng 30"],["Thái Thị Diệu Hiền","Phòng 52"],
+["Nguyễn Xuân Hoà","Phòng 27"],["Đậu Lê Minh Hoàng","Phòng 13-33"],["Nguyễn Tấn Hùng","Phòng 15"],
+["Nguyễn Phúc Tiến Hưng","Phòng 15"],["Trịnh Gia Huy","Phòng 27"],["Trần Văn Huy","Phòng 34"],
+["Trương Anh Kiệt","Phòng 13-33"],["Nguyễn Thị Tường Lam","Phòng 52"],["Tạ Thị Diễm My","Phòng 52"],
+["Nguyễn Hà My","Phòng 52"],["Bùi Hiếu Nghĩa","Phòng 34"],["Phạm Hữu Nhân","Phòng 34"],
+["Nguyễn Minh Phúc","Phòng 27"],["Vũ Đình Phú","Phòng 30"],["Ngô Nguyễn Anh Quân","Phòng 30"],
+["Bùi Minh Quân","Phòng 34"],["Bùi Đức Thịnh","Phòng 13-33"],["Trương Bách Thành","Phòng 15"],
+["Trần Ngọc Trâm","Phòng 52"],["Phan Đình Triệu","Phòng 30"],["Trần Đình Trí","Phòng 27"],
+["Nguyễn Thế Trung","Phòng 34"],["Hoàng Hữu Túc","Phòng 15"]
+].map(x=>({name:x[0],room:x[1]}));
 
-    function getDayIndex(dateStr) {
-        const parts = dateStr.split('-');
-        const date = new Date(parts[0], parts[1] - 1, parts[2]);
-        const startOfYear = new Date(date.getFullYear(), 0, 1);
-        return Math.floor((date - startOfYear) / (1000 * 60 * 60 * 24));
-    }
-
-    function calculateDataForDate(dateInput, selectedRoomKey = 'none') {
-        const parts = dateInput.split('-');
-        const date = new Date(parts[0], parts[1] - 1, parts[2]);
-        const isMonday = date.getDay() === 1;
-        const dayIndex = getDayIndex(dateInput);
-
-        let available = [...allStudents];
-        let exemptList = [];
-        let absentList = [];
-        let noticeText = "";
-
-        if (isMonday) {
-            const thinhObj = available.find(s => s.name === "Bùi Đức Thịnh");
-            if (thinhObj) {
-                absentList.push(thinhObj);
-                available = available.filter(s => s.name !== "Bùi Đức Thịnh");
-            }
-
-            if (selectedRoomKey !== 'none' && rooms[selectedRoomKey]) {
-                const roomMembers = rooms[selectedRoomKey].members;
-                exemptList = available.filter(s => roomMembers.includes(s.name));
-                available = available.filter(s => !roomMembers.includes(s.name));
-                noticeText = `📌 <b>Thứ 2:</b> <b>${rooms[selectedRoomKey].name}</b> đi xếp ghế chào cờ (Miễn lao động). Bạn <b>Bùi Đức Thịnh</b> nghỉ việc riêng. Số học sinh còn lại (${available.length} bạn) chia đều vào 3 phân khu.`;
-            } else {
-                noticeText = `📌 <b>Thứ 2:</b> Chưa chọn/không có phòng xếp ghế. Bạn <b>Bùi Đức Thịnh</b> nghỉ việc riêng. (${available.length} bạn chia vào 3 khu).`;
-            }
-        }
-
-        const total = available.length;
-        const base = Math.floor(total / 3);
-        const rem = total % 3;
-
-        const g1_size = base + (rem > 0 ? 1 : 0);
-        const g2_size = base + (rem > 1 ? 1 : 0);
-
-        const groupA = available.slice(0, g1_size);
-        const groupB = available.slice(g1_size, g1_size + g2_size);
-        const groupC = available.slice(g1_size + g2_size);
-
-        const groups = [groupA, groupB, groupC];
-        const shift = dayIndex % 3;
-
-        return {
-            k1: groups[shift % 3],
-            k2: groups[(shift + 1) % 3],
-            k3: groups[(shift + 2) % 3],
-            exempt: exemptList,
-            absent: absentList,
-            notice: noticeText
-        };
-    }
-
-    function buildCardsHTML(data) {
-        let html = '';
-        const renderCard = (titleText, list, cssClass, colorStyle) => {
-            let cardHtml = `
-                <div class="card ${cssClass}">
-                    <div class="card-header">
-                        <span class="card-title" style="color: ${colorStyle}">${titleText}</span>
-                        <span><b>${list.length}</b> bạn</span>
-                    </div>
-                    <ul class="member-list">
-            `;
-            list.forEach(s => {
-                cardHtml += `
-                    <li class="member-item">
-                        <span><b>${s.name}</b></span>
-                        <span class="room-tag">${s.room}</span>
-                    </li>
-                `;
-            });
-            cardHtml += `</ul></div>`;
-            return cardHtml;
-        };
-
-        html += renderCard("KHU 1 (Dọc & Sân trên)", data.k1, "k1", "var(--khu1-color)");
-        html += renderCard("KHU 2 (Sân ngang)", data.k2, "k2", "var(--khu2-color)");
-        html += renderCard("KHU 3 (Cụm bên phải)", data.k3, "k3", "var(--khu3-color)");
-
-        if (data.exempt && data.exempt.length > 0) {
-            html += renderCard("Xếp Ghế Chào Cờ (Miễn LĐ)", data.exempt, "exempt", "#d35400");
-        }
-        if (data.absent && data.absent.length > 0) {
-            html += renderCard("Nghỉ Việc Riêng", data.absent, "absent", "#c0392b");
-        }
-
-        return html;
-    }
-
-    function renderScheduleForDate(dateStr, selectedRoom = 'none') {
-        const display = document.getElementById('scheduleDisplay');
-        const noticeBox = document.getElementById('noticeBox');
-        const title = document.getElementById('scheduleTitle');
-
-        const parts = dateStr.split('-');
-        const dateObj = new Date(parts[0], parts[1] - 1, parts[2]);
-        const formattedDate = dateObj.toLocaleDateString('vi-VN', { weekday: 'long', year: 'numeric', month: 'numeric', day: 'numeric' });
-        
-        title.innerText = `Lịch Lao Động - ${formattedDate}`;
-
-        const data = calculateDataForDate(dateStr, selectedRoom);
-
-        if (data.notice) {
-            noticeBox.style.display = 'block';
-            noticeBox.innerHTML = data.notice;
-        } else {
-            noticeBox.style.display = 'none';
-        }
-
-        display.innerHTML = buildCardsHTML(data);
-    }
-
-    function applyAdminChanges() {
-        const dateInput = document.getElementById('workDate').value;
-        const selectedRoomKey = document.getElementById('chairRoom').value;
-
-        if (!dateInput) {
-            alert("Vui lòng chọn ngày!");
-            return;
-        }
-
-        // Lưu thiết lập phòng xếp ghế
-        localStorage.setItem(`chairRoom_${dateInput}`, selectedRoomKey);
-
-        const newUrl = window.location.protocol + "//" + window.location.host + window.location.pathname + `?date=${dateInput}&room=${selectedRoomKey}`;
-        window.history.pushState({path:newUrl}, '', newUrl);
-
-        renderScheduleForDate(dateInput, selectedRoomKey);
-        alert("Đã cập nhật lịch thành công!");
-    }
-
-    function checkHistoryMonday() {
-        const hDate = document.getElementById('historyDate').value;
-        const group = document.getElementById('historyChairGroup');
-        if (hDate) {
-            const parts = hDate.split('-');
-            const d = new Date(parts[0], parts[1] - 1, parts[2]);
-            if (d.getDay() === 1) {
-                group.style.display = 'block';
-                const savedRoom = localStorage.getItem(`chairRoom_${hDate}`) || 'none';
-                document.getElementById('historyChairRoom').value = savedRoom;
-                return;
-            }
-        }
-        group.style.display = 'none';
-    }
-
-    function searchHistory() {
-        const historyDateInput = document.getElementById('historyDate').value;
-        const historyDisplay = document.getElementById('historyDisplay');
-
-        if (!historyDateInput) {
-            alert("Vui lòng chọn ngày cần tra cứu!");
-            return;
-        }
-
-        let roomKey = 'none';
-        const parts = historyDateInput.split('-');
-        const d = new Date(parts[0], parts[1] - 1, parts[2]);
-        if (d.getDay() === 1) {
-            roomKey = document.getElementById('historyChairRoom').value;
-        }
-
-        const data = calculateDataForDate(historyDateInput, roomKey);
-        historyDisplay.innerHTML = buildCardsHTML(data);
-    }
-
-    window.onload = function() {
-        const urlParams = new URLSearchParams(window.location.search);
-        const paramDate = urlParams.get('date');
-        const paramRoom = urlParams.get('room');
-
-        const todayStr = paramDate || getTodayString();
-        const savedRoom = paramRoom || localStorage.getItem(`chairRoom_${todayStr}`) || 'none';
-
-        document.getElementById('workDate').value = todayStr;
-        document.getElementById('historyDate').value = todayStr;
-        document.getElementById('chairRoom').value = savedRoom;
-        
-        checkHistoryMonday();
-        renderScheduleForDate(todayStr, savedRoom);
-    };
+const $ = id => document.getElementById(id);
+function today(){
+ const d=new Date(),m=String(d.getMonth()+1).padStart(2,"0"),day=String(d.getDate()).padStart(2,"0");
+ return `${d.getFullYear()}-${m}-${day}`;
+}
+function dayIndex(s){
+ const p=s.split("-"),d=new Date(+p[0],+p[1]-1,+p[2]),y=new Date(+p[0],0,1);
+ return Math.floor((d-y)/86400000);
+}
+function monday(s){return new Date(...s.split("-").map((v,i)=>i===1?+v-1:+v)).getDay()===1}
+function localCalculate(date,roomKey){
+ let available=[...allStudents],exempt=[],absent=[],notice="";
+ if(monday(date)){
+   const t=available.find(s=>s.name==="Bùi Đức Thịnh");
+   if(t){absent=[t];available=available.filter(s=>s.name!=="Bùi Đức Thịnh");}
+   if(roomKey!=="none"&&rooms[roomKey]){
+     exempt=available.filter(s=>rooms[roomKey].members.includes(s.name));
+     available=available.filter(s=>!rooms[roomKey].members.includes(s.name));
+     notice=`📌 <b>Thứ 2:</b> <b>${rooms[roomKey].name}</b> đi xếp ghế chào cờ (Miễn lao động). Bạn <b>Bùi Đức Thịnh</b> nghỉ việc riêng. Số học sinh còn lại (${available.length} bạn) chia đều vào 3 phân khu.`;
+   }else notice=`📌 <b>Thứ 2:</b> Chưa chọn phòng xếp ghế. Bạn <b>Bùi Đức Thịnh</b> nghỉ việc riêng. (${available.length} bạn chia vào 3 khu).`;
+ }
+ const base=Math.floor(available.length/3),rem=available.length%3;
+ const a=available.slice(0,base+(rem>0)),b=available.slice(base+(rem>0),base+(rem>0)+base+(rem>1)),c=available.slice(base+(rem>0)+base+(rem>1));
+ const g=[a,b,c],sh=dayIndex(date)%3;
+ return {k1:g[sh%3],k2:g[(sh+1)%3],k3:g[(sh+2)%3],exempt,absent,notice};
+}
+function card(title,list,cls){
+ return `<div class="card ${cls}"><div class="head"><span>${title}</span><span>${list.length} bạn</span></div>${list.map(s=>`<div class="member"><b>${s.name}</b><span class="room">${s.room}</span></div>`).join("")}</div>`;
+}
+function render(data){
+ $("scheduleDisplay").innerHTML=card("KHU 1 (Dọc & Sân trên)",data.k1,"k1")+card("KHU 2 (Sân ngang)",data.k2,"k2")+card("KHU 3 (Cụm bên phải)",data.k3,"k3")+
+ (data.exempt.length?card("Xếp Ghế Chào Cờ (Miễn LĐ)",data.exempt,"exempt"):"")+
+ (data.absent.length?card("Nghỉ Việc Riêng",data.absent,"absent"):"");
+ $("noticeBox").style.display=data.notice?"block":"none"; $("noticeBox").innerHTML=data.notice||"";
+}
+function title(date){
+ const p=date.split("-"),d=new Date(+p[0],+p[1]-1,+p[2]);
+ $("scheduleTitle").textContent="Lịch Lao Động - "+d.toLocaleDateString("vi-VN",{weekday:"long",year:"numeric",month:"numeric",day:"numeric"});
+}
+function showLocal(date,room){
+ title(date);render(localCalculate(date,room));
+}
+async function loadSchedule(date, fallbackRoom="none", target="main"){
+ try{
+   const snap=await get(ref(db,"schedules/"+date));
+   let data=snap.exists()?snap.val():null;
+   if(data){
+     data.k1=data.k1||[];data.k2=data.k2||[];data.k3=data.k3||[];data.exempt=data.exempt||[];data.absent=data.absent||[];
+     if(target==="main") showData(data,date); else $("historyDisplay").innerHTML=card("KHU 1 (Dọc & Sân trên)",data.k1,"k1")+card("KHU 2 (Sân ngang)",data.k2,"k2")+card("KHU 3 (Cụm bên phải)",data.k3,"k3")+(data.exempt.length?card("Xếp Ghế Chào Cờ (Miễn LĐ)",data.exempt,"exempt"):"")+(data.absent.length?card("Nghỉ Việc Riêng",data.absent,"absent"):"");
+   }else{
+     const d=localCalculate(date,fallbackRoom);
+     if(target==="main") showData(d,date); else $("historyDisplay").innerHTML=card("KHU 1 (Dọc & Sân trên)",d.k1,"k1")+card("KHU 2 (Sân ngang)",d.k2,"k2")+card("KHU 3 (Cụm bên phải)",d.k3,"k3");
+   }
+ }catch(e){setStatus("Không đọc được Firebase: "+e.message,true); if(target==="main")showLocal(date,fallbackRoom);}
+}
+function showData(data,date){title(date);render(data)}
+function setStatus(text,error=false){$("status").textContent=text;$("status").className="status "+(error?"err":"ok")}
+$("adminBtn").onclick=()=>{
+ if(!isAdmin){const p=prompt("Nhập mật khẩu Admin:");if(p===ADMIN_PASSWORD){isAdmin=true;$("adminPanel").classList.add("show");$("adminBtn").textContent="🔒 Đăng xuất Admin";}else if(p!==null)alert("Mật khẩu không đúng!");}
+ else{isAdmin=false;$("adminPanel").classList.remove("show");$("adminBtn").textContent="🔑 Admin";}
+};
+$("saveBtn").onclick=async()=>{
+ if(!isAdmin)return;
+ const date=$("workDate").value,room=$("chairRoom").value;
+ if(!date)return alert("Vui lòng chọn ngày!");
+ const btn=$("saveBtn");btn.disabled=true;btn.textContent="⏳ Đang lưu...";
+ try{
+   const data=localCalculate(date,room);
+   data.savedAt=new Date().toISOString();data.chairRoom=room;
+   await set(ref(db,"schedules/"+date),data);
+   history.pushState({}, "", "?date="+encodeURIComponent(date));
+   showData(data,date);setStatus("✅ Đã lưu lịch lên hệ thống. Mọi thiết bị sẽ đọc cùng dữ liệu này.");
+   alert("Đã cập nhật lịch toàn hệ thống!");
+ }catch(e){alert("Lỗi khi lưu: "+e.message);setStatus("Lưu thất bại: "+e.message,true)}
+ btn.disabled=false;btn.textContent="💾 Lưu & Cập Nhật Lịch Toàn Hệ Thống";
+};
+function updateHistoryMonday(){
+ const d=$("historyDate").value,isM=d&&monday(d);
+ $("historyChairWrap").style.display=isM?"flex":"none";
+}
+$("historyDate").onchange=updateHistoryMonday;
+$("historyBtn").onclick=async()=>{
+ const d=$("historyDate").value;if(!d)return alert("Vui lòng chọn ngày!");
+ $("historyStatus").textContent="Đang tải...";
+ await loadSchedule(d,$("historyChairRoom").value,"history");
+ $("historyStatus").textContent="";
+};
+$("historyDate").value=today();$("workDate").value=new URLSearchParams(location.search).get("date")||today();
+$("historyDate").value=$("workDate").value;updateHistoryMonday();
+const initialDate=$("workDate").value;
+const initialRoom=new URLSearchParams(location.search).get("room")||"none";
+$("chairRoom").value=initialRoom;
+onValue(ref(db,"schedules/"+initialDate),snap=>{
+ if(snap.exists()){const d=snap.val();d.k1=d.k1||[];d.k2=d.k2||[];d.k3=d.k3||[];d.exempt=d.exempt||[];d.absent=d.absent||[];showData(d,initialDate);setStatus("🟢 Đã kết nối Firebase — lịch được đồng bộ.");}
+});
+loadSchedule(initialDate,initialRoom);
+setStatus("🟢 Đã sẵn sàng — đang dùng dữ liệu dùng chung.");
 </script>
-
 </body>
 </html>
