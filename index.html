@@ -12,7 +12,12 @@
 .status{padding:10px 14px;border-radius:9px;margin:18px 0;font-size:14px;background:#eef2ff}.status.ok{background:#ecfdf5;color:#166534}.status.err{background:#fef2f2;color:#991b1b}
 .panel{display:none;background:#f1f5f9;padding:20px;border:2px dashed #22c55e;border-radius:12px;margin-bottom:22px}.panel.show{display:block}
 .form{display:grid;grid-template-columns:1fr 1fr;gap:15px}.group{display:flex;flex-direction:column;gap:7px}label{font-weight:700;font-size:14px}input,select{padding:11px;border:1px solid #cbd5e1;border-radius:8px;font-size:15px;background:white}.full{grid-column:1/-1}
-h2{text-align:center}.notice{padding:12px 15px;border:1px solid #fde68a;background:#fffbeb;border-radius:9px;margin:15px 0}.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:15px}.card{background:white;border-radius:12px;box-shadow:0 2px 10px #00000010;padding:15px;border-top:6px solid #ccc}.card.k1{border-color:var(--k1)}.card.k2{border-color:var(--k2)}.card.k3{border-color:var(--k3)}.card.exempt{border-color:var(--orange)}.card.absent{border-color:var(--danger)}.head{display:flex;justify-content:space-between;border-bottom:1px solid #e5e7eb;padding-bottom:9px;margin-bottom:10px;font-weight:700}.member{display:flex;justify-content:space-between;gap:8px;padding:8px 10px;background:#f8fafc;border-radius:7px;margin:5px 0;font-size:14px}.room{color:#64748b;font-size:12px}.history{margin-top:35px;border-top:2px solid #e5e7eb;padding-top:20px}.history-form{display:flex;justify-content:center;gap:10px;flex-wrap:wrap;align-items:end}.small{font-size:12px;color:var(--muted)}.danger{color:#b91c1c}.loading{opacity:.6;pointer-events:none}
+h2{text-align:center}.notice{padding:12px 15px;border:1px solid #fde68a;background:#fffbeb;border-radius:9px;margin:15px 0}.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:15px}.card{background:white;border-radius:12px;box-shadow:0 2px 10px #00000010;padding:15px;border-top:6px solid #ccc}.card.k1{border-color:var(--k1)}.card.k2{border-color:var(--k2)}.card.k3{border-color:var(--k3)}.card.exempt{border-color:var(--orange)}.card.absent{border-color:var(--danger)}.head{display:flex;justify-content:space-between;border-bottom:1px solid #e5e7eb;padding-bottom:9px;margin-bottom:10px;font-weight:700}
+.member{display:flex;justify-content:space-between;align-items:center;gap:8px;padding:8px 10px;background:#f8fafc;border-radius:7px;margin:5px 0;font-size:14px}
+.member-info{display:flex;align-items:center;gap:8px}
+.member-info input[type="checkbox"]{cursor:pointer;width:16px;height:16px}
+.member.strike .name-text{text-decoration:line-through;color:#94a3b8}
+.room{color:#64748b;font-size:12px}.history{margin-top:35px;border-top:2px solid #e5e7eb;padding-top:20px}.history-form{display:flex;justify-content:center;gap:10px;flex-wrap:wrap;align-items:end}.small{font-size:12px;color:var(--muted)}.danger{color:#b91c1c}.loading{opacity:.6;pointer-events:none}
 .map-box{text-align:center;margin:20px 0;background:#f8fafc;padding:15px;border-radius:12px;border:1px solid #e2e8f0;box-shadow:inset 0 2px 4px rgba(0,0,0,0.02)}
 @media(max-width:700px){.container{margin:8px;padding:15px}.form{grid-template-columns:1fr}.top{align-items:flex-start}.top h1{font-size:20px}.admin-btn{font-size:12px;padding:8px}}
 </style>
@@ -57,24 +62,13 @@ h2{text-align:center}.notice{padding:12px 15px;border:1px solid #fde68a;backgrou
   <h2>🗺️ Sơ Đồ Phân Khu Lao Động</h2>
   <div class="map-box">
       <svg viewBox="0 0 1000 550" style="width: 100%; max-width: 850px; height: auto; display: block; margin: 0 auto;">
-          <!-- Nền xám nhạt làm mặt sân -->
           <rect x="0" y="0" width="1000" height="550" fill="#f1f5f9" rx="10"/>
-
-          <!-- KHU 1 (Dọc) -->
           <rect x="530" y="20" width="150" height="500" fill="#800014" stroke="#000" stroke-width="4" rx="4"/>
           <text x="605" y="270" font-family="Arial" font-size="32" font-weight="bold" fill="#ffffff" text-anchor="middle" transform="rotate(-90 605 270)">KHU 1</text>
-
-          <!-- KHU 2 (Lớn) -->
           <rect x="10" y="20" width="500" height="130" fill="#22b14c" stroke="#000" stroke-width="4" rx="4"/>
-          
-          <!-- KHU 1 (Chồng lên Khu 2) -->
           <rect x="120" y="20" width="280" height="75" fill="#800014" stroke="#000" stroke-width="4" rx="4"/>
           <text x="260" y="68" font-family="Arial" font-size="26" font-weight="bold" fill="#ffffff" text-anchor="middle">KHU 1</text>
-          
-          <!-- Chữ KHU 2 -->
           <text x="260" y="125" font-family="Arial" font-size="26" font-weight="bold" fill="#ffffff" text-anchor="middle">KHU 2</text>
-
-          <!-- KHU 3 -->
           <rect x="700" y="20" width="280" height="130" fill="#3f48cc" stroke="#000" stroke-width="4" rx="4"/>
           <rect x="700" y="20" width="210" height="70" fill="none" stroke="#ffffff" stroke-width="3" stroke-dasharray="5,5"/>
           <text x="840" y="115" font-family="Arial" font-size="28" font-weight="bold" fill="#ffffff" text-anchor="middle">KHU 3</text>
@@ -125,6 +119,7 @@ const db = getDatabase(app);
 
 const ADMIN_PASSWORD = "minhquani12";
 let isAdmin = false;
+let currentScheduleData = null;
 
 const rooms = {
  p1333:{name:"Phòng 13-33",members:["Bùi Đức Thịnh","Trương Anh Kiệt","Đậu Lê Minh Hoàng","Nguyễn Tấn Dũng"]},
@@ -173,43 +168,124 @@ function localCalculate(date,roomKey){
  const base=Math.floor(available.length/3),rem=available.length%3;
  const a=available.slice(0,base+(rem>0)),b=available.slice(base+(rem>0),base+(rem>0)+base+(rem>1)),c=available.slice(base+(rem>0)+base+(rem>1));
  const g=[a,b,c],sh=dayIndex(date)%3;
- return {k1:g[sh%3],k2:g[(sh+1)%3],k3:g[(sh+2)%3],exempt,absent,notice};
+ return {k1:g[sh%3],k2:g[(sh+1)%3],k3:g[(sh+2)%3],exempt,absent,notice,notWorking:{}};
 }
-function card(title,list,cls){
- return `<div class="card ${cls}"><div class="head"><span>${title}</span><span>${list.length} bạn</span></div>${list.map(s=>`<div class="member"><b>${s.name}</b><span class="room">${s.room}</span></div>`).join("")}</div>`;
+
+function card(title, list, cls, isInteractive = false){
+ return `<div class="card ${cls}">
+   <div class="head"><span>${title}</span><span>${list.length} bạn</span></div>
+   ${list.map(s => {
+     const notWorkingMap = currentScheduleData?.notWorking || {};
+     const isChecked = !!notWorkingMap[s.name];
+     const disabledAttr = (isAdmin && isInteractive) ? '' : 'disabled';
+     return `
+       <div class="member ${isChecked ? 'strike' : ''}">
+         <div class="member-info">
+           <input type="checkbox" data-name="${s.name}" ${isChecked ? 'checked' : ''} ${disabledAttr}>
+           <b class="name-text">${s.name}</b>
+         </div>
+         <span class="room">${s.room}</span>
+       </div>`;
+   }).join("")}
+ </div>`;
 }
-function render(data){
- $("scheduleDisplay").innerHTML=card("KHU 1 (Dọc & Sân trên)",data.k1,"k1")+card("KHU 2 (Sân ngang)",data.k2,"k2")+card("KHU 3 (Cụm bên phải)",data.k3,"k3")+
- (data.exempt.length?card("Xếp Ghế Chào Cờ (Miễn LĐ)",data.exempt,"exempt"):"")+
- (data.absent.length?card("Nghỉ Việc Riêng",data.absent,"absent"):"");
- $("noticeBox").style.display=data.notice?"block":"none"; $("noticeBox").innerHTML=data.notice||"";
+
+function render(data, isInteractive = true, targetId = "scheduleDisplay"){
+ currentScheduleData = data;
+ $(targetId).innerHTML = card("KHU 1 (Dọc & Sân trên)", data.k1, "k1", isInteractive) +
+   card("KHU 2 (Sân ngang)", data.k2, "k2", isInteractive) +
+   card("KHU 3 (Cụm bên phải)", data.k3, "k3", isInteractive) +
+   (data.exempt.length ? card("Xếp Ghế Chào Cờ (Miễn LĐ)", data.exempt, "exempt", isInteractive) : "") +
+   (data.absent.length ? card("Nghỉ Việc Riêng", data.absent, "absent", isInteractive) : "");
+ 
+ if(targetId === "scheduleDisplay") {
+   $("noticeBox").style.display = data.notice ? "block" : "none";
+   $("noticeBox").innerHTML = data.notice || "";
+ }
 }
+
+function attachCheckboxListeners(){
+ document.querySelectorAll('#scheduleDisplay input[type="checkbox"]').forEach(chk => {
+   chk.onchange = async (e) => {
+     if(!isAdmin){
+       e.target.checked = !e.target.checked;
+       return alert("Chỉ Admin mới có quyền tích chọn!");
+     }
+     const name = e.target.getAttribute('data-name');
+     if(!currentScheduleData.notWorking) currentScheduleData.notWorking = {};
+     currentScheduleData.notWorking[name] = e.target.checked;
+     
+     const date = $("workDate").value;
+     try {
+       await set(ref(db, "schedules/" + date), currentScheduleData);
+       render(currentScheduleData, true);
+       attachCheckboxListeners();
+     } catch(err) {
+       alert("Lỗi cập nhật trạng thái: " + err.message);
+     }
+   };
+ });
+}
+
 function title(date){
  const p=date.split("-"),d=new Date(+p[0],+p[1]-1,+p[2]);
  $("scheduleTitle").textContent="Lịch Lao Động - "+d.toLocaleDateString("vi-VN",{weekday:"long",year:"numeric",month:"numeric",day:"numeric"});
 }
+
 function showLocal(date,room){
- title(date);render(localCalculate(date,room));
+ title(date);
+ const d = localCalculate(date,room);
+ render(d);
+ attachCheckboxListeners();
 }
+
 async function loadSchedule(date, fallbackRoom="none", target="main"){
  try{
    const snap=await get(ref(db,"schedules/"+date));
    let data=snap.exists()?snap.val():null;
    if(data){
-     data.k1=data.k1||[];data.k2=data.k2||[];data.k3=data.k3||[];data.exempt=data.exempt||[];data.absent=data.absent||[];
-     if(target==="main") showData(data,date); else $("historyDisplay").innerHTML=card("KHU 1 (Dọc & Sân trên)",data.k1,"k1")+card("KHU 2 (Sân ngang)",data.k2,"k2")+card("KHU 3 (Cụm bên phải)",data.k3,"k3")+(data.exempt.length?card("Xếp Ghế Chào Cờ (Miễn LĐ)",data.exempt,"exempt"):"")+(data.absent.length?card("Nghỉ Việc Riêng",data.absent,"absent"):"");
+     data.k1=data.k1||[];data.k2=data.k2||[];data.k3=data.k3||[];data.exempt=data.exempt||[];data.absent=data.absent||[];data.notWorking=data.notWorking||{};
+     if(target==="main") showData(data,date); 
+     else render(data, false, "historyDisplay");
    }else{
      const d=localCalculate(date,fallbackRoom);
-     if(target==="main") showData(d,date); else $("historyDisplay").innerHTML=card("KHU 1 (Dọc & Sân trên)",d.k1,"k1")+card("KHU 2 (Sân ngang)",d.k2,"k2")+card("KHU 3 (Cụm bên phải)",d.k3,"k3");
+     if(target==="main") showData(d,date); 
+     else render(d, false, "historyDisplay");
    }
  }catch(e){setStatus("Không đọc được Firebase: "+e.message,true); if(target==="main")showLocal(date,fallbackRoom);}
 }
-function showData(data,date){title(date);render(data)}
+
+function showData(data,date){
+ title(date);
+ render(data, true);
+ attachCheckboxListeners();
+}
+
 function setStatus(text,error=false){$("status").textContent=text;$("status").className="status "+(error?"err":"ok")}
+
 $("adminBtn").onclick=()=>{
- if(!isAdmin){const p=prompt("Nhập mật khẩu Admin:");if(p===ADMIN_PASSWORD){isAdmin=true;$("adminPanel").classList.add("show");$("adminBtn").textContent="🔒 Đăng xuất Admin";}else if(p!==null)alert("Mật khẩu không đúng!");}
- else{isAdmin=false;$("adminPanel").classList.remove("show");$("adminBtn").textContent="🔑 Admin";}
+ if(!isAdmin){
+   const p=prompt("Nhập mật khẩu Admin:");
+   if(p===ADMIN_PASSWORD){
+     isAdmin=true;
+     $("adminPanel").classList.add("show");
+     $("adminBtn").textContent="🔒 Đăng xuất Admin";
+     if(currentScheduleData) {
+       render(currentScheduleData, true);
+       attachCheckboxListeners();
+     }
+   }else if(p!==null)alert("Mật khẩu không đúng!");
+ }else{
+   isAdmin=false;
+   $("adminPanel").classList.remove("show");
+   $("adminBtn").textContent="🔑 Admin";
+   if(currentScheduleData) {
+     render(currentScheduleData, true);
+     attachCheckboxListeners();
+   }
+ }
 };
+
 $("saveBtn").onclick=async()=>{
  if(!isAdmin)return;
  const date=$("workDate").value,room=$("chairRoom").value;
@@ -218,6 +294,9 @@ $("saveBtn").onclick=async()=>{
  try{
    const data=localCalculate(date,room);
    data.savedAt=new Date().toISOString();data.chairRoom=room;
+   if(currentScheduleData && currentScheduleData.notWorking) {
+     data.notWorking = currentScheduleData.notWorking;
+   }
    await set(ref(db,"schedules/"+date),data);
    history.pushState({}, "", "?date="+encodeURIComponent(date));
    showData(data,date);setStatus("✅ Đã lưu lịch lên hệ thống. Mọi thiết bị sẽ đọc cùng dữ liệu này.");
@@ -225,6 +304,7 @@ $("saveBtn").onclick=async()=>{
  }catch(e){alert("Lỗi khi lưu: "+e.message);setStatus("Lưu thất bại: "+e.message,true)}
  btn.disabled=false;btn.textContent="💾 Lưu & Cập Nhật Lịch Toàn Hệ Thống";
 };
+
 function updateHistoryMonday(){
  const d=$("historyDate").value,isM=d&&monday(d);
  $("historyChairWrap").style.display=isM?"flex":"none";
@@ -236,13 +316,20 @@ $("historyBtn").onclick=async()=>{
  await loadSchedule(d,$("historyChairRoom").value,"history");
  $("historyStatus").textContent="";
 };
+
 $("historyDate").value=today();$("workDate").value=new URLSearchParams(location.search).get("date")||today();
 $("historyDate").value=$("workDate").value;updateHistoryMonday();
 const initialDate=$("workDate").value;
 const initialRoom=new URLSearchParams(location.search).get("room")||"none";
 $("chairRoom").value=initialRoom;
+
 onValue(ref(db,"schedules/"+initialDate),snap=>{
- if(snap.exists()){const d=snap.val();d.k1=d.k1||[];d.k2=d.k2||[];d.k3=d.k3||[];d.exempt=d.exempt||[];d.absent=d.absent||[];showData(d,initialDate);setStatus("🟢 Đã kết nối Firebase — lịch được đồng bộ.");}
+ if(snap.exists()){
+   const d=snap.val();
+   d.k1=d.k1||[];d.k2=d.k2||[];d.k3=d.k3||[];d.exempt=d.exempt||[];d.absent=d.absent||[];d.notWorking=d.notWorking||{};
+   showData(d,initialDate);
+   setStatus("🟢 Đã kết nối Firebase — lịch được đồng bộ.");
+ }
 });
 loadSchedule(initialDate,initialRoom);
 setStatus("🟢 Đã sẵn sàng — đang dùng dữ liệu dùng chung.");
