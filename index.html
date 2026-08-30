@@ -2,337 +2,106 @@
 <html lang="vi">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Lịch Lao Động - Đồng bộ Firebase</title>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Lịch Lao Động 11I</title>
 <style>
-:root{--bg:#f4f7f6;--card:#fff;--text:#1f2937;--muted:#64748b;--primary:#2563eb;--danger:#dc2626;--green:#16a34a;--k1:#8b0000;--k2:#2e8b57;--k3:#3152a5;--orange:#d97706}
-*{box-sizing:border-box}body{margin:0;background:var(--bg);font-family:Segoe UI,Tahoma,sans-serif;color:var(--text)}
-.container{max-width:1200px;margin:25px auto;padding:24px;background:white;border-radius:16px;box-shadow:0 5px 25px #00000012}
-.top{display:flex;justify-content:space-between;gap:15px;align-items:center}.top h1{margin:0;text-align:center;flex:1}.admin-btn,.primary,.secondary{border:0;border-radius:9px;padding:11px 16px;font-weight:700;cursor:pointer}.admin-btn{background:#34495e;color:white}.primary{background:var(--green);color:#fff;width:100%}.secondary{background:#2563eb;color:#fff}
-.status{padding:10px 14px;border-radius:9px;margin:18px 0;font-size:14px;background:#eef2ff}.status.ok{background:#ecfdf5;color:#166534}.status.err{background:#fef2f2;color:#991b1b}
-.panel{display:none;background:#f1f5f9;padding:20px;border:2px dashed #22c55e;border-radius:12px;margin-bottom:22px}.panel.show{display:block}
-.form{display:grid;grid-template-columns:1fr 1fr;gap:15px}.group{display:flex;flex-direction:column;gap:7px}label{font-weight:700;font-size:14px}input,select{padding:11px;border:1px solid #cbd5e1;border-radius:8px;font-size:15px;background:white}.full{grid-column:1/-1}
-h2{text-align:center}.notice{padding:12px 15px;border:1px solid #fde68a;background:#fffbeb;border-radius:9px;margin:15px 0}.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:15px}.card{background:white;border-radius:12px;box-shadow:0 2px 10px #00000010;padding:15px;border-top:6px solid #ccc}.card.k1{border-color:var(--k1)}.card.k2{border-color:var(--k2)}.card.k3{border-color:var(--k3)}.card.exempt{border-color:var(--orange)}.card.absent{border-color:var(--danger)}.head{display:flex;justify-content:space-between;border-bottom:1px solid #e5e7eb;padding-bottom:9px;margin-bottom:10px;font-weight:700}
-.member{display:flex;justify-content:space-between;align-items:center;gap:8px;padding:8px 10px;background:#f8fafc;border-radius:7px;margin:5px 0;font-size:14px}
-.member-info{display:flex;align-items:center;gap:8px}
-.member-info input[type="checkbox"]{cursor:pointer;width:16px;height:16px}
-.member.strike .name-text{text-decoration:line-through;color:#94a3b8}
-.room{color:#64748b;font-size:12px}.history{margin-top:35px;border-top:2px solid #e5e7eb;padding-top:20px}.history-form{display:flex;justify-content:center;gap:10px;flex-wrap:wrap;align-items:end}.small{font-size:12px;color:var(--muted)}.danger{color:#b91c1c}.loading{opacity:.6;pointer-events:none}
-.map-box{text-align:center;margin:20px 0;background:#f8fafc;padding:15px;border-radius:12px;border:1px solid #e2e8f0;box-shadow:inset 0 2px 4px rgba(0,0,0,0.02)}
-@media(max-width:700px){.container{margin:8px;padding:15px}.form{grid-template-columns:1fr}.top{align-items:flex-start}.top h1{font-size:20px}.admin-btn{font-size:12px;padding:8px}}
+*{box-sizing:border-box}body{margin:0;background:#f4f7f6;font-family:Arial,sans-serif;color:#1f2937}.wrap{max-width:1150px;margin:25px auto;background:#fff;padding:22px;border-radius:15px;box-shadow:0 5px 25px #0001}h1{text-align:center}.top{display:flex;justify-content:space-between;align-items:center}.btn{border:0;border-radius:8px;padding:11px 15px;font-weight:bold;cursor:pointer}.admin{background:#34495e;color:white}.save{background:#16a34a;color:white;width:100%}.blue{background:#2563eb;color:white}.status{padding:11px;margin:15px 0;border-radius:8px;background:#eef2ff}.panel{display:none;background:#f1f5f9;padding:18px;border:2px dashed #22c55e;border-radius:10px}.panel.show{display:block}.form{display:grid;grid-template-columns:1fr 1fr;gap:14px}.group{display:flex;flex-direction:column;gap:6px}input,select{padding:10px;border:1px solid #cbd5e1;border-radius:7px}.full{grid-column:1/-1}.team{text-align:center;font-weight:bold;padding:11px;background:#eff6ff;border-radius:8px;margin:15px 0}.notice{padding:12px;background:#fffbeb;border:1px solid #fde68a;border-radius:8px;margin:12px 0}.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}.card{padding:14px;border-radius:10px;background:#fff;box-shadow:0 2px 9px #0001;border-top:6px solid #aaa}.k1{border-color:#8b0000}.k2{border-color:#2e8b57}.k3{border-color:#3152a5}.exempt{border-color:#d97706}.absent{border-color:#dc2626}.head{display:flex;justify-content:space-between;font-weight:bold;border-bottom:1px solid #ddd;padding-bottom:8px}.person{padding:7px;margin:5px 0;background:#f8fafc;border-radius:6px;font-size:14px}.history{border-top:2px solid #eee;margin-top:30px;padding-top:20px}.historybar{display:flex;gap:10px;justify-content:center;align-items:end;flex-wrap:wrap}.small{font-size:12px;color:#64748b}@media(max-width:750px){.form,.grid{grid-template-columns:1fr}.wrap{margin:8px;padding:14px}.top h1{font-size:20px}}
 </style>
 </head>
 <body>
-<div class="container">
-  <div class="top">
-    <div style="width:80px"></div>
-    <h1>📅 Lịch Lao Động Lớp I12 🥇🥇🥇 </h1>
-    <button id="adminBtn" class="admin-btn">🔑 Admin</button>
-  </div>
+<div class="wrap">
+<div class="top"><div></div><h1>📋 Lịch Lao Động Lớp 11I</h1><button id="adminBtn" class="btn admin">🔑 Đăng nhập Admin</button></div>
+<div id="status" class="status">Đang kết nối Firebase...</div>
 
-  <div id="status" class="status">Đang kết nối dữ liệu...</div>
-  <div class="small" style="text-align:center;margin:-8px 0 16px">
-    Project <b>laodongi12ahihihi</b> by <b>mquanahihi🌸</b>.
-  </div>
+<div id="panel" class="panel">
+<h2>⚙️ Bảng điều khiển Admin</h2>
+<div class="notice">👑 Admin: <b>buiminhquan2009ti@gmail.com</b><br>33 học sinh được chia thành <b>Đội A (17)</b> và <b>Đội B (16)</b>. Hai đội luân phiên từng ngày.</div>
+<div class="form">
+<div class="group"><label>Ngày</label><input type="date" id="workDate"></div>
+<div class="group"><label>Phòng xếp ghế (Thứ 2)</label><select id="chairRoom"><option value="none">-- Không chọn --</option><option value="p1333">Phòng 13-33</option><option value="p15">Phòng 15</option><option value="p27">Phòng 27</option><option value="p30">Phòng 30</option><option value="p34">Phòng 34</option><option value="p52">Phòng 52</option></select></div>
+<div class="full"><button id="saveBtn" class="btn save">💾 Lưu & Cập Nhật Lịch Toàn Hệ Thống</button></div>
+</div></div>
 
-  <section id="adminPanel" class="panel">
-    <h2>⚙️ Bảng điều khiển Admin</h2>
-    <div class="form">
-      <div class="group">
-        <label for="workDate">Ngày xếp lịch</label>
-        <input type="date" id="workDate">
-      </div>
-      <div class="group">
-        <label for="chairRoom">Phòng xếp ghế (chỉ Thứ 2)</label>
-        <select id="chairRoom">
-          <option value="none">-- Không chọn --</option>
-          <option value="p1333">Phòng 13-33</option><option value="p15">Phòng 15</option>
-          <option value="p27">Phòng 27</option><option value="p30">Phòng 30</option>
-          <option value="p34">Phòng 34</option><option value="p52">Phòng 52</option>
-        </select>
-      </div>
-      <div class="full">
-        <button id="saveBtn" class="primary">💾 Lưu & Cập Nhật Lịch Toàn Hệ Thống</button>
-        <div class="small" style="margin-top:8px">Tui iu các bạn nhìu 😘😘😘.</div>
-      </div>
-    </div>
-  </section>
+<h2 id="title">Lịch Lao Động</h2><div id="team" class="team"></div><div id="notice" class="notice" style="display:none"></div><div id="display" class="grid"></div>
 
-  <!-- HÌNH SƠ ĐỒ PHÂN KHU LAO ĐỘNG -->
-  <h2>🗺️ Sơ Đồ Phân Khu Lao Động</h2>
-  <div class="map-box">
-      <svg viewBox="0 0 1000 550" style="width: 100%; max-width: 850px; height: auto; display: block; margin: 0 auto;">
-          <rect x="0" y="0" width="1000" height="550" fill="#f1f5f9" rx="10"/>
-          <rect x="530" y="20" width="150" height="500" fill="#800014" stroke="#000" stroke-width="4" rx="4"/>
-          <text x="605" y="270" font-family="Arial" font-size="32" font-weight="bold" fill="#ffffff" text-anchor="middle" transform="rotate(-90 605 270)">KHU 1</text>
-          <rect x="10" y="20" width="500" height="130" fill="#22b14c" stroke="#000" stroke-width="4" rx="4"/>
-          <rect x="120" y="20" width="280" height="75" fill="#800014" stroke="#000" stroke-width="4" rx="4"/>
-          <text x="260" y="68" font-family="Arial" font-size="26" font-weight="bold" fill="#ffffff" text-anchor="middle">KHU 1</text>
-          <text x="260" y="125" font-family="Arial" font-size="26" font-weight="bold" fill="#ffffff" text-anchor="middle">KHU 2</text>
-          <rect x="700" y="20" width="280" height="130" fill="#3f48cc" stroke="#000" stroke-width="4" rx="4"/>
-          <rect x="700" y="20" width="210" height="70" fill="none" stroke="#ffffff" stroke-width="3" stroke-dasharray="5,5"/>
-          <text x="840" y="115" font-family="Arial" font-size="28" font-weight="bold" fill="#ffffff" text-anchor="middle">KHU 3</text>
-      </svg>
-  </div>
-
-  <h2 id="scheduleTitle">Lịch Lao Động</h2>
-  <div id="noticeBox" class="notice" style="display:none"></div>
-  <div id="scheduleDisplay" class="grid"></div>
-
-  <section class="history">
-    <h2>🧿 Tra Cứu Lịch Theo Ngày</h2>
-    <div class="history-form">
-      <div class="group"><label>Ngày</label><input type="date" id="historyDate"></div>
-      <div class="group" id="historyChairWrap" style="display:none">
-        <label>Phòng xếp ghế</label>
-        <select id="historyChairRoom">
-          <option value="none">-- Không chọn --</option>
-          <option value="p1333">Phòng 13-33</option><option value="p15">Phòng 15</option>
-          <option value="p27">Phòng 27</option><option value="p30">Phòng 30</option>
-          <option value="p34">Phòng 34</option><option value="p52">Phòng 52</option>
-        </select>
-      </div>
-      <button id="historyBtn" class="secondary">Xem Lịch</button>
-    </div>
-    <div id="historyStatus" class="small" style="text-align:center;margin:12px"></div>
-    <div id="historyDisplay" class="grid"></div>
-  </section>
+<div class="history"><h2>🔍 Tra Cứu Lịch</h2><div class="historybar"><div class="group"><label>Ngày</label><input type="date" id="historyDate"></div><button id="historyBtn" class="btn blue">Xem Lịch</button></div><div id="historyDisplay" class="grid" style="margin-top:15px"></div></div>
 </div>
 
 <script type="module">
-const firebaseConfig = {
-  apiKey: "AIzaSyDsIVvtf6rIceBshi0jTIaZ9QwpMHn2_yI",
-  authDomain: "laodongi12ahihihi.firebaseapp.com",
-  databaseURL: "https://laodongi12ahihihi-default-rtdb.firebaseio.com",
-  projectId: "laodongi12ahihihi",
-  storageBucket: "laodongi12ahihihi.firebasestorage.app",
-  messagingSenderId: "849833785450",
-  appId: "1:849833785450:web:79ff4bc0f7ee219c633213",
-  measurementId: "G-PHE85VE3MM"
-};
+import{initializeApp}from"https://www.gstatic.com/firebasejs/12.1.0/firebase-app.js";
+import{getDatabase,ref,get,set,onValue}from"https://www.gstatic.com/firebasejs/12.1.0/firebase-database.js";
+import{getAuth,GoogleAuthProvider,signInWithPopup,signOut,onAuthStateChanged}from"https://www.gstatic.com/firebasejs/12.1.0/firebase-auth.js";
 
-import { initializeApp } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-app.js";
-import { getDatabase, ref, get, set, onValue } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-database.js";
+const firebaseConfig={
+apiKey:"AIzaSyDsIVvtf6rIceBshi0jTIaZ9QwpMHn2_yI",
+authDomain:"laodongi12ahihihi.firebaseapp.com",
+databaseURL:"https://laodongi12ahihihi-default-rtdb.firebaseio.com",
+projectId:"laodongi12ahihihi",
+storageBucket:"laodongi12ahihihi.firebasestorage.app",
+messagingSenderId:"849833785450",
+appId:"1:849833785450:web:79ff4bc0f7ee219c633213",
+measurementId:"G-PHE85VE3MM"};
 
-const app = initializeApp(firebaseConfig);
-const db = getDatabase(app);
+const app=initializeApp(firebaseConfig),db=getDatabase(app),auth=getAuth(app),provider=new GoogleAuthProvider();
+const ADMIN="buiminhquan2009ti@gmail.com";
 
-const ADMIN_PASSWORD = "minhquani12";
-let isAdmin = false;
-let currentScheduleData = null;
-
-const rooms = {
- p1333:{name:"Phòng 13-33",members:["Bùi Đức Thịnh","Trương Anh Kiệt","Đậu Lê Minh Hoàng","Nguyễn Tấn Dũng"]},
- p15:{name:"Phòng 15",members:["Trương Bách Thành","Lê Tuấn Công","Lê Phạm Hoàng Anh","Nguyễn Tấn Hùng","Hoàng Hữu Túc","Nguyễn Phúc Tiến Hưng"]},
- p27:{name:"Phòng 27",members:["Nguyễn Xuân Hoà","Nguyễn Thiện Bảo","Trịnh Gia Huy","Nguyễn Minh Phúc","Trần Đình Trí"]},
- p30:{name:"Phòng 30",members:["Phan Đình Triệu","Nguyễn Trung Anh","Vũ Đình Phú","Ngô Nguyễn Anh Quân","Đỗ Vũ Gia Hiếu"]},
- p34:{name:"Phòng 34",members:["Nguyễn Thế Trung","Phạm Hữu Nhân","Trần Văn Huy","Bùi Minh Quân","Bùi Hiếu Nghĩa","Nguyễn Tiến Đạt"]},
- p52:{name:"Phòng 52",members:["Thái Thị Diệu Hiền","Tạ Thị Diễm My","Nguyễn Hà My","Nguyễn Thị Tường Lam","Trần Ngọc Trâm","Hồ Thị Khánh Băng"]}
-};
-
-const allStudents = [
-["Nguyễn Trung Anh","Phòng 30"],["Lê Phạm Hoàng Anh","Phòng 15"],["Hồ Thị Khánh Băng","Phòng 52"],
-["Nguyễn Thiện Bảo","Phòng 27"],["Lê Tuấn Công","Phòng 15"],["Nguyễn Tấn Dũng","Phòng 13-33"],
-["Nguyễn Tiến Đạt","Phòng 34"],["Đỗ Vũ Gia Hiếu","Phòng 30"],["Thái Thị Diệu Hiền","Phòng 52"],
-["Nguyễn Xuân Hoà","Phòng 27"],["Đậu Lê Minh Hoàng","Phòng 13-33"],["Nguyễn Tấn Hùng","Phòng 15"],
-["Nguyễn Phúc Tiến Hưng","Phòng 15"],["Trịnh Gia Huy","Phòng 27"],["Trần Văn Huy","Phòng 34"],
-["Trương Anh Kiệt","Phòng 13-33"],["Nguyễn Thị Tường Lam","Phòng 52"],["Tạ Thị Diễm My","Phòng 52"],
-["Nguyễn Hà My","Phòng 52"],["Bùi Hiếu Nghĩa","Phòng 34"],["Phạm Hữu Nhân","Phòng 34"],
-["Nguyễn Minh Phúc","Phòng 27"],["Vũ Đình Phú","Phòng 30"],["Ngô Nguyễn Anh Quân","Phòng 30"],
-["Bùi Minh Quân","Phòng 34"],["Bùi Đức Thịnh","Phòng 13-33"],["Trương Bách Thành","Phòng 15"],
-["Trần Ngọc Trâm","Phòng 52"],["Phan Đình Triệu","Phòng 30"],["Trần Đình Trí","Phòng 27"],
-["Nguyễn Thế Trung","Phòng 34"],["Hoàng Hữu Túc","Phòng 15"]
+const students=[
+["Nguyễn Trung Anh","Phòng 30"],["Lê Phạm Hoàng Anh","Phòng 15"],["Hồ Thị Khánh Băng","Phòng 52"],["Nguyễn Thiện Bảo","Phòng 27"],["Lê Tuấn Công","Phòng 15"],["Nguyễn Tấn Dũng","Phòng 13-33"],["Nguyễn Tiến Đạt","Phòng 34"],["Đỗ Vũ Gia Hiếu","Phòng 30"],["Thái Thị Diệu Hiền","Phòng 52"],["Nguyễn Xuân Hoà","Phòng 27"],["Đậu Lê Minh Hoàng","Phòng 13-33"],["Nguyễn Tấn Hùng","Phòng 15"],["Nguyễn Phúc Tiến Hưng","Phòng 15"],["Trịnh Gia Huy","Phòng 27"],["Trần Văn Huy","Phòng 34"],["Trương Anh Kiệt","Phòng 13-33"],["Nguyễn Thị Tường Lam","Phòng 52"],["Tạ Thị Diễm My","Phòng 52"],["Nguyễn Hà My","Phòng 52"],["Bùi Hiếu Nghĩa","Phòng 34"],["Phạm Hữu Nhân","Phòng 34"],["Nguyễn Minh Phúc","Phòng 27"],["Vũ Đình Phú","Phòng 30"],["Ngô Nguyễn Anh Quân","Phòng 30"],["Bùi Minh Quân","Phòng 34"],["Bùi Đức Thịnh","Phòng 13-33"],["Trương Bách Thành","Phòng 15"],["Trần Ngọc Trâm","Phòng 52"],["Phan Đình Triệu","Phòng 30"],["Trần Đình Trí","Phòng 27"],["Nguyễn Thế Trung","Phòng 34"],["Hoàng Hữu Túc","Phòng 15"],["Nguyễn Tấn Hùng 2","Phòng 15"]
 ].map(x=>({name:x[0],room:x[1]}));
 
-const $ = id => document.getElementById(id);
-function today(){
- const d=new Date(),m=String(d.getMonth()+1).padStart(2,"0"),day=String(d.getDate()).padStart(2,"0");
- return `${d.getFullYear()}-${m}-${day}`;
-}
-function dayIndex(s){
- const p=s.split("-"),d=new Date(+p[0],+p[1]-1,+p[2]),y=new Date(+p[0],0,1);
- return Math.floor((d-y)/86400000);
-}
-function monday(s){return new Date(...s.split("-").map((v,i)=>i===1?+v-1:+v)).getDay()===1}
-function localCalculate(date,roomKey){
- let available=[...allStudents],exempt=[],absent=[],notice="";
+const rooms={
+p1333:["Bùi Đức Thịnh","Trương Anh Kiệt","Đậu Lê Minh Hoàng","Nguyễn Tấn Dũng"],p15:["Trương Bách Thành","Lê Tuấn Công","Lê Phạm Hoàng Anh","Nguyễn Tấn Hùng","Hoàng Hữu Túc","Nguyễn Phúc Tiến Hưng"],p27:["Nguyễn Xuân Hoà","Nguyễn Thiện Bảo","Trịnh Gia Huy","Nguyễn Minh Phúc","Trần Đình Trí"],p30:["Phan Đình Triệu","Nguyễn Trung Anh","Vũ Đình Phú","Ngô Nguyễn Anh Quân","Đỗ Vũ Gia Hiếu"],p34:["Nguyễn Thế Trung","Phạm Hữu Nhân","Trần Văn Huy","Bùi Minh Quân","Bùi Hiếu Nghĩa","Nguyễn Tiến Đạt"],p52:["Thái Thị Diệu Hiền","Tạ Thị Diễm My","Nguyễn Hà My","Nguyễn Thị Tường Lam","Trần Ngọc Trâm","Hồ Thị Khánh Băng"]};
+
+const A=students.slice(0,17),B=students.slice(17);
+
+function index(d){let p=d.split("-").map(Number),x=new Date(p[0],p[1]-1,p[2]),y=new Date(p[0],0,1);return Math.floor((x-y)/86400000)}
+function monday(d){let p=d.split("-").map(Number);return new Date(p[0],p[1]-1,p[2]).getDay()===1}
+function split3(a){let n=a.length,b=Math.floor(n/3),r=n%3,s=b+(r>0),t=b+(r>1);return[a.slice(0,s),a.slice(s,s+t),a.slice(s+t)]}
+
+/* Mỗi ngày chỉ một đội làm.
+   Đội A: 17 người, Đội B: 16 người.
+   Ba nhóm trong đội xoay Khu 1/2/3.
+   Vì đội luân phiên A-B-A-B nên không ai làm 2 ngày liên tiếp. */
+function calc(date,room="none"){
+ let i=index(date),isA=i%2===0,list=(isA?A:B).map(x=>({...x})),ex=[],abs=[],note="";
  if(monday(date)){
-   const t=available.find(s=>s.name==="Bùi Đức Thịnh");
-   if(t){absent=[t];available=available.filter(s=>s.name!=="Bùi Đức Thịnh");}
-   if(roomKey!=="none"&&rooms[roomKey]){
-     exempt=available.filter(s=>rooms[roomKey].members.includes(s.name));
-     available=available.filter(s=>!rooms[roomKey].members.includes(s.name));
-     notice=`📌 <b>Thứ 2:</b> <b>${rooms[roomKey].name}</b> đi xếp ghế chào cờ (Miễn lao động). Bạn <b>Bùi Đức Thịnh</b> nghỉ việc riêng. Số học sinh còn lại (${available.length} bạn) chia đều vào 3 phân khu.`;
-   }else notice=`📌 <b>Thứ 2:</b> Chưa chọn phòng xếp ghế. Bạn <b>Bùi Đức Thịnh</b> nghỉ việc riêng. (${available.length} bạn chia vào 3 khu).`;
+  let t=list.find(x=>x.name==="Bùi Đức Thịnh");
+  if(t){abs=[t];list=list.filter(x=>x.name!=="Bùi Đức Thịnh")}
+  if(room!=="none"&&rooms[room]){
+   ex=list.filter(x=>rooms[room].includes(x.name));list=list.filter(x=>!rooms[room].includes(x.name));
+   note="📌 Thứ 2: nhóm xếp ghế chào cờ được miễn lao động.";
+  }
  }
- const base=Math.floor(available.length/3),rem=available.length%3;
- const a=available.slice(0,base+(rem>0)),b=available.slice(base+(rem>0),base+(rem>0)+base+(rem>1)),c=available.slice(base+(rem>0)+base+(rem>1));
- const g=[a,b,c],sh=dayIndex(date)%3;
- return {k1:g[sh%3],k2:g[(sh+1)%3],k3:g[(sh+2)%3],exempt,absent,notice,notWorking:{}};
+ let g=split3(list),shift=isA?(Math.floor(i/2)%3):((Math.floor((i-1)/2)%3+3)%3);
+ return{team:isA?"Đội A":"Đội B",teamSize:isA?A.length:B.length,k1:g[shift%3],k2:g[(shift+1)%3],k3:g[(shift+2)%3],exempt:ex,absent:abs,notice:note,chairRoom:room}
 }
-
-function card(title, list, cls, isInteractive = false){
- return `<div class="card ${cls}">
-   <div class="head"><span>${title}</span><span>${list.length} bạn</span></div>
-   ${list.map(s => {
-     const notWorkingMap = currentScheduleData?.notWorking || {};
-     const isChecked = !!notWorkingMap[s.name];
-     const disabledAttr = (isAdmin && isInteractive) ? '' : 'disabled';
-     return `
-       <div class="member ${isChecked ? 'strike' : ''}">
-         <div class="member-info">
-           <input type="checkbox" data-name="${s.name}" ${isChecked ? 'checked' : ''} ${disabledAttr}>
-           <b class="name-text">${s.name}</b>
-         </div>
-         <span class="room">${s.room}</span>
-       </div>`;
-   }).join("")}
- </div>`;
-}
-
-function render(data, isInteractive = true, targetId = "scheduleDisplay"){
- currentScheduleData = data;
- $(targetId).innerHTML = card("KHU 1 (Dọc & Sân trên)", data.k1, "k1", isInteractive) +
-   card("KHU 2 (Sân ngang)", data.k2, "k2", isInteractive) +
-   card("KHU 3 (Cụm bên phải)", data.k3, "k3", isInteractive) +
-   (data.exempt.length ? card("Xếp Ghế Chào Cờ (Miễn LĐ)", data.exempt, "exempt", isInteractive) : "") +
-   (data.absent.length ? card("Nghỉ Việc Riêng", data.absent, "absent", isInteractive) : "");
- 
- if(targetId === "scheduleDisplay") {
-   $("noticeBox").style.display = data.notice ? "block" : "none";
-   $("noticeBox").innerHTML = data.notice || "";
+function card(t,a,c){return`<div class="card ${c}"><div class="head"><span>${t}</span><span>${a.length} bạn</span></div>${a.map(x=>`<div class="person"><b>${x.name}</b><br><span class="small">${x.room}</span></div>`).join("")}</div>`}
+function render(d,date,target="display"){
+ if(target==="display"){
+  let p=date.split("-"),x=new Date(p[0],p[1]-1,p[2]);
+  title.textContent="Lịch Lao Động - "+x.toLocaleDateString("vi-VN",{weekday:"long",year:"numeric",month:"numeric",day:"numeric"});
+  team.innerHTML=`👥 Hôm nay: <b>${d.team}</b> — ${d.teamSize} học sinh`;
+  notice.style.display=d.notice?"block":"none";notice.innerHTML=d.notice||"";
  }
+ document.getElementById(target).innerHTML=card("KHU 1 (Dọc & Sân trên)",d.k1||[],"k1")+card("KHU 2 (Sân ngang)",d.k2||[],"k2")+card("KHU 3 (Cụm bên phải)",d.k3||[],"k3")+(d.exempt?.length?card("Xếp Ghế Chào Cờ",d.exempt,"exempt"):"")+(d.absent?.length?card("Nghỉ Việc Riêng",d.absent,"absent"):"");
 }
+function status(t,e=false){document.getElementById("status").textContent=t;document.getElementById("status").className="status "+(e?"err":"")}
 
-function attachCheckboxListeners(){
- document.querySelectorAll('#scheduleDisplay input[type="checkbox"]').forEach(chk => {
-   chk.onchange = async (e) => {
-     if(!isAdmin){
-       e.target.checked = !e.target.checked;
-       return alert("Chỉ Admin mới có quyền tích chọn!");
-     }
-     const name = e.target.getAttribute('data-name');
-     if(!currentScheduleData.notWorking) currentScheduleData.notWorking = {};
-     currentScheduleData.notWorking[name] = e.target.checked;
-     
-     const date = $("workDate").value;
-     try {
-       await set(ref(db, "schedules/" + date), currentScheduleData);
-       render(currentScheduleData, true);
-       attachCheckboxListeners();
-     } catch(err) {
-       alert("Lỗi cập nhật trạng thái: " + err.message);
-     }
-   };
- });
-}
+let isAdmin=false;
+adminBtn.onclick=async()=>{try{if(isAdmin)await signOut(auth);else await signInWithPopup(auth,provider)}catch(e){alert("Lỗi đăng nhập: "+e.message)}};
+onAuthStateChanged(auth,u=>{isAdmin=!!u&&(u.email||"").toLowerCase()===ADMIN;panel.classList.toggle("show",isAdmin);adminBtn.textContent=isAdmin?"🔒 Đăng xuất Admin":"🔑 Đăng nhập Admin";status(isAdmin?"👑 Admin đã đăng nhập: "+u.email:"🟢 Chế độ xem — chỉ Admin được lưu lịch.")});
 
-function title(date){
- const p=date.split("-"),d=new Date(+p[0],+p[1]-1,+p[2]);
- $("scheduleTitle").textContent="Lịch Lao Động - "+d.toLocaleDateString("vi-VN",{weekday:"long",year:"numeric",month:"numeric",day:"numeric"});
-}
-
-function showLocal(date,room){
- title(date);
- const d = localCalculate(date,room);
- render(d);
- attachCheckboxListeners();
-}
-
-async function loadSchedule(date, fallbackRoom="none", target="main"){
- try{
-   const snap=await get(ref(db,"schedules/"+date));
-   let data=snap.exists()?snap.val():null;
-   if(data){
-     data.k1=data.k1||[];data.k2=data.k2||[];data.k3=data.k3||[];data.exempt=data.exempt||[];data.absent=data.absent||[];data.notWorking=data.notWorking||{};
-     if(target==="main") showData(data,date); 
-     else render(data, false, "historyDisplay");
-   }else{
-     const d=localCalculate(date,fallbackRoom);
-     if(target==="main") showData(d,date); 
-     else render(d, false, "historyDisplay");
-   }
- }catch(e){setStatus("Không đọc được Firebase: "+e.message,true); if(target==="main")showLocal(date,fallbackRoom);}
-}
-
-function showData(data,date){
- title(date);
- render(data, true);
- attachCheckboxListeners();
-}
-
-function setStatus(text,error=false){$("status").textContent=text;$("status").className="status "+(error?"err":"ok")}
-
-$("adminBtn").onclick=()=>{
- if(!isAdmin){
-   const p=prompt("Nhập mật khẩu Admin:");
-   if(p===ADMIN_PASSWORD){
-     isAdmin=true;
-     $("adminPanel").classList.add("show");
-     $("adminBtn").textContent="🔒 Đăng xuất Admin";
-     if(currentScheduleData) {
-       render(currentScheduleData, true);
-       attachCheckboxListeners();
-     }
-   }else if(p!==null)alert("Mật khẩu không đúng!");
- }else{
-   isAdmin=false;
-   $("adminPanel").classList.remove("show");
-   $("adminBtn").textContent="🔑 Admin";
-   if(currentScheduleData) {
-     render(currentScheduleData, true);
-     attachCheckboxListeners();
-   }
- }
+saveBtn.onclick=async()=>{
+ if(!isAdmin)return alert("Bạn phải đăng nhập đúng tài khoản Admin.");
+ let d=workDate.value,r=chairRoom.value;if(!d)return alert("Chọn ngày trước.");
+ try{let data=calc(d,r);data.savedAt=new Date().toISOString();await set(ref(db,"schedules/"+d),data);render(data,d);status("✅ Đã lưu lịch lên Firebase. Mọi thiết bị dùng cùng lịch.");alert("Đã lưu!")}catch(e){status("❌ "+e.message,true);alert("Không thể lưu: "+e.message)}
 };
+historyBtn.onclick=async()=>{let d=historyDate.value;if(!d)return alert("Chọn ngày.");historyDisplay.innerHTML="<p>⏳ Đang tải...</p>";try{let s=await get(ref(db,"schedules/"+d));render(s.exists()?s.val():calc(d),"", "historyDisplay")}catch(e){historyDisplay.innerHTML="<p>Lỗi: "+e.message+"</p>"}};
 
-$("saveBtn").onclick=async()=>{
- if(!isAdmin)return;
- const date=$("workDate").value,room=$("chairRoom").value;
- if(!date)return alert("Vui lòng chọn ngày!");
- const btn=$("saveBtn");btn.disabled=true;btn.textContent="⏳ Đang lưu...";
- try{
-   const data=localCalculate(date,room);
-   data.savedAt=new Date().toISOString();data.chairRoom=room;
-   if(currentScheduleData && currentScheduleData.notWorking) {
-     data.notWorking = currentScheduleData.notWorking;
-   }
-   await set(ref(db,"schedules/"+date),data);
-   history.pushState({}, "", "?date="+encodeURIComponent(date));
-   showData(data,date);setStatus("✅ Đã lưu lịch lên hệ thống. Mọi thiết bị sẽ đọc cùng dữ liệu này.");
-   alert("Đã cập nhật lịch toàn hệ thống!");
- }catch(e){alert("Lỗi khi lưu: "+e.message);setStatus("Lưu thất bại: "+e.message,true)}
- btn.disabled=false;btn.textContent="💾 Lưu & Cập Nhật Lịch Toàn Hệ Thống";
-};
-
-function updateHistoryMonday(){
- const d=$("historyDate").value,isM=d&&monday(d);
- $("historyChairWrap").style.display=isM?"flex":"none";
-}
-$("historyDate").onchange=updateHistoryMonday;
-$("historyBtn").onclick=async()=>{
- const d=$("historyDate").value;if(!d)return alert("Vui lòng chọn ngày!");
- $("historyStatus").textContent="Đang tải...";
- await loadSchedule(d,$("historyChairRoom").value,"history");
- $("historyStatus").textContent="";
-};
-
-$("historyDate").value=today();$("workDate").value=new URLSearchParams(location.search).get("date")||today();
-$("historyDate").value=$("workDate").value;updateHistoryMonday();
-const initialDate=$("workDate").value;
-const initialRoom=new URLSearchParams(location.search).get("room")||"none";
-$("chairRoom").value=initialRoom;
-
-onValue(ref(db,"schedules/"+initialDate),snap=>{
- if(snap.exists()){
-   const d=snap.val();
-   d.k1=d.k1||[];d.k2=d.k2||[];d.k3=d.k3||[];d.exempt=d.exempt||[];d.absent=d.absent||[];d.notWorking=d.notWorking||{};
-   showData(d,initialDate);
-   setStatus("🟢 Đã kết nối Firebase — lịch được đồng bộ.");
- }
-});
-loadSchedule(initialDate,initialRoom);
-setStatus("🟢 Đã sẵn sàng — đang dùng dữ liệu dùng chung.");
+let initial=new URLSearchParams(location.search).get("date")||new Date().toISOString().slice(0,10);
+workDate.value=initial;historyDate.value=initial;
+get(ref(db,"schedules/"+initial)).then(s=>render(s.exists()?s.val():calc(initial),initial));
+onValue(ref(db,"schedules/"+initial),s=>{if(s.exists()){render(s.val(),initial);status("🟢 Lịch Firebase đang được đồng bộ.")}});
 </script>
 </body>
 </html>
