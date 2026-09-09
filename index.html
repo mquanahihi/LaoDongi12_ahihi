@@ -134,13 +134,13 @@ const rooms = {
  p52:{name:"Phòng 52",members:["Thái Thị Diệu Hiền","Tạ Thị Diễm My","Nguyễn Hà My","Nguyễn Thị Tường Lam","Trần Ngọc Trâm","Hồ Thị Khánh Băng"]}
 };
 
-// Phân chia 2 Bộ cố định: Bộ A (16 bạn) và Bộ B (15 bạn) - Chia đều 6 bạn nữ (mỗi bên 3 nữ)
-const groupA = [
-  // 3 Nữ
+// Phân chia 2 Bộ cố định: Tách biệt rõ danh sách Nữ (3 bạn) và Nam để đảm bảo mỗi nhóm/khu luôn có 1 Nữ
+const groupA_Girls = [
   {name:"Thái Thị Diệu Hiền", room:"Phòng 52"},
   {name:"Tạ Thị Diễm My", room:"Phòng 52"},
-  {name:"Nguyễn Hà My", room:"Phòng 52"},
-  // Nam
+  {name:"Nguyễn Hà My", room:"Phòng 52"}
+];
+const groupA_Boys = [
   {name:"Nguyễn Trung Anh", room:"Phòng 30"},
   {name:"Lê Phạm Hoàng Anh", room:"Phòng 15"},
   {name:"Nguyễn Thiện Bảo", room:"Phòng 27"},
@@ -156,12 +156,12 @@ const groupA = [
   {name:"Trần Văn Huy", room:"Phòng 34"}
 ];
 
-const groupB = [
-  // 3 Nữ
+const groupB_Girls = [
   {name:"Nguyễn Thị Tường Lam", room:"Phòng 52"},
   {name:"Trần Ngọc Trâm", room:"Phòng 52"},
-  {name:"Hồ Thị Khánh Băng", room:"Phòng 52"},
-  // Nam
+  {name:"Hồ Thị Khánh Băng", room:"Phòng 52"}
+];
+const groupB_Boys = [
   {name:"Trương Anh Kiệt", room:"Phòng 13-33"},
   {name:"Bùi Hiếu Nghĩa", room:"Phòng 34"},
   {name:"Phạm Hữu Nhân", room:"Phòng 34"},
@@ -195,49 +195,66 @@ function monday(s){
 
 function localCalculate(date, roomKey){
  const idx = dayIndex(date);
- // Xoay phiên đan xen Bộ A và Bộ B theo số ngày
  const isGroupA = (idx % 2 === 0);
- const currentGroupList = isGroupA ? groupA : groupB;
+ 
+ let currentGirls = isGroupA ? [...groupA_Girls] : [...groupB_Girls];
+ let currentBoys = isGroupA ? [...groupA_Boys] : [...groupB_Boys];
  const groupName = isGroupA ? "BỘ A (16 học sinh)" : "BỘ B (15 học sinh)";
 
- let available = [...currentGroupList];
  let exempt = [];
  let absent = [];
  let notice = `📢 <b>Hôm nay đến lượt: ${groupName} thực hiện lao động.</b><br>`;
 
+ // Xử lý Thứ 2 xếp ghế chào cờ (Miễn lao động)
  if(monday(date)){
-   // Bạn Bùi Đức Thịnh chỉ nghỉ nếu hôm nay là Thứ 2 và thuộc Bộ B
-   const t = available.find(s => s.name === "Bùi Đức Thịnh");
-   if(t){
-     absent = [t];
-     available = available.filter(s => s.name !== "Bùi Đức Thịnh");
-   }
-
    if(roomKey !== "none" && rooms[roomKey]){
-     exempt = available.filter(s => rooms[roomKey].members.includes(s.name));
-     available = available.filter(s => !rooms[roomKey].members.includes(s.name));
-     notice += `📌 <b>Thứ 2:</b> <b>${rooms[roomKey].name}</b> đi xếp ghế chào cờ (Miễn lao động). ${t ? "Bạn <b>Bùi Đức Thịnh</b> nghỉ việc riêng." : ""} Số học sinh còn lại (${available.length} bạn) chia đều vào 3 khu.`;
+     const isExempt = s => rooms[roomKey].members.includes(s.name);
+     
+     // Lọc miễn cho Nữ và Nam nếu phòng được chọn trùng với thành viên trong phòng đó
+     const exemptGirls = currentGirls.filter(isExempt);
+     const exemptBoys = currentBoys.filter(isExempt);
+     exempt = [...exemptGirls, ...exemptBoys];
+
+     currentGirls = currentGirls.filter(s => !isExempt(s));
+     currentBoys = currentBoys.filter(s => !isExempt(s));
+
+     notice += `📌 <b>Thứ 2:</b> <b>${rooms[roomKey].name}</b> đi xếp ghế chào cờ (Miễn lao động). Số học sinh còn lại (${currentGirls.length + currentBoys.length} bạn) chia đều vào 3 khu.`;
    } else {
-     notice += `📌 <b>Thứ 2:</b> Chưa chọn phòng xếp ghế. ${t ? "Bạn <b>Bùi Đức Thịnh</b> nghỉ việc riêng." : ""} (${available.length} bạn chia vào 3 khu).`;
+     notice += `📌 <b>Thứ 2:</b> Chưa chọn phòng xếp ghế. (${currentGirls.length + currentBoys.length} bạn chia vào 3 khu).`;
    }
  } else {
-   notice += `Số học sinh thực hiện lao động hôm nay: <b>${available.length} bạn</b> được chia vào 3 phân khu.`;
+   notice += `Số học sinh thực hiện lao động hôm nay: <b>${currentGirls.length + currentBoys.length} bạn</b> được chia vào 3 phân khu.`;
  }
 
- const base = Math.floor(available.length / 3);
- const rem = available.length % 3;
- const a = available.slice(0, base + (rem > 0));
- const b = available.slice(base + (rem > 0), base + (rem > 0) + base + (rem > 1));
- const c = available.slice(base + (rem > 0) + base + (rem > 1));
+ // Chia đều 3 bạn Nữ vào 3 nhóm/khu
+ const girlGroups = [[], [], []];
+ currentGirls.forEach((girl, i) => {
+   girlGroups[i % 3].push(girl);
+ });
 
- const g = [a, b, c];
+ // Chia Nam vào 3 nhóm/khu
+ const boyGroups = [[], [], []];
+ const base = Math.floor(currentBoys.length / 3);
+ const rem = currentBoys.length % 3;
+ boyGroups[0] = currentBoys.slice(0, base + (rem > 0));
+ boyGroups[1] = currentBoys.slice(base + (rem > 0), base + (rem > 0) + base + (rem > 1));
+ boyGroups[2] = currentBoys.slice(base + (rem > 0) + base + (rem > 1));
+
+ // Ghép Nữ và Nam ở mỗi nhóm lại với nhau
+ const combinedGroups = [
+   [...girlGroups[0], ...boyGroups[0]],
+   [...girlGroups[1], ...boyGroups[1]],
+   [...girlGroups[2], ...boyGroups[2]]
+ ];
+
+ // Xoay vòng các nhóm vào Khu 1, Khu 2, Khu 3 theo ngày
  const sh = idx % 3;
 
  return {
    groupName,
-   k1: g[sh % 3],
-   k2: g[(sh + 1) % 3],
-   k3: g[(sh + 2) % 3],
+   k1: combinedGroups[sh % 3],
+   k2: combinedGroups[(sh + 1) % 3],
+   k3: combinedGroups[(sh + 2) % 3],
    exempt,
    absent,
    notice,
