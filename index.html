@@ -34,6 +34,7 @@ h2{text-align:center}.notice{padding:12px 15px;border:1px solid #fde68a;backgrou
 .punish-table th, .punish-table td{padding:10px;text-align:left;border-bottom:1px solid #e2e8f0;font-size:14px}
 .punish-table th{background:#fee2e2;color:#991b1b;font-weight:bold}
 .btn-del{background:var(--danger);color:#fff;border:none;padding:5px 10px;border-radius:5px;cursor:pointer;font-weight:bold}
+.admin-only-box{border:2px dashed var(--danger);background:#fff1f2;padding:15px;border-radius:10px;margin-bottom:15px;text-align:center}
 
 @media(max-width:700px){.container{margin:8px;padding:15px}.form{grid-template-columns:1fr}.top{align-items:flex-start}.top h1{font-size:20px}.admin-btn{font-size:12px;padding:8px}}
 </style>
@@ -133,9 +134,13 @@ h2{text-align:center}.notice{padding:12px 15px;border:1px solid #fde68a;backgrou
   <div id="punishTab" class="tab-content">
     <h2>⚖️ Lịch Lao Động Phạt Học Sinh</h2>
 
-    <!-- FORM THÊM HỌC SINH PHẠT -->
-    <div class="punish-section">
-      <h3>➕ Thêm Học Sinh Bị Phạt</h3>
+    <!-- CẢNH BÁO / FORM THÊM HỌC SINH PHẠT (CHỈ ADMIN THẤY) -->
+    <div id="punishAdminNotice" class="admin-only-box">
+      🔒 <b>Bạn đang ở chế độ Xem.</b> Chỉ Admin nhập đúng mật khẩu mới có thể thêm hoặc xóa danh sách phạt.
+    </div>
+
+    <div id="punishFormBox" class="punish-section" style="display:none;">
+      <h3>➕ Thêm Học Sinh Bị Phạt (Chỉ Admin)</h3>
       <div class="form">
         <div class="group">
           <label>Họ và Tên</label>
@@ -171,7 +176,7 @@ h2{text-align:center}.notice{padding:12px 15px;border:1px solid #fde68a;backgrou
             <th>Họ và Tên</th>
             <th>Ngày Bắt Đầu</th>
             <th>Số Ngày</th>
-            <th>Trạng Thái/Hạn Định</th>
+            <th>Trạng Thái</th>
             <th>Thao tác</th>
           </tr>
         </thead>
@@ -484,6 +489,7 @@ function showData(data,date){
 
 function setStatus(text,error=false){$("status").textContent=text;$("status").className="status "+(error?"err":"ok")}
 
+// ĐĂNG NHẬP ADMIN & BẢO MẬT HỆ THỐNG
 $("adminBtn").onclick=()=>{
  if(!isAdmin){
    const p=prompt("Nhập mật khẩu Admin:");
@@ -491,15 +497,22 @@ $("adminBtn").onclick=()=>{
      isAdmin=true;
      $("adminPanel").classList.add("show");
      $("adminBtn").textContent="🔒 Đăng xuất Admin";
+     $("punishFormBox").style.display = "block";
+     $("punishAdminNotice").style.display = "none";
+     
      if(currentScheduleData) {
        render(currentScheduleData, true);
        attachCheckboxListeners();
      }
-   }else if(p!==null)alert("Mật khẩu không đúng!");
+     alert("✅ Đăng nhập Admin thành công!");
+   }else if(p!==null)alert("❌ Mật khẩu không đúng!");
  }else{
    isAdmin=false;
    $("adminPanel").classList.remove("show");
    $("adminBtn").textContent="🔑 Admin";
+   $("punishFormBox").style.display = "none";
+   $("punishAdminNotice").style.display = "block";
+
    if(currentScheduleData) {
      render(currentScheduleData, true);
      attachCheckboxListeners();
@@ -509,7 +522,7 @@ $("adminBtn").onclick=()=>{
 };
 
 $("saveBtn").onclick=async()=>{
- if(!isAdmin)return;
+ if(!isAdmin) return alert("Bạn cần quyền Admin để thực hiện!");
  const date=$("workDate").value,room=$("chairRoom").value;
  if(!date)return alert("Vui lòng chọn ngày!");
  const btn=$("saveBtn");btn.disabled=true;btn.textContent="⏳ Đang lưu...";
@@ -546,43 +559,52 @@ const initialDate=$("workDate").value;
 const initialRoom=new URLSearchParams(location.search).get("room")||"none";
 $("chairRoom").value=initialRoom;
 
-// --- LOGIC XỬ LÝ PHẠT (PUNISHMENT LOGIC) ---
+// --- LOGIC XỬ LÝ PHẠT & BẢO MẬT ADMIN ---
 
-// Hàm băm giả lập số ngẫu nhiên theo ngày + tên để giữ cố định vị trí phân chia trong ngày
 function seededRandom(seed) {
   let x = Math.sin(seed++) * 10000;
   return x - Math.floor(x);
 }
 
-// Thêm học sinh bị phạt
+// Thêm học sinh bị phạt (Chỉ khi đăng nhập Admin thành công)
 $("addPunishBtn").onclick = async () => {
-  if(!isAdmin) return alert("Bạn cần đăng nhập Admin để thêm danh sách phạt!");
+  if(!isAdmin) {
+    alert("⛔ Bạn cần đăng nhập Admin bằng mật khẩu mới có quyền xếp phạt!");
+    return;
+  }
   const name = $("pName").value.trim();
   const type = $("pType").value;
   const startDate = $("pStartDate").value;
   const days = parseInt($("pDays").value);
 
-  if(!name || !startDate || !days || days < 1) return alert("Vui lòng nhập đầy đủ thông tin hợp lệ!");
+  if(!name || !startDate || !days || days < 1) return alert("Vui lòng nhập đầy đủ thông tin!");
 
   try {
     const newRef = push(ref(db, "punishments"));
     await set(newRef, { name, type, startDate, days });
-    alert("Đã thêm phạt thành công!");
+    alert("✅ Đã thêm học sinh vào danh sách phạt!");
     $("pName").value = "";
   } catch(e) {
-    alert("Lỗi khi thêm: " + e.message);
+    alert("❌ Lỗi khi lưu: " + e.message);
   }
 };
 
-// Xóa học sinh bị phạt
+// Xóa học sinh bị phạt (Chỉ Admin)
 window.deletePunish = async (id) => {
-  if(!isAdmin) return alert("Bạn cần đăng nhập Admin để xóa!");
-  if(confirm("Bạn có chắc chắn muốn xóa bản ghi này?")) {
-    await remove(ref(db, "punishments/" + id));
+  if(!isAdmin) {
+    alert("⛔ Chỉ Admin mới có quyền xóa học sinh khỏi danh sách phạt!");
+    return;
+  }
+  if(confirm("Bạn có chắc chắn muốn xóa bản ghi bị phạt này không?")) {
+    try {
+      await remove(ref(db, "punishments/" + id));
+      alert("✅ Đã xóa thành công!");
+    } catch(e) {
+      alert("❌ Lỗi khi xóa: " + e.message);
+    }
   }
 };
 
-// Kiểm tra xem 1 ngày chọn có nằm trong khoảng phạt không
 function isDateInPunishRange(targetDate, startDate, days) {
   const start = new Date(startDate);
   const target = new Date(targetDate);
@@ -592,23 +614,21 @@ function isDateInPunishRange(targetDate, startDate, days) {
   return target >= start && target <= end;
 }
 
-// Render dữ liệu bảng Phạt
 function renderPunishments() {
-  const classList = [];
-  const yardList = [];
-  const targetYardDate = $("viewYardDate").value || today();
-
   const classTbody = $("classPunishList");
   const yardTbody = $("yardPunishList");
 
   classTbody.innerHTML = "";
   yardTbody.innerHTML = "";
 
+  const targetYardDate = $("viewYardDate").value || today();
   const activeYardStudents = [];
 
   for(let id in punishmentsData) {
     const item = punishmentsData[id];
-    const delBtn = isAdmin ? `<button class="btn-del" onclick="deletePunish('${id}')">Xóa</button>` : `<span class="small">Chỉ Admin</span>`;
+    const delBtn = isAdmin 
+      ? `<button class="btn-del" onclick="deletePunish('${id}')">Xóa</button>` 
+      : `<span class="small" style="color:gray">🔒 Chỉ Admin</span>`;
 
     if(item.type === 'class') {
       const isCurrent = isDateInPunishRange(today(), item.startDate, item.days);
@@ -617,7 +637,7 @@ function renderPunishments() {
           <td><b>${item.name}</b></td>
           <td>${item.startDate}</td>
           <td>${item.days} ngày</td>
-          <td>${isCurrent ? '<span style="color:red;font-weight:bold">Đang bị phạt</span>' : '<span style="color:gray">Chưa/Đã qua</span>'}</td>
+          <td>${isCurrent ? '<span style="color:red;font-weight:bold">🔴 Đang bị phạt</span>' : '<span style="color:gray">⚪ Chưa / Đã qua</span>'}</td>
           <td>${delBtn}</td>
         </tr>
       `;
@@ -641,7 +661,6 @@ function renderPunishments() {
   if(yardTbody.innerHTML === "") yardTbody.innerHTML = `<tr><td colspan="4" style="text-align:center">Không có ai bị phạt dưới sân</td></tr>`;
 
   // CHIA NGẪU NHIÊN PHẠT DƯỚI SÂN VÀO 3 KHU (ƯU TIÊN MID ĐÔNG HƠN)
-  // Xáo trộn ngẫu nhiên dựa theo Seed Ngày
   let daySeed = dayIndex(targetYardDate);
   let shuffled = [...activeYardStudents].sort((a, b) => {
     let hashA = seededRandom(daySeed + a.name.charCodeAt(0));
@@ -654,7 +673,6 @@ function renderPunishments() {
     const base = Math.floor(shuffled.length / 3);
     const rem = shuffled.length % 3;
 
-    // Ưu tiên MID (k2) đông người hơn
     const k1Count = base;
     const k2Count = base + (rem > 0 ? 1 : 0);
     const k3Count = base + (rem > 1 ? 1 : 0);
@@ -672,7 +690,6 @@ function renderPunishments() {
 
 $("viewYardDate").onchange = renderPunishments;
 
-// Lắng nghe dữ liệu Phạt từ Realtime Firebase
 onValue(ref(db, "punishments"), snap => {
   punishmentsData = snap.exists() ? snap.val() : {};
   renderPunishments();
