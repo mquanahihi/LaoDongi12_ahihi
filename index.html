@@ -5,12 +5,43 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Hệ Thống Quản Lý Lao Động Lớp I12</title>
 <style>
-:root{--bg:#f4f7f6;--card:#fff;--text:#1f2937;--muted:#64748b;--primary:#2563eb;--danger:#dc2626;--green:#16a34a;--k1:#800014;--k2:#22b14c;--k3:#3f48cc;--orange:#d97706;--group:#7c3aed;--gold:#d97706}
+:root{--bg:#f4f7f6;--card:#fff;--text:#1f2937;--muted:#64748b;--primary:#2563eb;--danger:#dc2626;--green:#16a34a;--k1:#800014;--k2:#22b14c;--k3:#3f48cc;--orange:#d97706;--group:#7c3aed}
 *{box-sizing:border-box}body{margin:0;background:var(--bg);font-family:Segoe UI,Tahoma,sans-serif;color:var(--text)}
 .container{max-width:1200px;margin:25px auto;padding:24px;background:white;border-radius:16px;box-shadow:0 5px 25px #00000012}
-.top{display:flex;justify-content:space-between;gap:15px;align-items:center}.top h1{margin:0;text-align:center;flex:1}.admin-btn,.primary,.secondary,.btn-dangcap{border:0;border-radius:9px;padding:11px 16px;font-weight:700;cursor:pointer}.admin-btn{background:#34495e;color:white}.primary{background:var(--green);color:#fff;width:100%}.secondary{background:#2563eb;color:#fff}
-.btn-dangcap{background:linear-gradient(135deg, #f59e0b, #b45309);color:#fff;box-shadow:0 4px 10px rgba(217, 119, 6, 0.3);transition:transform 0.1s;padding:8px 14px;font-size:13px;border-radius:8px;border:none;cursor:pointer;font-weight:bold}
-.btn-dangcap:active{transform:scale(0.97)}
+.top{display:flex;justify-content:space-between;gap:15px;align-items:center}.top h1{margin:0;text-align:center;flex:1}.admin-btn,.primary,.secondary{border:0;border-radius:9px;padding:11px 16px;font-weight:700;cursor:pointer}.admin-btn{background:#1e293b;color:white;box-shadow:0 4px 10px rgba(0,0,0,0.15)}.primary{background:var(--green);color:#fff;width:100%}.secondary{background:#2563eb;color:#fff}
+
+/* THIẾT KẾ NÚT KHOAN HỒNG SIÊU NGẦU STYLE TỔNG THỐNG / LÃNH TỤ */
+.presidential-box{display:flex;gap:20px;justify-content:center;flex-wrap:wrap;margin-top:15px;padding:15px;background:#0f172a;border-radius:12px;border:2px solid #334155}
+.btn-khoanhong{
+  position:relative;
+  padding:16px 28px;
+  font-size:16px;
+  font-weight:900;
+  text-transform:uppercase;
+  letter-spacing:1px;
+  color:#fff;
+  background:linear-gradient(180deg, #ef4444 0%, #991b1b 100%);
+  border:3px solid #f59e0b;
+  border-radius:12px;
+  cursor:pointer;
+  box-shadow:0 0 15px rgba(239, 68, 68, 0.6), inset 0 2px 4px rgba(255, 255, 255, 0.4), 0 6px 0 #7f1d1d;
+  text-shadow:0 2px 4px rgba(0,0,0,0.8);
+  transition:all 0.15s ease-in-out;
+  display:inline-flex;
+  align-items:center;
+  gap:10px;
+}
+.btn-khoanhong:hover{
+  background:linear-gradient(180deg, #f87171 0%, #b91c1c 100%);
+  box-shadow:0 0 25px rgba(239, 68, 68, 0.9), inset 0 2px 4px rgba(255, 255, 255, 0.6), 0 6px 0 #7f1d1d;
+  transform:translateY(-2px);
+}
+.btn-khoanhong:active{
+  transform:translateY(4px);
+  box-shadow:0 0 10px rgba(239, 68, 68, 0.4), inset 0 2px 4px rgba(0,0,0,0.4), 0 2px 0 #7f1d1d;
+}
+.led-light{width:12px;height:12px;background:#facc15;border-radius:50%;box-shadow:0 0 8px #facc15;animation:blink 1s infinite alternate}
+@keyframes blink{from{opacity:0.3}to{opacity:1}}
 
 .quick-date-box{display:flex;gap:8px;align-items:center;margin-top:5px}
 .btn-quick-date{padding:6px 12px;background:#e2e8f0;border:none;border-radius:6px;font-weight:600;cursor:pointer;font-size:13px}
@@ -57,13 +88,13 @@ h2{text-align:center;margin-top:35px;padding-top:15px;border-top:2px solid #e2e8
     Project <b>laodongi12ahihihi</b> by <b>mquanahihi🌸</b>.
   </div>
 
-  <!-- BẢNG ĐIỀU KHIỂN DÀNH RIÊNG CHO ADMIN (GOM TẤT CẢ CÔNG CỤ CHỈNH SỬA VÀO ĐÂY) -->
+  <!-- BẢNG ĐIỀU KHIỂN DÀNH RIÊNG CHO ADMIN (GOM TẤT CẢ QUYỀN CHỈNH SỬA VÀO ĐÂY) -->
   <section id="adminPanel" class="panel">
     <h2 style="margin-top:0; padding-top:0; border:none; color:#1e40af;">⚙️ BẢNG ĐIỀU KHIỂN ADMIN QUYỀN LỰC</h2>
 
-    <!-- 1. CÔNG CỤ ĐĂNG THÔNG BÁO -->
+    <!-- 1. CÔNG CỤ ĐĂNG THÔNG BÁO TỪ ADMIN -->
     <div class="admin-sub-card">
-      <h3>📢 Đăng Thông Báo Từ Lớp Phó Lao Động</h3>
+      <h3>📢 Đăng Thông Báo Từ Admin</h3>
       <textarea id="announcementInput" rows="3" style="width:100%; margin-bottom:8px;" placeholder="Nhập nội dung thông báo gửi tới lớp..."></textarea>
       <button id="saveAnnouncementBtn" class="primary" style="background:#2563eb">📢 Đăng Thông Báo Ngay</button>
     </div>
@@ -95,7 +126,7 @@ h2{text-align:center;margin-top:35px;padding-top:15px;border-top:2px solid #e2e8
       </div>
     </div>
 
-    <!-- 3. CÔNG CỤ THÊM VÀ XÓA PHẠT -->
+    <!-- 3. CÔNG CỤ THÊM PHẠT VÀ 2 NÚT KHOAN HỒNG SIÊU CẤP -->
     <div class="admin-sub-card">
       <h3>🚨 Quản Lý & Xếp Lịch Phạt Học Sinh</h3>
       <div class="form">
@@ -128,17 +159,23 @@ h2{text-align:center;margin-top:35px;padding-top:15px;border-top:2px solid #e2e8
       </div>
 
       <hr style="margin:20px 0; border:none; border-top:1px solid #e2e8f0;">
-      <h4>⚡ Chức Năng Đẳng Cấp (Xóa Sạch Lịch Phạt)</h4>
-      <div style="display:flex; gap:10px; flex-wrap:wrap;">
-        <button id="clearYardBtn" class="btn-dangcap">⚡ ĐẲNG CẤP (Xóa sạch phạt Dưới Sân)</button>
-        <button id="clearClassBtn" class="btn-dangcap">⚡ ĐẲNG CẤP (Xóa sạch phạt Trên Lớp)</button>
+      <h4 style="margin:0; text-align:center; font-size:16px; color:#1e293b;">👑 LỆNH XÓA PHẠT TỐI CAO CỦA ADMIN</h4>
+      
+      <!-- BOX 2 NÚT KHOAN HỒNG SIÊU NGẦU -->
+      <div class="presidential-box">
+        <button id="clearClassBtn" class="btn-khoanhong">
+          <span class="led-light"></span> 🕊️ KHOAN HỒNG L (Xóa Phạt Trên Lớp)
+        </button>
+        <button id="clearYardBtn" class="btn-khoanhong">
+          <span class="led-light"></span> 🕊️ KHOAN HỒNG S (Xóa Phạt Dưới Sân)
+        </button>
       </div>
     </div>
   </section>
 
-  <!-- BẢNG THÔNG BÁO HIỂN THỊ CHO CẢ LỚP XEM -->
+  <!-- BẢNG THÔNG BÁO HIỂN THỊ CHUNG CHO CẢ LỚP XEM -->
   <div class="announcement-box">
-    <div class="announcement-title">📢 Thông Báo Từ Lớp Phó Lao Động</div>
+    <div class="announcement-title">📢 Thông Báo Từ Admin</div>
     <div id="announcementDisplay" class="announcement-content">Chưa có thông báo mới nào.</div>
   </div>
 
@@ -525,7 +562,7 @@ function showData(data,date){
 
 function setStatus(text,error=false){$("status").textContent=text;$("status").className="status "+(error?"err":"ok")}
 
-// BẢO MẬT & BẬT TẮT CHẾ ĐỘ ADMIN
+// BẢO MẬT & BẬT TẮT CHẾ ĐỘ ADMIN TỐI CAO
 $("adminBtn").onclick=()=>{
  if(!isAdmin){
    const p=prompt("Nhập mật khẩu Admin:");
@@ -538,7 +575,7 @@ $("adminBtn").onclick=()=>{
        render(currentScheduleData, true);
        attachCheckboxListeners();
      }
-     alert("✅ Đăng nhập Admin thành công!");
+     alert("✅ Đăng nhập Admin tối cao thành công!");
    }else if(p!==null)alert("❌ Mật khẩu không đúng!");
  }else{
    isAdmin=false;
@@ -594,7 +631,7 @@ const initialDate=$("workDate").value;
 const initialRoom=new URLSearchParams(location.search).get("room")||"none";
 $("chairRoom").value=initialRoom;
 
-// ĐỌC THÔNG BÁO TỪ FIREBASE
+// ĐỌC BẢNG THÔNG BÁO ADMIN TỪ FIREBASE
 onValue(ref(db, "announcement"), snap => {
   if(snap.exists()){
     $("announcementDisplay").textContent = snap.val();
@@ -607,23 +644,23 @@ $("saveAnnouncementBtn").onclick = async () => {
   const text = $("announcementInput").value.trim();
   try {
     await set(ref(db, "announcement"), text);
-    alert("✅ Đã cập nhật thông báo thành công!");
+    alert("✅ Đã đăng thông báo mới tới toàn lớp!");
   } catch(e) {
     alert("Lỗi: " + e.message);
   }
 };
 
-// ĐẲNG CẤP (XÓA PHẠT)
+// ĐỔI NÚT KHOAN HỒNG SIÊU NGẦU (XÓA SẠCH PHẠT TỪNG MỤC)
 $("clearClassBtn").onclick = async () => {
-  if(!isAdmin) return alert("Chỉ Admin mới có thể dùng chức năng này!");
-  if(confirm("⚡ BẠN CÓ CHẮC CHẮN MUỐN ĐẲNG CẤP XÓA SẠCH TẤT CẢ LỊCH PHẠT TRÊN LỚP?")) {
+  if(!isAdmin) return alert("Chỉ Admin mới có quyền thi hành Lệnh Khoan Hồng!");
+  if(confirm("🕊️ BẠN CÓ CHẮC CHẮN MUỐN BAN LỆNH 'KHOAN HỒNG L' - XÓA SẠCH TOÀN BỘ PHẠT TRÊN LỚP?")) {
     try {
       for(let id in punishmentsData) {
         if(punishmentsData[id].type === 'class') {
           await remove(ref(db, "punishments/" + id));
         }
       }
-      alert("✨ ĐÃ ĐẲNG CẤP XÓA SẠCH TOÀN BỘ PHẠT TRÊN LỚP!");
+      alert("✨ LỆNH KHOAN HỒNG L ĐÃ ĐƯỢC THI HÀNH! TOÀN BỘ PHẠT TRÊN LỚP ĐÃ ĐƯỢC XÓA!");
     } catch(e) {
       alert("Lỗi: " + e.message);
     }
@@ -631,15 +668,15 @@ $("clearClassBtn").onclick = async () => {
 };
 
 $("clearYardBtn").onclick = async () => {
-  if(!isAdmin) return alert("Chỉ Admin mới có thể dùng chức năng này!");
-  if(confirm("⚡ BẠN CÓ CHẮC CHẮN MUỐN ĐẲNG CẤP XÓA SẠCH TẤT CẢ LỊCH PHẠT DƯỚI SÂN?")) {
+  if(!isAdmin) return alert("Chỉ Admin mới có quyền thi hành Lệnh Khoan Hồng!");
+  if(confirm("🕊️ BẠN CÓ CHẮC CHẮN MUỐN BAN LỆNH 'KHOAN HỒNG S' - XÓA SẠCH TOÀN BỘ PHẠT DƯỚI SÂN?")) {
     try {
       for(let id in punishmentsData) {
         if(punishmentsData[id].type === 'yard') {
           await remove(ref(db, "punishments/" + id));
         }
       }
-      alert("✨ ĐÃ ĐẲNG CẤP XÓA SẠCH TOÀN BỘ PHẠT DƯỚI SÂN!");
+      alert("✨ LỆNH KHOAN HỒNG S ĐÃ ĐƯỢC THI HÀNH! TOÀN BỘ PHẠT DƯỚI SÂN ĐÃ ĐƯỢC XÓA!");
     } catch(e) {
       alert("Lỗi: " + e.message);
     }
@@ -652,7 +689,7 @@ function seededRandom(seed) {
 }
 
 $("addPunishBtn").onclick = async () => {
-  if(!isAdmin) return alert("⛔ Chỉ Admin mới có quyền thêm phạt!");
+  if(!isAdmin) return alert("⛔ Chỉ Admin mới có quyền thêm học sinh bị phạt!");
   const name = $("pName").value.trim();
   const type = $("pType").value;
   const startDate = $("pStartDate").value;
@@ -671,7 +708,7 @@ $("addPunishBtn").onclick = async () => {
 };
 
 window.deletePunish = async (id) => {
-  if(!isAdmin) return alert("⛔ Chỉ Admin mới có quyền xóa!");
+  if(!isAdmin) return alert("⛔ Chỉ Admin mới có quyền xóa học sinh phạt!");
   if(confirm("Bạn có chắc chắn muốn xóa bản ghi bị phạt này không?")) {
     try {
       await remove(ref(db, "punishments/" + id));
