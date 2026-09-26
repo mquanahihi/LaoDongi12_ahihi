@@ -3,24 +3,23 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Lịch Lao Động & Lao Động Phạt - Lớp I12</title>
+<title>Hệ Thống Quản Lý Lao Động Lớp I12</title>
 <style>
-:root{--bg:#f4f7f6;--card:#fff;--text:#1f2937;--muted:#64748b;--primary:#2563eb;--danger:#dc2626;--green:#16a34a;--k1:#800014;--k2:#22b14c;--k3:#3f48cc;--orange:#d97706;--group:#7c3aed}
+:root{--bg:#f4f7f6;--card:#fff;--text:#1f2937;--muted:#64748b;--primary:#2563eb;--danger:#dc2626;--green:#16a34a;--k1:#800014;--k2:#22b14c;--k3:#3f48cc;--orange:#d97706;--group:#7c3aed;--gold:#d97706}
 *{box-sizing:border-box}body{margin:0;background:var(--bg);font-family:Segoe UI,Tahoma,sans-serif;color:var(--text)}
 .container{max-width:1200px;margin:25px auto;padding:24px;background:white;border-radius:16px;box-shadow:0 5px 25px #00000012}
-.top{display:flex;justify-content:space-between;gap:15px;align-items:center}.top h1{margin:0;text-align:center;flex:1}.admin-btn,.primary,.secondary{border:0;border-radius:9px;padding:11px 16px;font-weight:700;cursor:pointer}.admin-btn{background:#34495e;color:white}.primary{background:var(--green);color:#fff;width:100%}.secondary{background:#2563eb;color:#fff}
+.top{display:flex;justify-content:space-between;gap:15px;align-items:center}.top h1{margin:0;text-align:center;flex:1}.admin-btn,.primary,.secondary,.btn-dangcap{border:0;border-radius:9px;padding:11px 16px;font-weight:700;cursor:pointer}.admin-btn{background:#34495e;color:white}.primary{background:var(--green);color:#fff;width:100%}.secondary{background:#2563eb;color:#fff}
+.btn-dangcap{background:linear-gradient(135deg, #f59e0b, #b45309);color:#fff;box-shadow:0 4px 10px rgba(217, 119, 6, 0.3);transition:transform 0.1s;padding:8px 14px;font-size:13px;border-radius:8px;border:none;cursor:pointer;font-weight:bold}
+.btn-dangcap:active{transform:scale(0.97)}
 
-/* NAVBAR & TABS NAVIGATION */
-.nav-tabs{display:flex;justify-content:center;gap:12px;margin:20px 0 10px;border-bottom:2px solid #e2e8f0;padding-bottom:12px}
-.tab-btn{padding:10px 20px;border-radius:8px;border:none;background:#e2e8f0;color:var(--text);font-weight:700;cursor:pointer;transition:all 0.2s}
-.tab-btn.active{background:var(--primary);color:#fff;box-shadow:0 4px 12px #2563eb40}
-.tab-content{display:none}
-.tab-content.active{display:block}
+.quick-date-box{display:flex;gap:8px;align-items:center;margin-top:5px}
+.btn-quick-date{padding:6px 12px;background:#e2e8f0;border:none;border-radius:6px;font-weight:600;cursor:pointer;font-size:13px}
+.btn-quick-date:hover{background:#cbd5e1}
 
 .status{padding:10px 14px;border-radius:9px;margin:18px 0;font-size:14px;background:#eef2ff}.status.ok{background:#ecfdf5;color:#166534}.status.err{background:#fef2f2;color:#991b1b}
-.panel{display:none;background:#f1f5f9;padding:20px;border:2px dashed #22c55e;border-radius:12px;margin-bottom:22px}.panel.show{display:block}
-.form{display:grid;grid-template-columns:1fr 1fr;gap:15px}.group{display:flex;flex-direction:column;gap:7px}label{font-weight:700;font-size:14px}input,select{padding:11px;border:1px solid #cbd5e1;border-radius:8px;font-size:15px;background:white}.full{grid-column:1/-1}
-h2{text-align:center}.notice{padding:12px 15px;border:1px solid #fde68a;background:#fffbeb;border-radius:9px;margin:15px 0}.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:15px}.card{background:white;border-radius:12px;box-shadow:0 2px 10px #00000010;padding:15px;border-top:6px solid #ccc}.card.k1{border-color:var(--k1)}.card.k2{border-color:var(--k2)}.card.k3{border-color:var(--k3)}.card.exempt{border-color:var(--orange)}.card.absent{border-color:var(--danger)}.head{display:flex;justify-content:space-between;border-bottom:1px solid #e5e7eb;padding-bottom:9px;margin-bottom:10px;font-weight:700}
+.panel{display:none;background:#f8fafc;padding:20px;border:2px dashed #2563eb;border-radius:12px;margin-bottom:22px;box-shadow:0 4px 15px rgba(0,0,0,0.05)}.panel.show{display:block}
+.form{display:grid;grid-template-columns:1fr 1fr;gap:15px}.group{display:flex;flex-direction:column;gap:7px}label{font-weight:700;font-size:14px}input,select,textarea{padding:11px;border:1px solid #cbd5e1;border-radius:8px;font-size:15px;background:white}.full{grid-column:1/-1}
+h2{text-align:center;margin-top:35px;padding-top:15px;border-top:2px solid #e2e8f0}.notice{padding:12px 15px;border:1px solid #fde68a;background:#fffbeb;border-radius:9px;margin:15px 0}.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:15px}.card{background:white;border-radius:12px;box-shadow:0 2px 10px #00000010;padding:15px;border-top:6px solid #ccc}.card.k1{border-color:var(--k1)}.card.k2{border-color:var(--k2)}.card.k3{border-color:var(--k3)}.card.exempt{border-color:var(--orange)}.card.absent{border-color:var(--danger)}.head{display:flex;justify-content:space-between;border-bottom:1px solid #e5e7eb;padding-bottom:9px;margin-bottom:10px;font-weight:700}
 .member{display:flex;justify-content:space-between;align-items:center;gap:8px;padding:8px 10px;background:#f8fafc;border-radius:7px;margin:5px 0;font-size:14px}
 .member-info{display:flex;align-items:center;gap:8px}
 .member-info input[type="checkbox"]{cursor:pointer;width:16px;height:16px}
@@ -28,15 +27,21 @@ h2{text-align:center}.notice{padding:12px 15px;border:1px solid #fde68a;backgrou
 .room{color:#64748b;font-size:12px}.history{margin-top:35px;border-top:2px solid #e5e7eb;padding-top:20px}.history-form{display:flex;justify-content:center;gap:10px;flex-wrap:wrap;align-items:end}.small{font-size:12px;color:var(--muted)}.map-box{text-align:center;margin:20px 0;background:#fff;padding:15px;border-radius:12px;border:1px solid #e2e8f0}
 .badge-group{display:inline-block;padding:4px 12px;border-radius:20px;background:#7c3aed;color:#fff;font-size:14px;font-weight:bold;margin-bottom:10px}
 
-/* STYLES CHO LAO ĐỘNG PHẠT */
-.punish-section{background:#fff5f5;border:1px solid #fecaca;padding:20px;border-radius:12px;margin-bottom:20px}
+.announcement-box{background:#eff6ff;border:2px solid #60a5fa;padding:18px;border-radius:12px;margin:15px 0;box-shadow:0 4px 12px rgba(37,99,235,0.08)}
+.announcement-title{font-size:18px;font-weight:bold;color:#1e40af;margin-bottom:8px;display:flex;align-items:center;gap:8px}
+.announcement-content{font-size:15px;color:#1e293b;white-space:pre-line;line-height:1.5}
+
+.punish-section{background:#fff5f5;border:1px solid #fecaca;padding:20px;border-radius:12px;margin-top:20px}
+.punish-header{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px}
 .punish-table{width:100%;border-collapse:collapse;margin-top:10px;background:#fff;border-radius:8px;overflow:hidden}
 .punish-table th, .punish-table td{padding:10px;text-align:left;border-bottom:1px solid #e2e8f0;font-size:14px}
 .punish-table th{background:#fee2e2;color:#991b1b;font-weight:bold}
 .btn-del{background:var(--danger);color:#fff;border:none;padding:5px 10px;border-radius:5px;cursor:pointer;font-weight:bold}
-.admin-only-box{border:2px dashed var(--danger);background:#fff1f2;padding:15px;border-radius:10px;margin-bottom:15px;text-align:center}
 
-@media(max-width:700px){.container{margin:8px;padding:15px}.form{grid-template-columns:1fr}.top{align-items:flex-start}.top h1{font-size:20px}.admin-btn{font-size:12px;padding:8px}}
+.admin-sub-card{background:#fff;padding:15px;border-radius:10px;border:1px solid #cbd5e1;margin-bottom:15px}
+.admin-sub-card h3{margin-top:0;color:#1e293b;border-bottom:2px solid #e2e8f0;padding-bottom:8px}
+
+@media(max-width:700px){.container{margin:8px;padding:15px}.form{grid-template-columns:1fr}.top{align-items:flex-start}.top h1{font-size:20px}.admin-btn{font-size:12px;padding:8px}.punish-header{flex-direction:column;align-items:flex-start}}
 </style>
 </head>
 <body>
@@ -44,7 +49,7 @@ h2{text-align:center}.notice{padding:12px 15px;border:1px solid #fde68a;backgrou
   <div class="top">
     <div style="width:80px"></div>
     <h1>📅 Lịch Lao Động Lớp I12 🥇🥇🥇</h1>
-    <button id="adminBtn" class="admin-btn">🔑 Admin</button>
+    <button id="adminBtn" class="admin-btn">🔑 Đăng Nhập Admin</button>
   </div>
 
   <div id="status" class="status">Đang kết nối dữ liệu...</div>
@@ -52,20 +57,28 @@ h2{text-align:center}.notice{padding:12px 15px;border:1px solid #fde68a;backgrou
     Project <b>laodongi12ahihihi</b> by <b>mquanahihi🌸</b>.
   </div>
 
-  <!-- ĐIỀU HƯỚNG WEB (NAVBAR TABS) -->
-  <div class="nav-tabs">
-    <button class="tab-btn active" onclick="switchTab('regularTab')">🔄 Lịch Lao Động Xoay Phiên</button>
-    <button class="tab-btn" onclick="switchTab('punishTab')">🚨 Lịch Lao Động Phạt</button>
-  </div>
+  <!-- BẢNG ĐIỀU KHIỂN DÀNH RIÊNG CHO ADMIN (GOM TẤT CẢ CÔNG CỤ CHỈNH SỬA VÀO ĐÂY) -->
+  <section id="adminPanel" class="panel">
+    <h2 style="margin-top:0; padding-top:0; border:none; color:#1e40af;">⚙️ BẢNG ĐIỀU KHIỂN ADMIN QUYỀN LỰC</h2>
 
-  <!-- TAB 1: LỊCH LAO ĐỘNG XOAY PHIÊN -->
-  <div id="regularTab" class="tab-content active">
-    <section id="adminPanel" class="panel">
-      <h2>⚙️ Bảng điều khiển Admin</h2>
+    <!-- 1. CÔNG CỤ ĐĂNG THÔNG BÁO -->
+    <div class="admin-sub-card">
+      <h3>📢 Đăng Thông Báo Từ Lớp Phó Lao Động</h3>
+      <textarea id="announcementInput" rows="3" style="width:100%; margin-bottom:8px;" placeholder="Nhập nội dung thông báo gửi tới lớp..."></textarea>
+      <button id="saveAnnouncementBtn" class="primary" style="background:#2563eb">📢 Đăng Thông Báo Ngay</button>
+    </div>
+
+    <!-- 2. CÔNG CỤ LƯU LỊCH THƯỜNG -->
+    <div class="admin-sub-card">
+      <h3>📅 Cấu Hình Lịch Lao Động Xoay Phiên</h3>
       <div class="form">
         <div class="group">
-          <label for="workDate">Ngày xếp lịch</label>
+          <label for="workDate">Ngày xếp lịch (dd/mm/yyyy)</label>
           <input type="date" id="workDate">
+          <div class="quick-date-box">
+            <button class="btn-quick-date" onclick="setQuickDate('workDate', 0)">Hôm Nay</button>
+            <button class="btn-quick-date" onclick="setQuickDate('workDate', 1)">Ngày Mai</button>
+          </div>
         </div>
         <div class="group">
           <label for="chairRoom">Phòng xếp ghế (chỉ Thứ 2)</label>
@@ -78,69 +91,13 @@ h2{text-align:center}.notice{padding:12px 15px;border:1px solid #fde68a;backgrou
         </div>
         <div class="full">
           <button id="saveBtn" class="primary">💾 Lưu & Cập Nhật Lịch Toàn Hệ Thống</button>
-          <div class="small" style="margin-top:8px">Tui iu các bạn nhìu 😘😘😘.</div>
         </div>
       </div>
-    </section>
-
-    <h2>🗺️ Sơ Đồ Phân Khu Lao Động</h2>
-    <div class="map-box">
-        <svg viewBox="0 0 1000 500" style="width: 100%; max-width: 900px; height: auto; display: block; margin: 0 auto;">
-            <rect x="0" y="0" width="1000" height="500" fill="#ffffff"/>
-            <rect x="50" y="40" width="240" height="65" rx="15" ry="15" fill="#800014" stroke="#000000" stroke-width="5"/>
-            <text x="170" y="81" font-family="Arial, sans-serif" font-size="22" font-weight="bold" fill="#ffffff" text-anchor="middle">🛵 NHÀ XE 1</text>
-            <rect x="430" y="140" width="90" height="290" rx="15" ry="15" fill="#22b14c" stroke="#000000" stroke-width="5"/>
-            <text x="475" y="295" font-family="Arial, sans-serif" font-size="22" font-weight="bold" fill="#ffffff" text-anchor="middle" transform="rotate(-90 475 295)">🌳 MID</text>
-            <rect x="370" y="90" width="210" height="50" rx="12" ry="12" fill="#22b14c" stroke="#000000" stroke-width="5"/>
-            <text x="475" y="123" font-family="Arial, sans-serif" font-size="20" font-weight="bold" fill="#ffffff" text-anchor="middle">🌳 MID</text>
-            <rect x="370" y="40" width="102" height="50" rx="10" ry="10" fill="#800014" stroke="#000000" stroke-width="5"/>
-            <text x="421" y="72" font-family="Arial, sans-serif" font-size="15" font-weight="bold" fill="#ffffff" text-anchor="middle">🛵 NHÀ XE 1</text>
-            <rect x="478" y="40" width="102" height="50" rx="10" ry="10" fill="#3f48cc" stroke="#000000" stroke-width="5"/>
-            <text x="529" y="72" font-family="Arial, sans-serif" font-size="15" font-weight="bold" fill="#ffffff" text-anchor="middle">🛵 NHÀ XE 2</text>
-            <rect x="650" y="40" width="210" height="50" rx="15" ry="15" fill="#3f48cc" stroke="#000000" stroke-width="5"/>
-            <text x="755" y="73" font-family="Arial, sans-serif" font-size="22" font-weight="bold" fill="#ffffff" text-anchor="middle">🛵 NHÀ XE 2</text>
-        </svg>
     </div>
 
-    <div style="text-align: center;">
-      <h2 id="scheduleTitle" style="margin-bottom:5px">Lịch Lao Động</h2>
-      <div id="groupBadge" class="badge-group"></div>
-    </div>
-    
-    <div id="noticeBox" class="notice" style="display:none"></div>
-    <div id="scheduleDisplay" class="grid"></div>
-
-    <section class="history">
-      <h2>🧿 Tra Cứu Lịch Theo Ngày</h2>
-      <div class="history-form">
-        <div class="group"><label>Ngày</label><input type="date" id="historyDate"></div>
-        <div class="group" id="historyChairWrap" style="display:none">
-          <label>Phòng xếp ghế</label>
-          <select id="historyChairRoom">
-            <option value="none">-- Không chọn --</option>
-            <option value="p1333">Phòng 13-33</option><option value="p15">Phòng 15</option>
-            <option value="p27">Phòng 27</option><option value="p30">Phòng 30</option>
-            <option value="p34">Phòng 34</option><option value="p52">Phòng 52</option>
-          </select>
-        </div>
-        <button id="historyBtn" class="secondary">Xem Lịch</button>
-      </div>
-      <div id="historyStatus" class="small" style="text-align:center;margin:12px"></div>
-      <div id="historyDisplay" class="grid"></div>
-    </section>
-  </div>
-
-  <!-- TAB 2: LAO ĐỘNG PHẠT -->
-  <div id="punishTab" class="tab-content">
-    <h2>⚖️ Lịch Lao Động Phạt Học Sinh</h2>
-
-    <!-- CẢNH BÁO / FORM THÊM HỌC SINH PHẠT (CHỈ ADMIN THẤY) -->
-    <div id="punishAdminNotice" class="admin-only-box">
-      🔒 <b>Bạn đang ở chế độ Xem.</b> Chỉ Admin nhập đúng mật khẩu mới có thể thêm hoặc xóa danh sách phạt.
-    </div>
-
-    <div id="punishFormBox" class="punish-section" style="display:none;">
-      <h3>➕ Thêm Học Sinh Bị Phạt (Chỉ Admin)</h3>
+    <!-- 3. CÔNG CỤ THÊM VÀ XÓA PHẠT -->
+    <div class="admin-sub-card">
+      <h3>🚨 Quản Lý & Xếp Lịch Phạt Học Sinh</h3>
       <div class="form">
         <div class="group">
           <label>Họ và Tên</label>
@@ -154,62 +111,142 @@ h2{text-align:center}.notice{padding:12px 15px;border:1px solid #fde68a;backgrou
           </select>
         </div>
         <div class="group">
-          <label>Ngày bắt đầu phạt</label>
+          <label>Ngày bắt đầu phạt (dd/mm/yyyy)</label>
           <input type="date" id="pStartDate">
+          <div class="quick-date-box">
+            <button class="btn-quick-date" onclick="setQuickDate('pStartDate', 0)">Hôm Nay</button>
+            <button class="btn-quick-date" onclick="setQuickDate('pStartDate', 1)">Ngày Mai</button>
+          </div>
         </div>
         <div class="group">
           <label>Số ngày phạt</label>
           <input type="number" id="pDays" min="1" value="1">
         </div>
         <div class="full">
-          <button id="addPunishBtn" class="primary" style="background:var(--danger)">🚨 Thêm Vào Danh Sách Phạt</button>
+          <button id="addPunishBtn" class="primary" style="background:var(--danger)">🚨 Thêm Học Sinh Vào Danh Sách Phạt</button>
         </div>
       </div>
-    </div>
 
-    <!-- MỤC 1: LAO ĐỘNG TRÊN LỚP -->
-    <div class="punish-section">
-      <h3>🧹 1. Danh Sách Phạt Lao Động Trên Lớp</h3>
-      <table class="punish-table">
-        <thead>
-          <tr>
-            <th>Họ và Tên</th>
-            <th>Ngày Bắt Đầu</th>
-            <th>Số Ngày</th>
-            <th>Trạng Thái</th>
-            <th>Thao tác</th>
-          </tr>
-        </thead>
-        <tbody id="classPunishList">
-          <!-- Dữ liệu render JS -->
-        </tbody>
-      </table>
-    </div>
-
-    <!-- MỤC 2: LAO ĐỘNG DƯỚI SÂN -->
-    <div class="punish-section">
-      <h3>🌳 2. Lịch Lao Động Phạt Dưới Sân (Phân Chia Ngẫu Nhiên)</h3>
-      <div style="margin-bottom: 15px; text-align: center;">
-        <label><b>Xem lịch phạt dưới sân theo ngày: </b></label>
-        <input type="date" id="viewYardDate" style="width: auto; display: inline-block;">
+      <hr style="margin:20px 0; border:none; border-top:1px solid #e2e8f0;">
+      <h4>⚡ Chức Năng Đẳng Cấp (Xóa Sạch Lịch Phạt)</h4>
+      <div style="display:flex; gap:10px; flex-wrap:wrap;">
+        <button id="clearYardBtn" class="btn-dangcap">⚡ ĐẲNG CẤP (Xóa sạch phạt Dưới Sân)</button>
+        <button id="clearClassBtn" class="btn-dangcap">⚡ ĐẲNG CẤP (Xóa sạch phạt Trên Lớp)</button>
       </div>
-      <div id="yardPunishDisplay" class="grid"></div>
-
-      <h4 style="margin-top:25px">📋 Quản lý danh sách phạt dưới sân:</h4>
-      <table class="punish-table">
-        <thead>
-          <tr>
-            <th>Họ và Tên</th>
-            <th>Ngày Bắt Đầu</th>
-            <th>Số Ngày</th>
-            <th>Thao tác</th>
-          </tr>
-        </thead>
-        <tbody id="yardPunishList">
-          <!-- Dữ liệu render JS -->
-        </tbody>
-      </table>
     </div>
+  </section>
+
+  <!-- BẢNG THÔNG BÁO HIỂN THỊ CHO CẢ LỚP XEM -->
+  <div class="announcement-box">
+    <div class="announcement-title">📢 Thông Báo Từ Lớp Phó Lao Động</div>
+    <div id="announcementDisplay" class="announcement-content">Chưa có thông báo mới nào.</div>
+  </div>
+
+  <!-- SƠ ĐỒ VÀ LỊCH LAO ĐỘNG XOAY PHIÊN -->
+  <h2 style="border-top:none;">🗺️ Sơ Đồ Phân Khu Lao Động</h2>
+  <div class="map-box">
+      <svg viewBox="0 0 1000 500" style="width: 100%; max-width: 900px; height: auto; display: block; margin: 0 auto;">
+          <rect x="0" y="0" width="1000" height="500" fill="#ffffff"/>
+          <rect x="50" y="40" width="240" height="65" rx="15" ry="15" fill="#800014" stroke="#000000" stroke-width="5"/>
+          <text x="170" y="81" font-family="Arial, sans-serif" font-size="22" font-weight="bold" fill="#ffffff" text-anchor="middle">🛵 NHÀ XE 1</text>
+          <rect x="430" y="140" width="90" height="290" rx="15" ry="15" fill="#22b14c" stroke="#000000" stroke-width="5"/>
+          <text x="475" y="295" font-family="Arial, sans-serif" font-size="22" font-weight="bold" fill="#ffffff" text-anchor="middle" transform="rotate(-90 475 295)">🌳 MID</text>
+          <rect x="370" y="90" width="210" height="50" rx="12" ry="12" fill="#22b14c" stroke="#000000" stroke-width="5"/>
+          <text x="475" y="123" font-family="Arial, sans-serif" font-size="20" font-weight="bold" fill="#ffffff" text-anchor="middle">🌳 MID</text>
+          <rect x="370" y="40" width="102" height="50" rx="10" ry="10" fill="#800014" stroke="#000000" stroke-width="5"/>
+          <text x="421" y="72" font-family="Arial, sans-serif" font-size="15" font-weight="bold" fill="#ffffff" text-anchor="middle">🛵 NHÀ XE 1</text>
+          <rect x="478" y="40" width="102" height="50" rx="10" ry="10" fill="#3f48cc" stroke="#000000" stroke-width="5"/>
+          <text x="529" y="72" font-family="Arial, sans-serif" font-size="15" font-weight="bold" fill="#ffffff" text-anchor="middle">🛵 NHÀ XE 2</text>
+          <rect x="650" y="40" width="210" height="50" rx="15" ry="15" fill="#3f48cc" stroke="#000000" stroke-width="5"/>
+          <text x="755" y="73" font-family="Arial, sans-serif" font-size="22" font-weight="bold" fill="#ffffff" text-anchor="middle">🛵 NHÀ XE 2</text>
+      </svg>
+  </div>
+
+  <div style="text-align: center;">
+    <h2 id="scheduleTitle" style="margin-bottom:5px; border-top:none;">Lịch Lao Động Xoay Phiên</h2>
+    <div id="groupBadge" class="badge-group"></div>
+  </div>
+  
+  <div id="noticeBox" class="notice" style="display:none"></div>
+  <div id="scheduleDisplay" class="grid"></div>
+
+  <!-- TRA CỨU LỊCH THƯỜNG -->
+  <section class="history">
+    <h2>🧿 Tra Cứu Lịch Theo Ngày</h2>
+    <div class="history-form">
+      <div class="group">
+        <label>Ngày (dd/mm/yyyy)</label>
+        <input type="date" id="historyDate">
+        <div class="quick-date-box">
+          <button class="btn-quick-date" onclick="setQuickDate('historyDate', 0)">Hôm Nay</button>
+          <button class="btn-quick-date" onclick="setQuickDate('historyDate', 1)">Ngày Mai</button>
+        </div>
+      </div>
+      <div class="group" id="historyChairWrap" style="display:none">
+        <label>Phòng xếp ghế</label>
+        <select id="historyChairRoom">
+          <option value="none">-- Không chọn --</option>
+          <option value="p1333">Phòng 13-33</option><option value="p15">Phòng 15</option>
+          <option value="p27">Phòng 27</option><option value="p30">Phòng 30</option>
+          <option value="p34">Phòng 34</option><option value="p52">Phòng 52</option>
+        </select>
+      </div>
+      <button id="historyBtn" class="secondary">Xem Lịch</button>
+    </div>
+    <div id="historyStatus" class="small" style="text-align:center;margin:12px"></div>
+    <div id="historyDisplay" class="grid"></div>
+  </section>
+
+  <!-- BẢNG HIỂN THỊ LAO ĐỘNG PHẠT -->
+  <h2>⚖️ Lịch Lao Động Phạt Học Sinh</h2>
+
+  <div class="punish-section">
+    <div class="punish-header">
+      <h3 style="margin:0">🌳 Lịch Lao Động Phạt Dưới Sân (Phân Chia Tự Động)</h3>
+    </div>
+
+    <div style="margin: 15px 0; text-align: center;">
+      <label><b>Xem lịch phạt dưới sân ngày (dd/mm/yyyy): </b></label>
+      <input type="date" id="viewYardDate" style="width: auto; display: inline-block;">
+      <div class="quick-date-box" style="justify-content:center; display:inline-flex; margin-left:10px;">
+        <button class="btn-quick-date" onclick="setQuickDate('viewYardDate', 0)">Hôm Nay</button>
+        <button class="btn-quick-date" onclick="setQuickDate('viewYardDate', 1)">Ngày Mai</button>
+      </div>
+    </div>
+
+    <div id="yardPunishDisplay" class="grid"></div>
+
+    <h4 style="margin-top:25px">📋 Danh sách phạt dưới sân:</h4>
+    <table class="punish-table">
+      <thead>
+        <tr>
+          <th>Họ và Tên</th>
+          <th>Ngày Bắt Đầu</th>
+          <th>Số Ngày</th>
+          <th>Thao tác</th>
+        </tr>
+      </thead>
+      <tbody id="yardPunishList"></tbody>
+    </table>
+  </div>
+
+  <div class="punish-section">
+    <div class="punish-header">
+      <h3 style="margin:0">🧹 Danh Sách Phạt Lao Động Trên Lớp</h3>
+    </div>
+
+    <table class="punish-table" style="margin-top:15px;">
+      <thead>
+        <tr>
+          <th>Họ và Tên</th>
+          <th>Ngày Bắt Đầu</th>
+          <th>Số Ngày</th>
+          <th>Trạng Thái</th>
+          <th>Thao tác</th>
+        </tr>
+      </thead>
+      <tbody id="classPunishList"></tbody>
+    </table>
   </div>
 
 </div>
@@ -290,25 +327,25 @@ const groupB_Boys = [
 
 const $ = id => document.getElementById(id);
 
-// THAO TÁC ĐIỀU HƯỚNG TAB
-window.switchTab = function(tabId) {
-  document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
-  document.querySelectorAll('.tab-content').forEach(content => content.classList.remove('active'));
-  
-  if(tabId === 'regularTab') {
-    document.querySelectorAll('.tab-btn')[0].classList.add('active');
-    $('regularTab').classList.add('active');
-  } else {
-    document.querySelectorAll('.tab-btn')[1].classList.add('active');
-    $('punishTab').classList.add('active');
-    renderPunishments();
-  }
+function formatDateVN(dateStr) {
+  if(!dateStr) return '';
+  const [y, m, d] = dateStr.split('-');
+  return `${d}/${m}/${y}`;
 }
 
-function today(){
- const d=new Date(),m=String(d.getMonth()+1).padStart(2,"0"),day=String(d.getDate()).padStart(2,"0");
- return `${d.getFullYear()}-${m}-${day}`;
+function getDateOffset(offsetDays = 0) {
+  const d = new Date();
+  d.setDate(d.getDate() + offsetDays);
+  const m = String(d.getMonth() + 1).padStart(2, "0");
+  const day = String(d.getDate()).padStart(2, "0");
+  return `${d.getFullYear()}-${m}-${day}`;
 }
+
+window.setQuickDate = function(inputId, offsetDays) {
+  const targetDateStr = getDateOffset(offsetDays);
+  $(inputId).value = targetDateStr;
+  $(inputId).dispatchEvent(new Event('change'));
+};
 
 function dayIndex(s){
  const p=s.split("-"),d=new Date(+p[0],+p[1]-1,+p[2]),y=new Date(+p[0],0,1);
@@ -454,8 +491,7 @@ function attachCheckboxListeners(){
 }
 
 function title(date){
- const p=date.split("-"),d=new Date(+p[0],+p[1]-1,+p[2]);
- $("scheduleTitle").textContent="Lịch Lao Động - "+d.toLocaleDateString("vi-VN",{weekday:"long",year:"numeric",month:"numeric",day:"numeric"});
+ $("scheduleTitle").textContent="Lịch Lao Động Xoay Phiên - Ngày "+formatDateVN(date);
 }
 
 function showLocal(date,room){
@@ -489,16 +525,14 @@ function showData(data,date){
 
 function setStatus(text,error=false){$("status").textContent=text;$("status").className="status "+(error?"err":"ok")}
 
-// ĐĂNG NHẬP ADMIN & BẢO MẬT HỆ THỐNG
+// BẢO MẬT & BẬT TẮT CHẾ ĐỘ ADMIN
 $("adminBtn").onclick=()=>{
  if(!isAdmin){
    const p=prompt("Nhập mật khẩu Admin:");
    if(p===ADMIN_PASSWORD){
      isAdmin=true;
      $("adminPanel").classList.add("show");
-     $("adminBtn").textContent="🔒 Đăng xuất Admin";
-     $("punishFormBox").style.display = "block";
-     $("punishAdminNotice").style.display = "none";
+     $("adminBtn").textContent="🔒 Đăng Xuất Admin";
      
      if(currentScheduleData) {
        render(currentScheduleData, true);
@@ -509,9 +543,7 @@ $("adminBtn").onclick=()=>{
  }else{
    isAdmin=false;
    $("adminPanel").classList.remove("show");
-   $("adminBtn").textContent="🔑 Admin";
-   $("punishFormBox").style.display = "none";
-   $("punishAdminNotice").style.display = "block";
+   $("adminBtn").textContent="🔑 Đăng Nhập Admin";
 
    if(currentScheduleData) {
      render(currentScheduleData, true);
@@ -552,26 +584,75 @@ $("historyBtn").onclick=async()=>{
  $("historyStatus").textContent="";
 };
 
-$("historyDate").value=today();$("workDate").value=new URLSearchParams(location.search).get("date")||today();
-$("pStartDate").value=today(); $("viewYardDate").value=today();
-$("historyDate").value=$("workDate").value;updateHistoryMonday();
+$("workDate").value = getDateOffset(0);
+$("historyDate").value = getDateOffset(0);
+$("pStartDate").value = getDateOffset(0); 
+$("viewYardDate").value = getDateOffset(0);
+
+updateHistoryMonday();
 const initialDate=$("workDate").value;
 const initialRoom=new URLSearchParams(location.search).get("room")||"none";
 $("chairRoom").value=initialRoom;
 
-// --- LOGIC XỬ LÝ PHẠT & BẢO MẬT ADMIN ---
+// ĐỌC THÔNG BÁO TỪ FIREBASE
+onValue(ref(db, "announcement"), snap => {
+  if(snap.exists()){
+    $("announcementDisplay").textContent = snap.val();
+    $("announcementInput").value = snap.val();
+  }
+});
+
+$("saveAnnouncementBtn").onclick = async () => {
+  if(!isAdmin) return alert("Chỉ Admin mới có quyền đăng thông báo!");
+  const text = $("announcementInput").value.trim();
+  try {
+    await set(ref(db, "announcement"), text);
+    alert("✅ Đã cập nhật thông báo thành công!");
+  } catch(e) {
+    alert("Lỗi: " + e.message);
+  }
+};
+
+// ĐẲNG CẤP (XÓA PHẠT)
+$("clearClassBtn").onclick = async () => {
+  if(!isAdmin) return alert("Chỉ Admin mới có thể dùng chức năng này!");
+  if(confirm("⚡ BẠN CÓ CHẮC CHẮN MUỐN ĐẲNG CẤP XÓA SẠCH TẤT CẢ LỊCH PHẠT TRÊN LỚP?")) {
+    try {
+      for(let id in punishmentsData) {
+        if(punishmentsData[id].type === 'class') {
+          await remove(ref(db, "punishments/" + id));
+        }
+      }
+      alert("✨ ĐÃ ĐẲNG CẤP XÓA SẠCH TOÀN BỘ PHẠT TRÊN LỚP!");
+    } catch(e) {
+      alert("Lỗi: " + e.message);
+    }
+  }
+};
+
+$("clearYardBtn").onclick = async () => {
+  if(!isAdmin) return alert("Chỉ Admin mới có thể dùng chức năng này!");
+  if(confirm("⚡ BẠN CÓ CHẮC CHẮN MUỐN ĐẲNG CẤP XÓA SẠCH TẤT CẢ LỊCH PHẠT DƯỚI SÂN?")) {
+    try {
+      for(let id in punishmentsData) {
+        if(punishmentsData[id].type === 'yard') {
+          await remove(ref(db, "punishments/" + id));
+        }
+      }
+      alert("✨ ĐÃ ĐẲNG CẤP XÓA SẠCH TOÀN BỘ PHẠT DƯỚI SÂN!");
+    } catch(e) {
+      alert("Lỗi: " + e.message);
+    }
+  }
+};
 
 function seededRandom(seed) {
   let x = Math.sin(seed++) * 10000;
   return x - Math.floor(x);
 }
 
-// Thêm học sinh bị phạt (Chỉ khi đăng nhập Admin thành công)
 $("addPunishBtn").onclick = async () => {
-  if(!isAdmin) {
-    alert("⛔ Bạn cần đăng nhập Admin bằng mật khẩu mới có quyền xếp phạt!");
-    return;
-  }
+  if(!isAdmin) return alert("⛔ Chỉ Admin mới có quyền thêm phạt!");
   const name = $("pName").value.trim();
   const type = $("pType").value;
   const startDate = $("pStartDate").value;
@@ -589,12 +670,8 @@ $("addPunishBtn").onclick = async () => {
   }
 };
 
-// Xóa học sinh bị phạt (Chỉ Admin)
 window.deletePunish = async (id) => {
-  if(!isAdmin) {
-    alert("⛔ Chỉ Admin mới có quyền xóa học sinh khỏi danh sách phạt!");
-    return;
-  }
+  if(!isAdmin) return alert("⛔ Chỉ Admin mới có quyền xóa!");
   if(confirm("Bạn có chắc chắn muốn xóa bản ghi bị phạt này không?")) {
     try {
       await remove(ref(db, "punishments/" + id));
@@ -621,7 +698,7 @@ function renderPunishments() {
   classTbody.innerHTML = "";
   yardTbody.innerHTML = "";
 
-  const targetYardDate = $("viewYardDate").value || today();
+  const targetYardDate = $("viewYardDate").value || getDateOffset(0);
   const activeYardStudents = [];
 
   for(let id in punishmentsData) {
@@ -631,11 +708,11 @@ function renderPunishments() {
       : `<span class="small" style="color:gray">🔒 Chỉ Admin</span>`;
 
     if(item.type === 'class') {
-      const isCurrent = isDateInPunishRange(today(), item.startDate, item.days);
+      const isCurrent = isDateInPunishRange(getDateOffset(0), item.startDate, item.days);
       classTbody.innerHTML += `
         <tr>
           <td><b>${item.name}</b></td>
-          <td>${item.startDate}</td>
+          <td>${formatDateVN(item.startDate)}</td>
           <td>${item.days} ngày</td>
           <td>${isCurrent ? '<span style="color:red;font-weight:bold">🔴 Đang bị phạt</span>' : '<span style="color:gray">⚪ Chưa / Đã qua</span>'}</td>
           <td>${delBtn}</td>
@@ -645,7 +722,7 @@ function renderPunishments() {
       yardTbody.innerHTML += `
         <tr>
           <td><b>${item.name}</b></td>
-          <td>${item.startDate}</td>
+          <td>${formatDateVN(item.startDate)}</td>
           <td>${item.days} ngày</td>
           <td>${delBtn}</td>
         </tr>
@@ -660,7 +737,6 @@ function renderPunishments() {
   if(classTbody.innerHTML === "") classTbody.innerHTML = `<tr><td colspan="5" style="text-align:center">Không có ai bị phạt trên lớp</td></tr>`;
   if(yardTbody.innerHTML === "") yardTbody.innerHTML = `<tr><td colspan="4" style="text-align:center">Không có ai bị phạt dưới sân</td></tr>`;
 
-  // CHIA NGẪU NHIÊN PHẠT DƯỚI SÂN VÀO 3 KHU (ƯU TIÊN MID ĐÔNG HƠN)
   let daySeed = dayIndex(targetYardDate);
   let shuffled = [...activeYardStudents].sort((a, b) => {
     let hashA = seededRandom(daySeed + a.name.charCodeAt(0));
@@ -669,22 +745,27 @@ function renderPunishments() {
   });
 
   const k1 = [], k2 = [], k3 = [];
-  if(shuffled.length > 0) {
-    const base = Math.floor(shuffled.length / 3);
-    const rem = shuffled.length % 3;
+  const totalYard = shuffled.length;
 
-    const k1Count = base;
-    const k2Count = base + (rem > 0 ? 1 : 0);
-    const k3Count = base + (rem > 1 ? 1 : 0);
+  if (totalYard > 0) {
+    if (totalYard <= 5) {
+      k2.push(...shuffled);
+    } else {
+      const midCount = Math.ceil(totalYard * 0.5);
+      const remain = totalYard - midCount;
+      const k1Count = Math.ceil(remain / 2);
 
-    k1.push(...shuffled.slice(0, k1Count));
-    k2.push(...shuffled.slice(k1Count, k1Count + k2Count));
-    k3.push(...shuffled.slice(k1Count + k2Count));
+      k2.push(...shuffled.slice(0, midCount));
+      k1.push(...shuffled.slice(midCount, midCount + k1Count));
+      k3.push(...shuffled.slice(midCount + k1Count));
+    }
   }
+
+  const midNote = totalYard > 0 && totalYard <= 2 ? " (Làm cùng nhóm trực thường)" : "";
 
   $("yardPunishDisplay").innerHTML = 
     card("🛵 NHÀ XE 1 (Phạt)", k1, "k1", false) +
-    card("🌳 MID (Phạt - Ưu tiên)", k2, "k2", false) +
+    card("🌳 MID (Phạt)" + midNote, k2, "k2", false) +
     card("🛵 NHÀ XE 2 (Phạt)", k3, "k3", false);
 }
 
