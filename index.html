@@ -10,36 +10,16 @@
 .container{max-width:1200px;margin:25px auto;padding:24px;background:white;border-radius:16px;box-shadow:0 5px 25px #00000012}
 .top{display:flex;justify-content:space-between;gap:15px;align-items:center}.top h1{margin:0;text-align:center;flex:1}.admin-btn,.primary,.secondary{border:0;border-radius:9px;padding:11px 16px;font-weight:700;cursor:pointer}.admin-btn{background:#1e293b;color:white;box-shadow:0 4px 10px rgba(0,0,0,0.15)}.primary{background:var(--green);color:#fff;width:100%}.secondary{background:#2563eb;color:#fff}
 
-/* THIẾT KẾ NÚT KHOAN HỒNG SIÊU NGẦU STYLE TỔNG THỐNG / LÃNH TỤ */
+/* NÚT KHOAN HỒNG PRESIDENTIAL STYLE */
 .presidential-box{display:flex;gap:20px;justify-content:center;flex-wrap:wrap;margin-top:15px;padding:15px;background:#0f172a;border-radius:12px;border:2px solid #334155}
 .btn-khoanhong{
-  position:relative;
-  padding:16px 28px;
-  font-size:16px;
-  font-weight:900;
-  text-transform:uppercase;
-  letter-spacing:1px;
-  color:#fff;
-  background:linear-gradient(180deg, #ef4444 0%, #991b1b 100%);
-  border:3px solid #f59e0b;
-  border-radius:12px;
-  cursor:pointer;
+  position:relative;padding:16px 28px;font-size:15px;font-weight:900;text-transform:uppercase;letter-spacing:1px;color:#fff;
+  background:linear-gradient(180deg, #ef4444 0%, #991b1b 100%);border:3px solid #f59e0b;border-radius:12px;cursor:pointer;
   box-shadow:0 0 15px rgba(239, 68, 68, 0.6), inset 0 2px 4px rgba(255, 255, 255, 0.4), 0 6px 0 #7f1d1d;
-  text-shadow:0 2px 4px rgba(0,0,0,0.8);
-  transition:all 0.15s ease-in-out;
-  display:inline-flex;
-  align-items:center;
-  gap:10px;
+  text-shadow:0 2px 4px rgba(0,0,0,0.8);transition:all 0.15s ease-in-out;display:inline-flex;align-items:center;gap:10px;
 }
-.btn-khoanhong:hover{
-  background:linear-gradient(180deg, #f87171 0%, #b91c1c 100%);
-  box-shadow:0 0 25px rgba(239, 68, 68, 0.9), inset 0 2px 4px rgba(255, 255, 255, 0.6), 0 6px 0 #7f1d1d;
-  transform:translateY(-2px);
-}
-.btn-khoanhong:active{
-  transform:translateY(4px);
-  box-shadow:0 0 10px rgba(239, 68, 68, 0.4), inset 0 2px 4px rgba(0,0,0,0.4), 0 2px 0 #7f1d1d;
-}
+.btn-khoanhong:hover{background:linear-gradient(180deg, #f87171 0%, #b91c1c 100%);box-shadow:0 0 25px rgba(239, 68, 68, 0.9);transform:translateY(-2px)}
+.btn-khoanhong:active{transform:translateY(4px);box-shadow:0 0 10px rgba(239, 68, 68, 0.4);0 2px 0 #7f1d1d}
 .led-light{width:12px;height:12px;background:#facc15;border-radius:50%;box-shadow:0 0 8px #facc15;animation:blink 1s infinite alternate}
 @keyframes blink{from{opacity:0.3}to{opacity:1}}
 
@@ -51,19 +31,22 @@
 .panel{display:none;background:#f8fafc;padding:20px;border:2px dashed #2563eb;border-radius:12px;margin-bottom:22px;box-shadow:0 4px 15px rgba(0,0,0,0.05)}.panel.show{display:block}
 .form{display:grid;grid-template-columns:1fr 1fr;gap:15px}.group{display:flex;flex-direction:column;gap:7px}label{font-weight:700;font-size:14px}input,select,textarea{padding:11px;border:1px solid #cbd5e1;border-radius:8px;font-size:15px;background:white}.full{grid-column:1/-1}
 h2{text-align:center;margin-top:35px;padding-top:15px;border-top:2px solid #e2e8f0}.notice{padding:12px 15px;border:1px solid #fde68a;background:#fffbeb;border-radius:9px;margin:15px 0}.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:15px}.card{background:white;border-radius:12px;box-shadow:0 2px 10px #00000010;padding:15px;border-top:6px solid #ccc}.card.k1{border-color:var(--k1)}.card.k2{border-color:var(--k2)}.card.k3{border-color:var(--k3)}.card.exempt{border-color:var(--orange)}.card.absent{border-color:var(--danger)}.head{display:flex;justify-content:space-between;border-bottom:1px solid #e5e7eb;padding-bottom:9px;margin-bottom:10px;font-weight:700}
-.member{display:flex;justify-content:space-between;align-items:center;gap:8px;padding:8px 10px;background:#f8fafc;border-radius:7px;margin:5px 0;font-size:14px}
+
+/* THẺ TÊN THƯỜNG VÀ PHẠT */
+.member{display:flex;justify-content:space-between;align-items:center;gap:8px;padding:8px 10px;background:#f8fafc;border-radius:7px;margin:5px 0;font-size:14px;border:1px solid #e2e8f0}
+.member.punished{background:#fef2f2;border:1.5px solid #fca5a5;color:#991b1b}
+.member.punished .name-text{color:#991b1b;font-weight:bold}
 .member-info{display:flex;align-items:center;gap:8px}
 .member-info input[type="checkbox"]{cursor:pointer;width:16px;height:16px}
 .member.strike .name-text{text-decoration:line-through;color:#94a3b8}
-.room{color:#64748b;font-size:12px}.history{margin-top:35px;border-top:2px solid #e5e7eb;padding-top:20px}.history-form{display:flex;justify-content:center;gap:10px;flex-wrap:wrap;align-items:end}.small{font-size:12px;color:var(--muted)}.map-box{text-align:center;margin:20px 0;background:#fff;padding:15px;border-radius:12px;border:1px solid #e2e8f0}
-.badge-group{display:inline-block;padding:4px 12px;border-radius:20px;background:#7c3aed;color:#fff;font-size:14px;font-weight:bold;margin-bottom:10px}
+.room{color:#64748b;font-size:12px}
+.punish-badge{background:#dc2626;color:#fff;font-size:11px;font-weight:bold;padding:2px 6px;border-radius:4px;margin-left:4px}
 
 .announcement-box{background:#eff6ff;border:2px solid #60a5fa;padding:18px;border-radius:12px;margin:15px 0;box-shadow:0 4px 12px rgba(37,99,235,0.08)}
 .announcement-title{font-size:18px;font-weight:bold;color:#1e40af;margin-bottom:8px;display:flex;align-items:center;gap:8px}
 .announcement-content{font-size:15px;color:#1e293b;white-space:pre-line;line-height:1.5}
 
 .punish-section{background:#fff5f5;border:1px solid #fecaca;padding:20px;border-radius:12px;margin-top:20px}
-.punish-header{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px}
 .punish-table{width:100%;border-collapse:collapse;margin-top:10px;background:#fff;border-radius:8px;overflow:hidden}
 .punish-table th, .punish-table td{padding:10px;text-align:left;border-bottom:1px solid #e2e8f0;font-size:14px}
 .punish-table th{background:#fee2e2;color:#991b1b;font-weight:bold}
@@ -72,7 +55,7 @@ h2{text-align:center;margin-top:35px;padding-top:15px;border-top:2px solid #e2e8
 .admin-sub-card{background:#fff;padding:15px;border-radius:10px;border:1px solid #cbd5e1;margin-bottom:15px}
 .admin-sub-card h3{margin-top:0;color:#1e293b;border-bottom:2px solid #e2e8f0;padding-bottom:8px}
 
-@media(max-width:700px){.container{margin:8px;padding:15px}.form{grid-template-columns:1fr}.top{align-items:flex-start}.top h1{font-size:20px}.admin-btn{font-size:12px;padding:8px}.punish-header{flex-direction:column;align-items:flex-start}}
+@media(max-width:700px){.container{margin:8px;padding:15px}.form{grid-template-columns:1fr}.top{align-items:flex-start}.top h1{font-size:20px}.admin-btn{font-size:12px;padding:8px}}
 </style>
 </head>
 <body>
@@ -88,20 +71,20 @@ h2{text-align:center;margin-top:35px;padding-top:15px;border-top:2px solid #e2e8
     Project <b>laodongi12ahihihi</b> by <b>mquanahihi🌸</b>.
   </div>
 
-  <!-- BẢNG ĐIỀU KHIỂN DÀNH RIÊNG CHO ADMIN (GOM TẤT CẢ QUYỀN CHỈNH SỬA VÀO ĐÂY) -->
+  <!-- BẢNG ĐIỀU KHIỂN DÀNH RIÊNG CHO ADMIN -->
   <section id="adminPanel" class="panel">
     <h2 style="margin-top:0; padding-top:0; border:none; color:#1e40af;">⚙️ BẢNG ĐIỀU KHIỂN ADMIN QUYỀN LỰC</h2>
 
-    <!-- 1. CÔNG CỤ ĐĂNG THÔNG BÁO TỪ ADMIN -->
+    <!-- 1. ĐĂNG THÔNG BÁO ADMIN -->
     <div class="admin-sub-card">
       <h3>📢 Đăng Thông Báo Từ Admin</h3>
       <textarea id="announcementInput" rows="3" style="width:100%; margin-bottom:8px;" placeholder="Nhập nội dung thông báo gửi tới lớp..."></textarea>
       <button id="saveAnnouncementBtn" class="primary" style="background:#2563eb">📢 Đăng Thông Báo Ngay</button>
     </div>
 
-    <!-- 2. CÔNG CỤ LƯU LỊCH THƯỜNG -->
+    <!-- 2. CẤU HÌNH NGÀY LAO ĐỘNG THƯỜNG -->
     <div class="admin-sub-card">
-      <h3>📅 Cấu Hình Lịch Lao Động Xoay Phiên</h3>
+      <h3>📅 Cấu Hình Ngày Xếp Lịch Lao Động</h3>
       <div class="form">
         <div class="group">
           <label for="workDate">Ngày xếp lịch (dd/mm/yyyy)</label>
@@ -126,7 +109,7 @@ h2{text-align:center;margin-top:35px;padding-top:15px;border-top:2px solid #e2e8
       </div>
     </div>
 
-    <!-- 3. CÔNG CỤ THÊM PHẠT VÀ 2 NÚT KHOAN HỒNG SIÊU CẤP -->
+    <!-- 3. QUẢN LÝ THÊM/XÓA PHẠT -->
     <div class="admin-sub-card">
       <h3>🚨 Quản Lý & Xếp Lịch Phạt Học Sinh</h3>
       <div class="form">
@@ -137,8 +120,8 @@ h2{text-align:center;margin-top:35px;padding-top:15px;border-top:2px solid #e2e8
         <div class="group">
           <label>Khu vực phạt</label>
           <select id="pType">
-            <option value="class">🧹 Lao động trên lớp</option>
-            <option value="yard">🌳 Lao động dưới sân</option>
+            <option value="yard">🌳 Lao động dưới sân (Gộp chung bảng)</option>
+            <option value="class">🧹 Lao động trên lớp (Bảng riêng)</option>
           </select>
         </div>
         <div class="group">
@@ -161,7 +144,6 @@ h2{text-align:center;margin-top:35px;padding-top:15px;border-top:2px solid #e2e8
       <hr style="margin:20px 0; border:none; border-top:1px solid #e2e8f0;">
       <h4 style="margin:0; text-align:center; font-size:16px; color:#1e293b;">👑 LỆNH XÓA PHẠT TỐI CAO CỦA ADMIN</h4>
       
-      <!-- BOX 2 NÚT KHOAN HỒNG SIÊU NGẦU -->
       <div class="presidential-box">
         <button id="clearClassBtn" class="btn-khoanhong">
           <span class="led-light"></span> 🕊️ KHOAN HỒNG L (Xóa Phạt Trên Lớp)
@@ -173,13 +155,13 @@ h2{text-align:center;margin-top:35px;padding-top:15px;border-top:2px solid #e2e8
     </div>
   </section>
 
-  <!-- BẢNG THÔNG BÁO HIỂN THỊ CHUNG CHO CẢ LỚP XEM -->
+  <!-- BẢNG THÔNG BÁO CỦA ADMIN -->
   <div class="announcement-box">
     <div class="announcement-title">📢 Thông Báo Từ Admin</div>
     <div id="announcementDisplay" class="announcement-content">Chưa có thông báo mới nào.</div>
   </div>
 
-  <!-- SƠ ĐỒ VÀ LỊCH LAO ĐỘNG XOAY PHIÊN -->
+  <!-- SƠ ĐỒ VÀ BẢNG LỊCH CHUNG (KẾT HỢP THƯỜNG + PHẠT DƯỚI SÂN) -->
   <h2 style="border-top:none;">🗺️ Sơ Đồ Phân Khu Lao Động</h2>
   <div class="map-box">
       <svg viewBox="0 0 1000 500" style="width: 100%; max-width: 900px; height: auto; display: block; margin: 0 auto;">
@@ -200,11 +182,11 @@ h2{text-align:center;margin-top:35px;padding-top:15px;border-top:2px solid #e2e8
   </div>
 
   <div style="text-align: center;">
-    <h2 id="scheduleTitle" style="margin-bottom:5px; border-top:none;">Lịch Lao Động Xoay Phiên</h2>
-    <div id="groupBadge" class="badge-group"></div>
+    <h2 id="scheduleTitle" style="margin-bottom:15px; border-top:none;">Lịch Phân Công Lao Động Dưới Sân</h2>
   </div>
   
   <div id="noticeBox" class="notice" style="display:none"></div>
+  <!-- BẢNG LỊCH TỔNG HỢP (THƯỜNG + PHẠT DƯỚI SÂN CHUNG BẢNG) -->
   <div id="scheduleDisplay" class="grid"></div>
 
   <!-- TRA CỨU LỊCH THƯỜNG -->
@@ -234,42 +216,10 @@ h2{text-align:center;margin-top:35px;padding-top:15px;border-top:2px solid #e2e8
     <div id="historyDisplay" class="grid"></div>
   </section>
 
-  <!-- BẢNG HIỂN THỊ LAO ĐỘNG PHẠT -->
-  <h2>⚖️ Lịch Lao Động Phạt Học Sinh</h2>
-
+  <!-- BẢNG DÀNH RIÊNG CHO PHẠT TRÊN LỚP -->
   <div class="punish-section">
     <div class="punish-header">
-      <h3 style="margin:0">🌳 Lịch Lao Động Phạt Dưới Sân (Phân Chia Tự Động)</h3>
-    </div>
-
-    <div style="margin: 15px 0; text-align: center;">
-      <label><b>Xem lịch phạt dưới sân ngày (dd/mm/yyyy): </b></label>
-      <input type="date" id="viewYardDate" style="width: auto; display: inline-block;">
-      <div class="quick-date-box" style="justify-content:center; display:inline-flex; margin-left:10px;">
-        <button class="btn-quick-date" onclick="setQuickDate('viewYardDate', 0)">Hôm Nay</button>
-        <button class="btn-quick-date" onclick="setQuickDate('viewYardDate', 1)">Ngày Mai</button>
-      </div>
-    </div>
-
-    <div id="yardPunishDisplay" class="grid"></div>
-
-    <h4 style="margin-top:25px">📋 Danh sách phạt dưới sân:</h4>
-    <table class="punish-table">
-      <thead>
-        <tr>
-          <th>Họ và Tên</th>
-          <th>Ngày Bắt Đầu</th>
-          <th>Số Ngày</th>
-          <th>Thao tác</th>
-        </tr>
-      </thead>
-      <tbody id="yardPunishList"></tbody>
-    </table>
-  </div>
-
-  <div class="punish-section">
-    <div class="punish-header">
-      <h3 style="margin:0">🧹 Danh Sách Phạt Lao Động Trên Lớp</h3>
+      <h3 style="margin:0">🧹 Danh Sách Phạt Lao Động Trên Lớp (Làm Sau Giờ Học)</h3>
     </div>
 
     <table class="punish-table" style="margin-top:15px;">
@@ -277,7 +227,7 @@ h2{text-align:center;margin-top:35px;padding-top:15px;border-top:2px solid #e2e8
         <tr>
           <th>Họ và Tên</th>
           <th>Ngày Bắt Đầu</th>
-          <th>Số Ngày</th>
+          <th>Số Ngày Phạt</th>
           <th>Trạng Thái</th>
           <th>Thao tác</th>
         </tr>
@@ -393,76 +343,120 @@ function monday(s){
  return new Date(...s.split("-").map((v,i)=>i===1?+v-1:+v)).getDay()===1;
 }
 
+function seededRandom(seed) {
+  let x = Math.sin(seed++) * 10000;
+  return x - Math.floor(x);
+}
+
+function isDateInPunishRange(targetDate, startDate, days) {
+  const start = new Date(startDate);
+  const target = new Date(targetDate);
+  const end = new Date(startDate);
+  end.setDate(start.getDate() + days - 1);
+  return target >= start && target <= end;
+}
+
+// TÍNH SỐ NGÀY PHẠT CÒN LẠI DÀNH CHO BẢNG HIỂN THỊ
+function getRemainingDays(targetDate, startDate, days) {
+  const start = new Date(startDate);
+  const target = new Date(targetDate);
+  const end = new Date(startDate);
+  end.setDate(start.getDate() + days - 1);
+
+  const diffTime = end - target;
+  const remaining = Math.ceil(diffTime / (1000 * 60 * 60 * 24)) + 1;
+  return remaining > 0 ? remaining : 0;
+}
+
+// LOGIC CHIA LỊCH THƯỜNG VÀ TÍCH HỢP HỌC SINH PHẠT DƯỚI SÂN
 function localCalculate(date, roomKey){
  const idx = dayIndex(date);
  const isGroupA = (idx % 2 === 0);
  
  let currentGirls = isGroupA ? [...groupA_Girls] : [...groupB_Girls];
  let currentBoys = isGroupA ? [...groupA_Boys] : [...groupB_Boys];
- const groupName = isGroupA ? "BỘ A (16 học sinh)" : "BỘ B (16 học sinh)";
 
  let exempt = [];
  let absent = [];
- let notice = `📢 <b>Hôm nay đến lượt: ${groupName} thực hiện lao động.</b><br>`;
+ let notice = `📢 <b>Hôm nay trực nhật xoay phiên: Bộ ${isGroupA ? 'A' : 'B'}.</b><br>`;
 
  if(monday(date)){
    if(roomKey !== "none" && rooms[roomKey]){
      const isExempt = s => rooms[roomKey].members.includes(s.name);
-     
-     const exemptGirls = currentGirls.filter(isExempt);
-     const exemptBoys = currentBoys.filter(isExempt);
-     exempt = [...exemptGirls, ...exemptBoys];
-
+     exempt = [...currentGirls.filter(isExempt), ...currentBoys.filter(isExempt)];
      currentGirls = currentGirls.filter(s => !isExempt(s));
      currentBoys = currentBoys.filter(s => !isExempt(s));
-
-     notice += `📌 <b>Thứ 2:</b> <b>${rooms[roomKey].name}</b> đi xếp ghế chào cờ (Miễn lao động). Số học sinh còn lại (${currentGirls.length + currentBoys.length} bạn) chia vào 3 khu (Khu MID luôn được ưu tiên nhiều người hơn).`;
-   } else {
-     notice += `📌 <b>Thứ 2:</b> Chưa chọn phòng xếp ghế. (${currentGirls.length + currentBoys.length} bạn chia vào 3 khu).`;
+     notice += `📌 <b>Thứ 2:</b> <b>${rooms[roomKey].name}</b> đi xếp ghế chào cờ (Miễn lao động).`;
    }
- } else {
-   notice += `Số học sinh thực hiện lao động hôm nay: <b>${currentGirls.length + currentBoys.length} bạn</b>. (Khu MID luôn ưu tiên nhiều người nhất).`;
  }
 
  const girlGroups = [[], [], []]; 
  if (currentGirls.length > 0) {
    const baseG = Math.floor(currentGirls.length / 3);
    const remG = currentGirls.length % 3;
-   const g1Count = baseG;
-   const g2Count = baseG + (remG > 0 ? 1 : 0);
-   const g3Count = baseG + (remG > 1 ? 1 : 0);
-
-   girlGroups[0] = currentGirls.slice(0, g1Count);
-   girlGroups[1] = currentGirls.slice(g1Count, g1Count + g2Count);
-   girlGroups[2] = currentGirls.slice(g1Count + g2Count);
+   girlGroups[0] = currentGirls.slice(0, baseG);
+   girlGroups[1] = currentGirls.slice(baseG, baseG + baseG + (remG > 0 ? 1 : 0));
+   girlGroups[2] = currentGirls.slice(baseG + baseG + (remG > 0 ? 1 : 0));
  }
 
  const boyGroups = [[], [], []]; 
  if (currentBoys.length > 0) {
    const baseB = Math.floor(currentBoys.length / 3);
    const remB = currentBoys.length % 3;
-   const b1Count = baseB;
-   const b2Count = baseB + (remB > 0 ? 1 : 0);
-   const b3Count = baseB + (remB > 1 ? 1 : 0);
-
-   boyGroups[0] = currentBoys.slice(0, b1Count);
-   boyGroups[1] = currentBoys.slice(b1Count, b1Count + b2Count);
-   boyGroups[2] = currentBoys.slice(b1Count + b2Count);
+   boyGroups[0] = currentBoys.slice(0, baseB);
+   boyGroups[1] = currentBoys.slice(baseB, baseB + baseB + (remB > 0 ? 1 : 0));
+   boyGroups[2] = currentBoys.slice(baseB + baseB + (remB > 0 ? 1 : 0));
  }
 
- const combinedGroups = [
-   [...girlGroups[0], ...boyGroups[0]], 
-   [...girlGroups[1], ...boyGroups[1]], 
-   [...girlGroups[2], ...boyGroups[2]]  
- ];
-
  const sh = idx % 3;
+ const k1_normal = [...girlGroups[sh % 3], ...boyGroups[sh % 3]];
+ const k2_normal = [...girlGroups[(sh + 1) % 3], ...boyGroups[(sh + 1) % 3]];
+ const k3_normal = [...girlGroups[(sh + 2) % 3], ...boyGroups[(sh + 2) % 3]];
+
+ // LỌC BẮT DANH SÁCH HỌC SINH BỊ PHẠT DƯỚI SÂN TRONG NGÀY ĐANG XEM
+ const activeYardPunished = [];
+ for(let id in punishmentsData) {
+   const item = punishmentsData[id];
+   if(item.type === 'yard' && isDateInPunishRange(date, item.startDate, item.days)) {
+     const rem = getRemainingDays(date, item.startDate, item.days);
+     activeYardPunished.push({
+       name: item.name,
+       room: 'Bị Phạt',
+       isPunished: true,
+       remainingDays: rem
+     });
+   }
+ }
+
+ // CHIA BẢNG PHẠT DƯỚI SÂN (ĐỒN MID NẾU <= 5)
+ let daySeed = dayIndex(date);
+ let shuffledPunished = [...activeYardPunished].sort((a, b) => {
+   let hashA = seededRandom(daySeed + a.name.charCodeAt(0));
+   let hashB = seededRandom(daySeed + b.name.charCodeAt(0));
+   return hashA - hashB;
+ });
+
+ const k1_p = [], k2_p = [], k3_p = [];
+ const totalYardPunish = shuffledPunished.length;
+
+ if (totalYardPunish > 0) {
+   if (totalYardPunish <= 5) {
+     k2_p.push(...shuffledPunished); // DỒN VÀO KHU MID
+   } else {
+     const midCount = Math.ceil(totalYardPunish * 0.5);
+     const remain = totalYardPunish - midCount;
+     const k1Count = Math.ceil(remain / 2);
+
+     k2_p.push(...shuffledPunished.slice(0, midCount));
+     k1_p.push(...shuffledPunished.slice(midCount, midCount + k1Count));
+     k3_p.push(...shuffledPunished.slice(midCount + k1Count));
+   }
+ }
 
  return {
-   groupName,
-   k1: combinedGroups[sh % 3],
-   k2: combinedGroups[(sh + 1) % 3],
-   k3: combinedGroups[(sh + 2) % 3],
+   k1: [...k1_normal, ...k1_p],
+   k2: [...k2_normal, ...k2_p],
+   k3: [...k3_normal, ...k3_p],
    exempt,
    absent,
    notice,
@@ -477,7 +471,18 @@ function card(title, list, cls, isInteractive = false){
      const notWorkingMap = currentScheduleData?.notWorking || {};
      const isChecked = !!notWorkingMap[s.name];
      const disabledAttr = (isAdmin && isInteractive) ? '' : 'disabled';
-     return `
+     
+     if(s.isPunished) {
+       return `
+        <div class="member punished ${isChecked ? 'strike' : ''}">
+          <div class="member-info">
+            <input type="checkbox" data-name="${s.name}" ${isChecked ? 'checked' : ''} ${disabledAttr}>
+            <b class="name-text">🔴 ${s.name}</b>
+            <span class="punish-badge">Phạt (Còn ${s.remainingDays} ngày)</span>
+          </div>
+        </div>`;
+     } else {
+       return `
         <div class="member ${isChecked ? 'strike' : ''}">
           <div class="member-info">
             <input type="checkbox" data-name="${s.name}" ${isChecked ? 'checked' : ''} ${disabledAttr}>
@@ -485,6 +490,7 @@ function card(title, list, cls, isInteractive = false){
           </div>
           <span class="room">${s.room || ''}</span>
         </div>`;
+     }
    }).join("")}
  </div>`;
 }
@@ -498,7 +504,6 @@ function render(data, isInteractive = true, targetId = "scheduleDisplay"){
    (data.absent.length ? card("Nghỉ Việc Riêng", data.absent, "absent", isInteractive) : "");
  
  if(targetId === "scheduleDisplay") {
-   $("groupBadge").textContent = data.groupName || "";
    $("noticeBox").style.display = data.notice ? "block" : "none";
    $("noticeBox").innerHTML = data.notice || "";
  }
@@ -528,7 +533,7 @@ function attachCheckboxListeners(){
 }
 
 function title(date){
- $("scheduleTitle").textContent="Lịch Lao Động Xoay Phiên - Ngày "+formatDateVN(date);
+ $("scheduleTitle").textContent="Lịch Phân Công Lao Động Dưới Sân - Ngày "+formatDateVN(date);
 }
 
 function showLocal(date,room){
@@ -624,14 +629,13 @@ $("historyBtn").onclick=async()=>{
 $("workDate").value = getDateOffset(0);
 $("historyDate").value = getDateOffset(0);
 $("pStartDate").value = getDateOffset(0); 
-$("viewYardDate").value = getDateOffset(0);
 
 updateHistoryMonday();
 const initialDate=$("workDate").value;
 const initialRoom=new URLSearchParams(location.search).get("room")||"none";
 $("chairRoom").value=initialRoom;
 
-// ĐỌC BẢNG THÔNG BÁO ADMIN TỪ FIREBASE
+// ĐỌC THÔNG BÁO TỪ FIREBASE
 onValue(ref(db, "announcement"), snap => {
   if(snap.exists()){
     $("announcementDisplay").textContent = snap.val();
@@ -650,7 +654,7 @@ $("saveAnnouncementBtn").onclick = async () => {
   }
 };
 
-// ĐỔI NÚT KHOAN HỒNG SIÊU NGẦU (XÓA SẠCH PHẠT TỪNG MỤC)
+// LỆNH KHOAN HỒNG S BẢO MẬT
 $("clearClassBtn").onclick = async () => {
   if(!isAdmin) return alert("Chỉ Admin mới có quyền thi hành Lệnh Khoan Hồng!");
   if(confirm("🕊️ BẠN CÓ CHẮC CHẮN MUỐN BAN LỆNH 'KHOAN HỒNG L' - XÓA SẠCH TOÀN BỘ PHẠT TRÊN LỚP?")) {
@@ -660,7 +664,7 @@ $("clearClassBtn").onclick = async () => {
           await remove(ref(db, "punishments/" + id));
         }
       }
-      alert("✨ LỆNH KHOAN HỒNG L ĐÃ ĐƯỢC THI HÀNH! TOÀN BỘ PHẠT TRÊN LỚP ĐÃ ĐƯỢC XÓA!");
+      alert("✨ LỆNH KHOAN HỒNG L ĐÃ ĐƯỢC THI HÀNH!");
     } catch(e) {
       alert("Lỗi: " + e.message);
     }
@@ -676,17 +680,12 @@ $("clearYardBtn").onclick = async () => {
           await remove(ref(db, "punishments/" + id));
         }
       }
-      alert("✨ LỆNH KHOAN HỒNG S ĐÃ ĐƯỢC THI HÀNH! TOÀN BỘ PHẠT DƯỚI SÂN ĐÃ ĐƯỢC XÓA!");
+      alert("✨ LỆNH KHOAN HỒNG S ĐÃ ĐƯỢC THI HÀNH!");
     } catch(e) {
       alert("Lỗi: " + e.message);
     }
   }
 };
-
-function seededRandom(seed) {
-  let x = Math.sin(seed++) * 10000;
-  return x - Math.floor(x);
-}
 
 $("addPunishBtn").onclick = async () => {
   if(!isAdmin) return alert("⛔ Chỉ Admin mới có quyền thêm học sinh bị phạt!");
@@ -702,6 +701,7 @@ $("addPunishBtn").onclick = async () => {
     await set(newRef, { name, type, startDate, days });
     alert("✅ Đã thêm học sinh vào danh sách phạt!");
     $("pName").value = "";
+    loadSchedule($("workDate").value);
   } catch(e) {
     alert("❌ Lỗi khi lưu: " + e.message);
   }
@@ -713,30 +713,16 @@ window.deletePunish = async (id) => {
     try {
       await remove(ref(db, "punishments/" + id));
       alert("✅ Đã xóa thành công!");
+      loadSchedule($("workDate").value);
     } catch(e) {
       alert("❌ Lỗi khi xóa: " + e.message);
     }
   }
 };
 
-function isDateInPunishRange(targetDate, startDate, days) {
-  const start = new Date(startDate);
-  const target = new Date(targetDate);
-  const end = new Date(startDate);
-  end.setDate(start.getDate() + days - 1);
-
-  return target >= start && target <= end;
-}
-
 function renderPunishments() {
   const classTbody = $("classPunishList");
-  const yardTbody = $("yardPunishList");
-
   classTbody.innerHTML = "";
-  yardTbody.innerHTML = "";
-
-  const targetYardDate = $("viewYardDate").value || getDateOffset(0);
-  const activeYardStudents = [];
 
   for(let id in punishmentsData) {
     const item = punishmentsData[id];
@@ -755,62 +741,16 @@ function renderPunishments() {
           <td>${delBtn}</td>
         </tr>
       `;
-    } else {
-      yardTbody.innerHTML += `
-        <tr>
-          <td><b>${item.name}</b></td>
-          <td>${formatDateVN(item.startDate)}</td>
-          <td>${item.days} ngày</td>
-          <td>${delBtn}</td>
-        </tr>
-      `;
-
-      if(isDateInPunishRange(targetYardDate, item.startDate, item.days)) {
-        activeYardStudents.push(item);
-      }
     }
   }
 
   if(classTbody.innerHTML === "") classTbody.innerHTML = `<tr><td colspan="5" style="text-align:center">Không có ai bị phạt trên lớp</td></tr>`;
-  if(yardTbody.innerHTML === "") yardTbody.innerHTML = `<tr><td colspan="4" style="text-align:center">Không có ai bị phạt dưới sân</td></tr>`;
-
-  let daySeed = dayIndex(targetYardDate);
-  let shuffled = [...activeYardStudents].sort((a, b) => {
-    let hashA = seededRandom(daySeed + a.name.charCodeAt(0));
-    let hashB = seededRandom(daySeed + b.name.charCodeAt(0));
-    return hashA - hashB;
-  });
-
-  const k1 = [], k2 = [], k3 = [];
-  const totalYard = shuffled.length;
-
-  if (totalYard > 0) {
-    if (totalYard <= 5) {
-      k2.push(...shuffled);
-    } else {
-      const midCount = Math.ceil(totalYard * 0.5);
-      const remain = totalYard - midCount;
-      const k1Count = Math.ceil(remain / 2);
-
-      k2.push(...shuffled.slice(0, midCount));
-      k1.push(...shuffled.slice(midCount, midCount + k1Count));
-      k3.push(...shuffled.slice(midCount + k1Count));
-    }
-  }
-
-  const midNote = totalYard > 0 && totalYard <= 2 ? " (Làm cùng nhóm trực thường)" : "";
-
-  $("yardPunishDisplay").innerHTML = 
-    card("🛵 NHÀ XE 1 (Phạt)", k1, "k1", false) +
-    card("🌳 MID (Phạt)" + midNote, k2, "k2", false) +
-    card("🛵 NHÀ XE 2 (Phạt)", k3, "k3", false);
 }
-
-$("viewYardDate").onchange = renderPunishments;
 
 onValue(ref(db, "punishments"), snap => {
   punishmentsData = snap.exists() ? snap.val() : {};
   renderPunishments();
+  loadSchedule($("workDate").value);
 });
 
 onValue(ref(db,"schedules/"+initialDate),snap=>{
